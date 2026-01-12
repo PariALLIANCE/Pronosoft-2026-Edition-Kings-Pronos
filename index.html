@@ -14,8 +14,6 @@
             --yellow: #ffc107;
             --success: #10b981;
             --warning: #f59e0b;
-            --google-blue: #4285f4;
-            --google-red: #ea4335;
         }
 
         .theme-glass.mode-dark {
@@ -83,10 +81,6 @@
             transition: background 0.5s ease, color 0.3s ease;
         }
 
-        body.sheet-open {
-            overflow: hidden;
-        }
-
         .app-container {
             display: flex;
             flex-direction: column;
@@ -94,9 +88,6 @@
             overflow: hidden;
         }
 
-        /* ========================================
-           MAIN HEADER - HOME PAGE (80% transparent)
-        ======================================== */
         .header {
             display: flex;
             align-items: center;
@@ -187,9 +178,6 @@
             transform: scale(0.95);
         }
 
-        /* ========================================
-           DETAIL HEADER - MATCH DETAIL PAGE (80% transparent - like nav)
-        ======================================== */
         .detail-page-header {
             background: var(--nav-bg);
             backdrop-filter: blur(var(--glass-blur));
@@ -274,9 +262,10 @@
             color: var(--yellow);
         }
 
-        /* Integrated Match Info for Detail Page - No card style */
         .detail-match-info {
             padding: 16px 16px 12px;
+            position: relative;
+            overflow: hidden;
         }
 
         .detail-match-league {
@@ -284,6 +273,8 @@
             align-items: center;
             gap: 8px;
             margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
         }
 
         .detail-match-league-flag {
@@ -304,6 +295,8 @@
             justify-content: center;
             gap: 20px;
             margin-bottom: 14px;
+            position: relative;
+            z-index: 2;
         }
 
         .detail-team {
@@ -313,22 +306,54 @@
             gap: 10px;
             flex: 1;
             min-width: 0;
+            position: relative;
+        }
+
+        .detail-team-logo-wrapper {
+            position: relative;
+            width: 72px;
+            height: 72px;
+        }
+
+        .detail-team-logo-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(25px);
+            opacity: 0.5;
+            z-index: 0;
         }
 
         .detail-team-logo {
-            width: 52px;
-            height: 52px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
             background: var(--bg-card-inner);
-            border: 1px solid var(--border-color);
+            border: 2px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
         }
 
         .detail-team-logo i {
-            font-size: 20px;
+            font-size: 24px;
             color: var(--text-secondary);
+        }
+
+        .detail-team-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 6px;
         }
 
         .detail-team-name {
@@ -340,6 +365,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 100%;
+            position: relative;
+            z-index: 2;
         }
 
         .detail-vs-separator {
@@ -347,6 +374,8 @@
             color: var(--accent);
             font-weight: 800;
             font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+            z-index: 2;
         }
 
         .detail-match-date {
@@ -354,11 +383,10 @@
             font-size: 12px;
             color: var(--text-muted);
             font-weight: 500;
+            position: relative;
+            z-index: 2;
         }
 
-        /* ========================================
-           NEW TABS DESIGN - Fixed & Modern
-        ======================================== */
         .detail-tabs-container {
             padding: 12px 16px;
             background: transparent;
@@ -410,9 +438,6 @@
             box-shadow: 0 2px 8px rgba(0, 212, 170, 0.15);
         }
 
-        /* ========================================
-           PAGES & CONTENT
-        ======================================== */
         .pages-container {
             flex: 1;
             overflow: hidden;
@@ -442,9 +467,6 @@
             gap: 10px;
         }
 
-        /* ========================================
-           MATCH CARDS - HOME PAGE
-        ======================================== */
         .match-card {
             background: var(--card-gradient);
             backdrop-filter: blur(var(--glass-blur));
@@ -506,11 +528,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
         }
 
         .team-logo i {
             font-size: 18px;
             color: var(--text-secondary);
+        }
+
+        .team-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 4px;
         }
 
         .team-name {
@@ -565,9 +595,6 @@
             color: white;
         }
 
-        /* ========================================
-           MATCH DETAIL CONTENT
-        ======================================== */
         .detail-content-scroll {
             flex: 1;
             overflow-y: auto;
@@ -610,9 +637,6 @@
             margin-top: 8px;
         }
 
-        /* ========================================
-           BOTTOM SHEET
-        ======================================== */
         .bottom-sheet-overlay {
             position: fixed;
             top: 0;
@@ -741,9 +765,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* ========================================
-           PLUS PAGE & SETTINGS
-        ======================================== */
         .plus-page {
             padding: 16px 16px 90px;
         }
@@ -787,10 +808,6 @@
             cursor: not-allowed;
             opacity: 0.45;
             pointer-events: none;
-        }
-
-        .plus-menu-item.disabled:active {
-            background: transparent;
         }
 
         .plus-menu-icon {
@@ -845,7 +862,6 @@
             border: 1px solid var(--border-color);
         }
 
-        /* Settings */
         .settings-page {
             padding: 16px 16px 90px;
         }
@@ -945,9 +961,6 @@
             color: var(--text-primary);
         }
 
-        /* ========================================
-           PROFILE PAGE
-        ======================================== */
         .profile-page {
             padding: 16px 16px 90px;
         }
@@ -979,7 +992,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            pointer-events: auto;
         }
 
         .profile-name {
@@ -995,48 +1007,56 @@
             color: var(--text-secondary);
         }
 
-        .google-login-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            max-width: 300px;
-            margin: 30px auto;
-            padding: 14px 24px;
-            background: #fff;
-            border: 1px solid #dadce0;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .login-form {
+            max-width: 320px;
+            margin: 20px auto;
+            padding: 0 20px;
         }
 
-        .google-login-btn:active {
+        .login-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 12px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-input:focus {
+            border-color: var(--accent);
+        }
+
+        .login-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border: none;
+            border-radius: 12px;
+            color: #0a0f14;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .login-btn:active {
             transform: scale(0.98);
         }
 
-        .google-login-btn:hover {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .google-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .google-icon svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .google-login-btn span {
-            font-size: 15px;
-            font-weight: 600;
-            color: #3c4043;
+        .login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
         .login-info-text {
@@ -1045,6 +1065,7 @@
             color: var(--text-muted);
             padding: 0 20px;
             line-height: 1.6;
+            margin-bottom: 20px;
         }
 
         .profile-logged-in {
@@ -1118,9 +1139,6 @@
             margin-top: 4px;
         }
 
-        /* ========================================
-           HISTORY PAGE
-        ======================================== */
         .history-page {
             padding: 16px 16px 90px;
         }
@@ -1160,7 +1178,6 @@
             padding: 14px 16px;
             border: 1px solid var(--border-color);
             margin-bottom: 10px;
-            position: relative;
         }
 
         .history-item-header {
@@ -1202,11 +1219,6 @@
 
         .result-loss {
             background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-        }
-
-        .result-pending {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
             color: white;
         }
 
@@ -1283,9 +1295,6 @@
             color: var(--accent);
         }
 
-        /* ========================================
-           BOTTOM NAVIGATION (80% transparent)
-        ======================================== */
         .bottom-nav {
             position: fixed;
             bottom: 12px;
@@ -1360,7 +1369,6 @@
             font-weight: 600;
         }
 
-        /* Empty State */
         .empty-state {
             display: flex;
             flex-direction: column;
@@ -1381,7 +1389,6 @@
             color: var(--text-secondary);
         }
 
-        /* Loading overlay */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -1416,19 +1423,37 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Disable image dragging */
+        .loading-matches {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            gap: 16px;
+        }
+
+        .loading-matches .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .loading-matches p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
         img {
             -webkit-user-drag: none;
-            -khtml-user-drag: none;
-            -moz-user-drag: none;
-            -o-user-drag: none;
             user-drag: none;
         }
     </style>
 </head>
 <body class="theme-glass mode-dark">
     <div class="app-container">
-        <!-- Main Header (Home/Menu pages) -->
         <header class="header" id="mainHeader">
             <div class="header-left">
                 <div class="logo">SB</div>
@@ -1444,16 +1469,12 @@
             </div>
         </header>
 
-        <!-- Pages Container -->
         <div class="pages-container">
-            <!-- Predictions Page -->
             <div class="page active" id="predictionsPage">
                 <main class="main-content" id="mainContent"></main>
             </div>
 
-            <!-- Match Detail Page -->
             <div class="page" id="matchDetailPage">
-                <!-- Detail Header -->
                 <div class="detail-page-header" id="detailPageHeader">
                     <div class="detail-header-top">
                         <div class="detail-header-left">
@@ -1473,7 +1494,6 @@
                         </div>
                     </div>
 
-                    <!-- Integrated Match Info - No card style -->
                     <div class="detail-match-info">
                         <div class="detail-match-league">
                             <span class="detail-match-league-flag" id="detailLeagueFlag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
@@ -1481,23 +1501,28 @@
                         </div>
                         <div class="detail-match-teams">
                             <div class="detail-team">
-                                <div class="detail-team-logo" id="homeLogoLg">
-                                    <i class="fas fa-shield-halved"></i>
+                                <div class="detail-team-logo-wrapper">
+                                    <div class="detail-team-logo-bg" id="homeLogoBg"></div>
+                                    <div class="detail-team-logo" id="homeLogoLg">
+                                        <i class="fas fa-shield-halved"></i>
+                                    </div>
                                 </div>
-                                <span class="detail-team-name" id="homeNameLg">Manchester City</span>
+                                <span class="detail-team-name" id="homeNameLg">Team 1</span>
                             </div>
                             <span class="detail-vs-separator">VS</span>
                             <div class="detail-team">
-                                <div class="detail-team-logo" id="awayLogoLg">
-                                    <i class="fas fa-shield-halved"></i>
+                                <div class="detail-team-logo-wrapper">
+                                    <div class="detail-team-logo-bg" id="awayLogoBg"></div>
+                                    <div class="detail-team-logo" id="awayLogoLg">
+                                        <i class="fas fa-shield-halved"></i>
+                                    </div>
                                 </div>
-                                <span class="detail-team-name" id="awayNameLg">Chelsea</span>
+                                <span class="detail-team-name" id="awayNameLg">Team 2</span>
                             </div>
                         </div>
-                        <div class="detail-match-date" id="detailMatchDate">jeu. 02 janv. 20:45</div>
+                        <div class="detail-match-date" id="detailMatchDate">Date</div>
                     </div>
 
-                    <!-- New Tabs Design -->
                     <div class="detail-tabs-container">
                         <div class="detail-tabs" id="detailTabs">
                             <div class="detail-tab active" data-tab="resume">Résumé</div>
@@ -1509,22 +1534,18 @@
                     </div>
                 </div>
 
-                <div class="detail-content-scroll" id="detailContentScroll">
-                    <!-- Content will be injected here -->
-                </div>
+                <div class="detail-content-scroll" id="detailContentScroll"></div>
             </div>
 
-            <!-- Results Page -->
             <div class="page" id="resultsPage">
                 <main class="main-content">
                     <div class="empty-state">
                         <i class="fas fa-shield-halved"></i>
-                        <p>Safe à venir...</p>
+                        <p>Safe �� venir...</p>
                     </div>
                 </main>
             </div>
 
-            <!-- Plus Page -->
             <div class="page" id="plusPage">
                 <div class="plus-page">
                     <div class="plus-section">
@@ -1611,7 +1632,6 @@
                 </div>
             </div>
 
-            <!-- Settings Page -->
             <div class="page" id="settingsPage">
                 <div class="settings-page">
                     <div class="settings-back" id="backFromSettings">
@@ -1642,7 +1662,6 @@
                 </div>
             </div>
 
-            <!-- Profile Page -->
             <div class="page" id="profilePage">
                 <div class="profile-page">
                     <div class="settings-back" id="backFromProfile">
@@ -1650,29 +1669,21 @@
                         <span>Mon Profil</span>
                     </div>
 
-                    <!-- Not logged in state -->
                     <div class="profile-not-logged" id="profileNotLogged">
                         <div class="profile-header">
                             <div class="profile-avatar">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <p class="login-info-text">Connectez-vous pour sauvegarder vos favoris, consulter votre historique et synchroniser vos données sur tous vos appareils.</p>
+                            <p class="login-info-text">Connectez-vous pour sauvegarder vos favoris, consulter votre historique et synchroniser vos données.</p>
                         </div>
 
-                        <button class="google-login-btn" id="googleLoginBtn">
-                            <div class="google-icon">
-                                <svg viewBox="0 0 24 24">
-                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                                </svg>
-                            </div>
-                            <span>Continuer avec Google</span>
-                        </button>
+                        <div class="login-form">
+                            <input type="text" class="login-input" id="usernameInput" placeholder="Nom d'utilisateur" autocomplete="off">
+                            <input type="email" class="login-input" id="emailInput" placeholder="Email" autocomplete="off">
+                            <button class="login-btn" id="loginBtn">Se connecter</button>
+                        </div>
                     </div>
 
-                    <!-- Logged in state -->
                     <div class="profile-logged-in" id="profileLoggedIn">
                         <div class="profile-header">
                             <div class="profile-avatar" id="profileAvatarImg">
@@ -1705,7 +1716,6 @@
                 </div>
             </div>
 
-            <!-- History Page -->
             <div class="page" id="historyPage">
                 <div class="history-page">
                     <div class="settings-back" id="backFromHistory">
@@ -1719,15 +1729,12 @@
                         <div class="history-filter-tab" data-filter="loss">Perdus</div>
                     </div>
 
-                    <div id="historyContent">
-                        <!-- History items will be rendered here -->
-                    </div>
+                    <div id="historyContent"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bottom Sheet for Sports -->
     <div class="bottom-sheet-overlay" id="bottomSheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
         <div class="bottom-sheet-handle"></div>
@@ -1737,7 +1744,6 @@
         <div class="bottom-sheet-content" id="sportsList"></div>
     </div>
 
-    <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav">
         <button class="nav-item active" data-tab="predictions">
             <div class="nav-icon">
@@ -1760,89 +1766,11 @@
         </button>
     </nav>
 
-    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-spinner"></div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDTPLxUiA8lj82kqc6CyCPLQDITc0CtLUE",
-            authDomain: "ichat-betai.firebaseapp.com",
-            databaseURL: "https://ichat-betai-default-rtdb.firebaseio.com",
-            projectId: "ichat-betai",
-            storageBucket: "ichat-betai.firebasestorage.app",
-            messagingSenderId: "168337722600",
-            appId: "1:168337722600:web:beb331f83cc4778c5b4d5d",
-            measurementId: "G-STXPSZN7X8"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        // Make auth functions available globally
-        window.firebaseAuth = {
-            auth,
-            provider,
-            signInWithPopup,
-            signOut,
-            onAuthStateChanged
-        };
-
-        // Listen for auth state changes
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                window.handleFirebaseLogin(user);
-            } else {
-                window.handleFirebaseLogout();
-            }
-        });
-    </script>
-
     <script>
-        // Block browser events
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('cut', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('paste', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-        });
-
-        document.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-        });
-
-        // Block keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === 'c' || e.key === 'x' || e.key === 'v' || e.key === 'a' || e.key === 's' || e.key === 'u')) {
-                e.preventDefault();
-            }
-            if (e.key === 'F12') {
-                e.preventDefault();
-            }
-            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
-                e.preventDefault();
-            }
-        });
-
         // Sports data
         const sports = [
             { id: 'football', name: 'Football', icon: 'fa-futbol', emoji: '⚽', available: true },
@@ -1853,74 +1781,31 @@
             { id: 'baseball', name: 'Baseball', icon: 'fa-baseball', emoji: '⚾', available: false }
         ];
 
-        // Match data
-        const matchesData = {
-            football: [
-                {
-                    id: 1,
-                    league: 'Premier League',
-                    leagueFull: 'ANGLETERRE: PREMIER LEAGUE - JOURNÉE 20',
-                    flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-                    date: 'jeu. 02 janv. 20:45',
-                    dateFull: '04.01.2026 17:30',
-                    home: 'Manchester City',
-                    away: 'Chelsea',
-                    tier: 'safe',
-                    content: {
-                        intro: 'Une nouvelle ère s\'ouvre pour <span class="team-link">Chelsea</span>, qui se déplace pour affronter le prétendant au titre <span class="team-link">Manchester City</span> sans entraîneur, après le départ surprise d\'Enzo Maresca en milieu de semaine.',
-                        title: 'Actus sur le match et forme actuelle',
-                        text: 'Manchester City a perdu quatre points dans la course au titre lors du Nouvel An, concédant un match nul 0-0 face à Sunderland, même l\'entraîneur Pep Guardiola a curieusement affirmé après coup qu\'il était satisfait du point pris par son équipe. Ce score vierge a mis fin à une série de six victoires consécutives en...'
-                    }
-                },
-                {
-                    id: 2,
-                    league: 'Premier League',
-                    leagueFull: 'ANGLETERRE: PREMIER LEAGUE - JOURNÉE 20',
-                    flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-                    date: 'jeu. 02 janv. 21:00',
-                    dateFull: '02.01.2026 21:00',
-                    home: 'Arsenal',
-                    away: 'Liverpool',
-                    tier: 'value',
-                    content: {
-                        intro: 'Le choc au sommet de cette journée oppose <span class="team-link">Arsenal</span> à <span class="team-link">Liverpool</span> dans un match qui pourrait déterminer la suite de la saison pour les deux équipes.',
-                        title: 'Actus sur le match et forme actuelle',
-                        text: 'Arsenal reste sur une série impressionnante de résultats à domicile. Les Gunners n\'ont pas perdu à l\'Emirates depuis plus de 15 matchs. Liverpool, de son côté, voyage avec confiance après une victoire convaincante lors du dernier match...'
-                    }
-                },
-                {
-                    id: 3,
-                    league: 'Championship',
-                    leagueFull: 'ANGLETERRE: CHAMPIONSHIP - JOURNÉE 25',
-                    flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-                    date: 'jeu. 02 janv. 15:00',
-                    dateFull: '02.01.2026 15:00',
-                    home: 'Southampton',
-                    away: 'Millwall FC',
-                    tier: 'normal',
-                    content: {
-                        intro: '<span class="team-link">Southampton</span> accueille <span class="team-link">Millwall FC</span> dans un match important pour la course à la montée.',
-                        title: 'Actus sur le match et forme actuelle',
-                        text: 'Southampton cherche à retrouver le chemin de la victoire après deux matchs nuls consécutifs. L\'équipe locale possède l\'une des meilleures attaques du championnat cette saison...'
-                    }
-                },
-                {
-                    id: 4,
-                    league: 'La Liga',
-                    leagueFull: 'ESPAGNE: LA LIGA - JOURNÉE 18',
-                    flag: '🇪🇸',
-                    date: 'ven. 03 janv. 21:00',
-                    dateFull: '03.01.2026 21:00',
-                    home: 'Real Madrid',
-                    away: 'Barcelona',
-                    tier: 'value',
-                    content: {
-                        intro: 'El Clásico! <span class="team-link">Real Madrid</span> reçoit <span class="team-link">Barcelona</span> dans l\'un des matchs les plus attendus de la saison.',
-                        title: 'Actus sur le match et forme actuelle',
-                        text: 'Le Real Madrid est en pleine forme avec une série de victoires impressionnantes. Barcelone, quant à lui, cherche à rebondir après une défaite inattendue lors de la dernière journée...'
-                    }
-                }
-            ],
+        // League flags mapping
+        const leagueFlags = {
+            'Spain_Laliga': '🇪🇸',
+            'Italy_Serie_A': '🇮🇹',
+            'Saudi_Arabia_Pro_League': '🇸🇦',
+            'Premier_League': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+            'Bundesliga': '🇩🇪',
+            'Ligue_1': '🇫🇷',
+            'Eredivisie': '🇳🇱',
+            'Liga_Portugal': '🇵🇹'
+        };
+
+        // Format league name
+        function formatLeagueName(league) {
+            return league.replace(/_/g, ' ');
+        }
+
+        // Get flag for league
+        function getLeagueFlag(league) {
+            return leagueFlags[league] || '⚽';
+        }
+
+        // Match data from API
+        let matchesData = {
+            football: [],
             basketball: [],
             tennis: [],
             hockey: [],
@@ -1930,66 +1815,11 @@
 
         // History data
         const historyData = [
-            {
-                id: 1,
-                league: 'Premier League',
-                flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-                home: 'Liverpool',
-                away: 'Manchester United',
-                homeScore: 3,
-                awayScore: 1,
-                date: '28 déc. 2025',
-                prediction: 'Victoire Liverpool',
-                result: 'win'
-            },
-            {
-                id: 2,
-                league: 'La Liga',
-                flag: '🇪🇸',
-                home: 'Atletico Madrid',
-                away: 'Sevilla',
-                homeScore: 1,
-                awayScore: 1,
-                date: '26 déc. 2025',
-                prediction: 'Victoire Atletico',
-                result: 'loss'
-            },
-            {
-                id: 3,
-                league: 'Serie A',
-                flag: '🇮🇹',
-                home: 'AC Milan',
-                away: 'Inter Milan',
-                homeScore: 2,
-                awayScore: 1,
-                date: '24 déc. 2025',
-                prediction: 'Victoire AC Milan',
-                result: 'win'
-            },
-            {
-                id: 4,
-                league: 'Bundesliga',
-                flag: '🇩🇪',
-                home: 'Bayern Munich',
-                away: 'Dortmund',
-                homeScore: 4,
-                awayScore: 2,
-                date: '22 déc. 2025',
-                prediction: '+2.5 buts',
-                result: 'win'
-            },
-            {
-                id: 5,
-                league: 'Ligue 1',
-                flag: '🇫🇷',
-                home: 'PSG',
-                away: 'Lyon',
-                homeScore: 0,
-                awayScore: 1,
-                date: '20 déc. 2025',
-                prediction: 'Victoire PSG',
-                result: 'loss'
-            }
+            { id: 1, league: 'Premier League', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', home: 'Liverpool', away: 'Manchester United', homeScore: 3, awayScore: 1, date: '28 déc. 2025', prediction: 'Victoire Liverpool', result: 'win' },
+            { id: 2, league: 'La Liga', flag: '🇪🇸', home: 'Atletico Madrid', away: 'Sevilla', homeScore: 1, awayScore: 1, date: '26 déc. 2025', prediction: 'Victoire Atletico', result: 'loss' },
+            { id: 3, league: 'Serie A', flag: '🇮🇹', home: 'AC Milan', away: 'Inter Milan', homeScore: 2, awayScore: 1, date: '24 déc. 2025', prediction: 'Victoire AC Milan', result: 'win' },
+            { id: 4, league: 'Bundesliga', flag: '🇩🇪', home: 'Bayern Munich', away: 'Dortmund', homeScore: 4, awayScore: 2, date: '22 déc. 2025', prediction: '+2.5 buts', result: 'win' },
+            { id: 5, league: 'Ligue 1', flag: '🇫🇷', home: 'PSG', away: 'Lyon', homeScore: 0, awayScore: 1, date: '20 déc. 2025', prediction: 'Victoire PSG', result: 'loss' }
         ];
 
         // State
@@ -2003,6 +1833,7 @@
         let isOnDetailPage = false;
         let isLoggedIn = false;
         let userData = null;
+        let isLoadingMatches = false;
 
         // DOM Elements
         const mainHeader = document.getElementById('mainHeader');
@@ -2021,81 +1852,70 @@
         const modeOptions = document.querySelectorAll('.mode-option');
         const bottomNav = document.getElementById('bottomNav');
         const loadingOverlay = document.getElementById('loadingOverlay');
-
-        // Detail page elements
         const detailSportSelector = document.getElementById('detailSportSelector');
         const detailSportTitle = document.getElementById('detailSportTitle');
         const detailBackBtn = document.getElementById('detailBackBtn');
         const detailTabs = document.getElementById('detailTabs');
         const detailContentScroll = document.getElementById('detailContentScroll');
-
-        // Profile elements
         const openProfileBtn = document.getElementById('openProfileBtn');
         const backFromProfile = document.getElementById('backFromProfile');
-        const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const loginBtn = document.getElementById('loginBtn');
         const logoutBtn = document.getElementById('logoutBtn');
         const profileNotLogged = document.getElementById('profileNotLogged');
         const profileLoggedIn = document.getElementById('profileLoggedIn');
-
-        // History elements
         const openHistoryBtn = document.getElementById('openHistoryBtn');
         const backFromHistory = document.getElementById('backFromHistory');
         const historyFilterTabs = document.getElementById('historyFilterTabs');
         const historyContent = document.getElementById('historyContent');
+        const usernameInput = document.getElementById('usernameInput');
+        const emailInput = document.getElementById('emailInput');
 
-        // Firebase Auth handlers
-        window.handleFirebaseLogin = function(user) {
-            isLoggedIn = true;
-            userData = {
-                name: user.displayName || 'Utilisateur',
-                email: user.email || '',
-                avatar: user.photoURL || null
-            };
-            updateProfileUI();
-            hideLoading();
-            console.log("Connecté :", user.displayName, user.email);
-        };
-
-        window.handleFirebaseLogout = function() {
-            isLoggedIn = false;
-            userData = null;
-            updateProfileUI();
-        };
-
-        // Google Login with Firebase
-        async function loginWithGoogle() {
-            if (!window.firebaseAuth) {
-                console.error("Firebase not initialized yet");
-                return;
-            }
-
-            showLoading();
+        // Fetch matches from GitHub
+        async function fetchMatches() {
+            isLoadingMatches = true;
+            renderMatches();
 
             try {
-                const result = await window.firebaseAuth.signInWithPopup(
-                    window.firebaseAuth.auth,
-                    window.firebaseAuth.provider
-                );
-                // Auth state change listener will handle the rest
-            } catch (err) {
-                console.error("Erreur Google Auth :", err);
-                hideLoading();
+                const response = await fetch('https://raw.githubusercontent.com/PariALLIANCE/Data-Sports/main/data/football/games_of_day.json');
+                if (!response.ok) throw new Error('Failed to fetch');
+                const data = await response.json();
+
+                matchesData.football = data.map((match, index) => ({
+                    id: match.gameId,
+                    league: match.league,
+                    leagueFull: formatLeagueName(match.league).toUpperCase(),
+                    flag: getLeagueFlag(match.league),
+                    date: formatMatchDate(match.date),
+                    dateFull: match.date,
+                    home: match.team1,
+                    away: match.team2,
+                    homeLogo: match.team1_logo,
+                    awayLogo: match.team2_logo,
+                    homeUrl: match.team1_url,
+                    awayUrl: match.team2_url,
+                    matchUrl: match.match_url,
+                    score: match.score,
+                    tier: ['safe', 'value', 'normal'][index % 3],
+                    content: {
+                        intro: `<span class="team-link">${match.team1}</span> affronte <span class="team-link">${match.team2}</span> dans ce match de ${formatLeagueName(match.league)}.`,
+                        title: 'Analyse du match',
+                        text: `Match important entre ${match.team1} et ${match.team2}. Les deux équipes cherchent à obtenir un résultat positif dans cette rencontre.`
+                    }
+                }));
+
+                isLoadingMatches = false;
+                renderMatches();
+            } catch (error) {
+                console.error('Error fetching matches:', error);
+                isLoadingMatches = false;
+                renderMatches();
             }
         }
 
-        // Logout with Firebase
-        async function logout() {
-            if (!window.firebaseAuth) {
-                console.error("Firebase not initialized yet");
-                return;
-            }
-
-            try {
-                await window.firebaseAuth.signOut(window.firebaseAuth.auth);
-                // Auth state change listener will handle the rest
-            } catch (err) {
-                console.error("Erreur déconnexion :", err);
-            }
+        function formatMatchDate(dateStr) {
+            const date = new Date(dateStr);
+            const options = { weekday: 'short', day: '2-digit', month: 'short' };
+            return date.toLocaleDateString('fr-FR', options);
         }
 
         // Initialize
@@ -2109,7 +1929,7 @@
             });
 
             renderSportsList();
-            renderMatches();
+            fetchMatches();
             renderHistory();
             setupEventListeners();
         }
@@ -2117,7 +1937,7 @@
         function setMode(mode) {
             currentMode = mode;
             document.body.classList.remove('mode-light', 'mode-dark');
-            document.body.classList.add(`mode-${mode}`);
+            document.body.classList.add('mode-' + mode);
 
             modeOptions.forEach(opt => {
                 opt.classList.toggle('active', opt.dataset.mode === mode);
@@ -2137,20 +1957,18 @@
         }
 
         function renderSportsList() {
-            sportsList.innerHTML = sports.map(sport => `
-                <div class="sport-option ${sport.id === currentSport ? 'active' : ''} ${!sport.available ? 'disabled' : ''}"
-                     data-sport="${sport.id}"
-                     data-available="${sport.available}">
-                    <i class="fas ${sport.icon}"></i>
-                    <span>${sport.name}</span>
-                    ${!sport.available ? '<span class="coming-soon-badge">Bientôt</span>' : '<i class="fas fa-check check-icon"></i>'}
-                </div>
-            `).join('');
+            sportsList.innerHTML = sports.map(sport =>
+                '<div class="sport-option ' + (sport.id === currentSport ? 'active' : '') + ' ' + (!sport.available ? 'disabled' : '') + '" data-sport="' + sport.id + '" data-available="' + sport.available + '">' +
+                    '<i class="fas ' + sport.icon + '"></i>' +
+                    '<span>' + sport.name + '</span>' +
+                    (!sport.available ? '<span class="coming-soon-badge">Bientôt</span>' : '<i class="fas fa-check check-icon"></i>') +
+                '</div>'
+            ).join('');
 
             document.querySelectorAll('.sport-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    if (option.dataset.available === 'true') {
-                        selectSport(option.dataset.sport);
+                option.addEventListener('click', function() {
+                    if (this.dataset.available === 'true') {
+                        selectSport(this.dataset.sport);
                     }
                 });
             });
@@ -2173,7 +1991,7 @@
 
             if (isOnDetailPage && previousSport !== sportId) {
                 showLoading();
-                setTimeout(() => {
+                setTimeout(function() {
                     goBackToHome();
                     renderMatches();
                     hideLoading();
@@ -2197,45 +2015,62 @@
         }
 
         function renderMatches() {
-            const matches = matchesData[currentSport];
-
-            if (!matches || matches.length === 0) {
-                mainContent.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-calendar-times"></i>
-                        <p>Aucun pronostic disponible pour le moment</p>
-                    </div>
-                `;
+            if (isLoadingMatches) {
+                mainContent.innerHTML =
+                    '<div class="loading-matches">' +
+                        '<div class="spinner"></div>' +
+                        '<p>Chargement des matchs...</p>' +
+                    '</div>';
                 return;
             }
 
-            const html = matches.map(match => `
-                <div class="match-card" data-match-id="${match.id}">
-                    <span class="match-tier tier-${match.tier}">${getTierLabel(match.tier)}</span>
-                    <div class="match-league">
-                        <span class="match-league-flag">${match.flag}</span>
-                        <span class="match-league-name">${match.league}</span>
-                    </div>
-                    <div class="match-teams">
-                        <div class="team">
-                            <div class="team-logo"><i class="fas fa-shield-halved"></i></div>
-                            <span class="team-name">${match.home}</span>
-                        </div>
-                        <span class="vs-separator">VS</span>
-                        <div class="team">
-                            <div class="team-logo"><i class="fas fa-shield-halved"></i></div>
-                            <span class="team-name">${match.away}</span>
-                        </div>
-                    </div>
-                    <div class="match-date">${match.date}</div>
-                </div>
-            `).join('');
+            const matches = matchesData[currentSport];
+
+            if (!matches || matches.length === 0) {
+                mainContent.innerHTML =
+                    '<div class="empty-state">' +
+                        '<i class="fas fa-calendar-times"></i>' +
+                        '<p>Aucun pronostic disponible pour le moment</p>' +
+                    '</div>';
+                return;
+            }
+
+            let html = '';
+            matches.forEach(function(match) {
+                const homeLogoHtml = match.homeLogo
+                    ? '<img src="' + match.homeLogo + '" alt="' + match.home + '">'
+                    : '<i class="fas fa-shield-halved"></i>';
+                const awayLogoHtml = match.awayLogo
+                    ? '<img src="' + match.awayLogo + '" alt="' + match.away + '">'
+                    : '<i class="fas fa-shield-halved"></i>';
+
+                html +=
+                    '<div class="match-card" data-match-id="' + match.id + '">' +
+                        '<span class="match-tier tier-' + match.tier + '">' + getTierLabel(match.tier) + '</span>' +
+                        '<div class="match-league">' +
+                            '<span class="match-league-flag">' + match.flag + '</span>' +
+                            '<span class="match-league-name">' + formatLeagueName(match.league) + '</span>' +
+                        '</div>' +
+                        '<div class="match-teams">' +
+                            '<div class="team">' +
+                                '<div class="team-logo">' + homeLogoHtml + '</div>' +
+                                '<span class="team-name">' + match.home + '</span>' +
+                            '</div>' +
+                            '<span class="vs-separator">VS</span>' +
+                            '<div class="team">' +
+                                '<div class="team-logo">' + awayLogoHtml + '</div>' +
+                                '<span class="team-name">' + match.away + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="match-date">' + match.date + '</div>' +
+                    '</div>';
+            });
 
             mainContent.innerHTML = html;
 
-            document.querySelectorAll('.match-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const matchId = parseInt(card.dataset.matchId);
+            document.querySelectorAll('.match-card').forEach(function(card) {
+                card.addEventListener('click', function() {
+                    const matchId = this.dataset.matchId;
                     openMatchDetail(matchId);
                 });
             });
@@ -2249,27 +2084,46 @@
 
             isOnDetailPage = true;
 
-            // Update detail info
             document.getElementById('detailLeagueFlag').textContent = selectedMatch.flag;
-            document.getElementById('detailLeagueText').textContent = selectedMatch.league;
+            document.getElementById('detailLeagueText').textContent = formatLeagueName(selectedMatch.league);
             document.getElementById('detailMatchDate').textContent = selectedMatch.date;
             document.getElementById('homeNameLg').textContent = selectedMatch.home;
             document.getElementById('awayNameLg').textContent = selectedMatch.away;
 
-            // Reset tab to resume
+            // Set logos with blurred backgrounds
+            const homeLogoEl = document.getElementById('homeLogoLg');
+            const awayLogoEl = document.getElementById('awayLogoLg');
+            const homeLogoBg = document.getElementById('homeLogoBg');
+            const awayLogoBg = document.getElementById('awayLogoBg');
+
+            if (selectedMatch.homeLogo) {
+                homeLogoEl.innerHTML = '<img src="' + selectedMatch.homeLogo + '" alt="' + selectedMatch.home + '">';
+                homeLogoBg.style.backgroundImage = 'url(' + selectedMatch.homeLogo + ')';
+            } else {
+                homeLogoEl.innerHTML = '<i class="fas fa-shield-halved"></i>';
+                homeLogoBg.style.backgroundImage = 'none';
+            }
+
+            if (selectedMatch.awayLogo) {
+                awayLogoEl.innerHTML = '<img src="' + selectedMatch.awayLogo + '" alt="' + selectedMatch.away + '">';
+                awayLogoBg.style.backgroundImage = 'url(' + selectedMatch.awayLogo + ')';
+            } else {
+                awayLogoEl.innerHTML = '<i class="fas fa-shield-halved"></i>';
+                awayLogoBg.style.backgroundImage = 'none';
+            }
+
             currentDetailTab = 'resume';
-            document.querySelectorAll('.detail-tab').forEach(tab => {
+            document.querySelectorAll('.detail-tab').forEach(function(tab) {
                 tab.classList.toggle('active', tab.dataset.tab === 'resume');
             });
 
             renderDetailContent();
 
-            // Show detail page
             mainHeader.style.display = 'none';
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('matchDetailPage').classList.add('active');
             bottomNav.style.display = 'none';
-            navItems.forEach(item => item.classList.remove('active'));
+            navItems.forEach(function(item) { item.classList.remove('active'); });
         }
 
         function renderDetailContent() {
@@ -2279,46 +2133,41 @@
 
             switch (currentDetailTab) {
                 case 'resume':
-                    content = `
-                        <div class="detail-section-header">AVANT-MATCH</div>
-                        <div class="detail-text-content">
-                            <p>${selectedMatch.content.intro}</p>
-                            <h3>${selectedMatch.content.title}</h3>
-                            <p>${selectedMatch.content.text}</p>
-                        </div>
-                    `;
+                    content =
+                        '<div class="detail-section-header">AVANT-MATCH</div>' +
+                        '<div class="detail-text-content">' +
+                            '<p>' + selectedMatch.content.intro + '</p>' +
+                            '<h3>' + selectedMatch.content.title + '</h3>' +
+                            '<p>' + selectedMatch.content.text + '</p>' +
+                        '</div>';
                     break;
                 case 'compos':
-                    content = `
-                        <div class="detail-section-header">COMPOSITIONS</div>
-                        <div class="detail-text-content">
-                            <p>Les compositions des équipes seront disponibles environ 1h avant le coup d'envoi.</p>
-                        </div>
-                    `;
+                    content =
+                        '<div class="detail-section-header">COMPOSITIONS</div>' +
+                        '<div class="detail-text-content">' +
+                            '<p>Les compositions des équipes seront disponibles environ 1h avant le coup d\'envoi.</p>' +
+                        '</div>';
                     break;
                 case 'cotes':
-                    content = `
-                        <div class="detail-section-header">COTES</div>
-                        <div class="detail-text-content">
-                            <p>Les cotes pour ce match seront affichées ici.</p>
-                        </div>
-                    `;
+                    content =
+                        '<div class="detail-section-header">COTES</div>' +
+                        '<div class="detail-text-content">' +
+                            '<p>Les cotes pour ce match seront affichées ici.</p>' +
+                        '</div>';
                     break;
                 case 'tat':
-                    content = `
-                        <div class="detail-section-header">TÊTE À TÊTE</div>
-                        <div class="detail-text-content">
-                            <p>Historique des confrontations entre les deux équipes.</p>
-                        </div>
-                    `;
+                    content =
+                        '<div class="detail-section-header">TÊTE À TÊTE</div>' +
+                        '<div class="detail-text-content">' +
+                            '<p>Historique des confrontations entre les deux équipes.</p>' +
+                        '</div>';
                     break;
                 case 'classement':
-                    content = `
-                        <div class="detail-section-header">CLASSEMENT</div>
-                        <div class="detail-text-content">
-                            <p>Position des équipes au classement de la compétition.</p>
-                        </div>
-                    `;
+                    content =
+                        '<div class="detail-section-header">CLASSEMENT</div>' +
+                        '<div class="detail-text-content">' +
+                            '<p>Position des équipes au classement de la compétition.</p>' +
+                        '</div>';
                     break;
             }
 
@@ -2330,10 +2179,10 @@
             selectedMatch = null;
 
             mainHeader.style.display = 'flex';
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('predictionsPage').classList.add('active');
             bottomNav.style.display = 'flex';
-            navItems.forEach(item => {
+            navItems.forEach(function(item) {
                 item.classList.toggle('active', item.dataset.tab === 'predictions');
             });
             updateHeader('predictions');
@@ -2345,10 +2194,10 @@
             mainHeader.style.display = 'flex';
             bottomNav.style.display = 'flex';
 
-            pages.forEach(page => page.classList.remove('active'));
-            document.getElementById(`${tab}Page`).classList.add('active');
+            pages.forEach(function(page) { page.classList.remove('active'); });
+            document.getElementById(tab + 'Page').classList.add('active');
 
-            navItems.forEach(item => {
+            navItems.forEach(function(item) {
                 item.classList.toggle('active', item.dataset.tab === tab);
             });
 
@@ -2357,59 +2206,87 @@
         }
 
         function openSettings() {
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('settingsPage').classList.add('active');
             mainHeader.style.display = 'none';
             bottomNav.style.display = 'none';
-            navItems.forEach(item => item.classList.remove('active'));
+            navItems.forEach(function(item) { item.classList.remove('active'); });
         }
 
         function closeSettings() {
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
             bottomNav.style.display = 'flex';
-            navItems.forEach(item => {
+            navItems.forEach(function(item) {
                 item.classList.toggle('active', item.dataset.tab === 'plus');
             });
         }
 
         function openProfile() {
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('profilePage').classList.add('active');
             mainHeader.style.display = 'none';
             bottomNav.style.display = 'none';
-            navItems.forEach(item => item.classList.remove('active'));
+            navItems.forEach(function(item) { item.classList.remove('active'); });
             updateProfileUI();
         }
 
         function closeProfile() {
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
             bottomNav.style.display = 'flex';
-            navItems.forEach(item => {
+            navItems.forEach(function(item) {
                 item.classList.toggle('active', item.dataset.tab === 'plus');
             });
         }
 
         function openHistory() {
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('historyPage').classList.add('active');
             mainHeader.style.display = 'none';
             bottomNav.style.display = 'none';
-            navItems.forEach(item => item.classList.remove('active'));
+            navItems.forEach(function(item) { item.classList.remove('active'); });
             renderHistory();
         }
 
         function closeHistory() {
-            pages.forEach(page => page.classList.remove('active'));
+            pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
             bottomNav.style.display = 'flex';
-            navItems.forEach(item => {
+            navItems.forEach(function(item) {
                 item.classList.toggle('active', item.dataset.tab === 'plus');
             });
+        }
+
+        // Simple login without external auth
+        function handleLogin() {
+            const username = usernameInput.value.trim();
+            const email = emailInput.value.trim();
+
+            if (!username || !email) {
+                return;
+            }
+
+            isLoggedIn = true;
+            userData = {
+                name: username,
+                email: email,
+                avatar: null
+            };
+
+            usernameInput.value = '';
+            emailInput.value = '';
+
+            updateProfileUI();
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            userData = null;
+            updateProfileUI();
         }
 
         function updateProfileUI() {
@@ -2422,12 +2299,12 @@
 
                 const avatarContainer = document.getElementById('profileAvatarImg');
                 if (userData.avatar) {
-                    avatarContainer.innerHTML = `<img src="${userData.avatar}" alt="Avatar">`;
+                    avatarContainer.innerHTML = '<img src="' + userData.avatar + '" alt="Avatar">';
                 } else {
-                    avatarContainer.innerHTML = '<i class="fas fa-user"></i>';
+                    const initials = userData.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    avatarContainer.innerHTML = '<span style="font-size: 32px; font-weight: 700; color: var(--accent);">' + initials + '</span>';
                 }
 
-                // Update stats
                 const wins = historyData.filter(h => h.result === 'win').length;
                 const total = historyData.length;
                 const rate = total > 0 ? Math.round((wins / total) * 100) : 0;
@@ -2451,43 +2328,46 @@
             }
 
             if (filteredHistory.length === 0) {
-                historyContent.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-history"></i>
-                        <p>Aucun pronostic dans l'historique</p>
-                    </div>
-                `;
+                historyContent.innerHTML =
+                    '<div class="empty-state">' +
+                        '<i class="fas fa-history"></i>' +
+                        '<p>Aucun pronostic dans l\'historique</p>' +
+                    '</div>';
                 return;
             }
 
-            historyContent.innerHTML = filteredHistory.map(item => `
-                <div class="history-item">
-                    <div class="history-item-header">
-                        <div class="history-item-league">
-                            <span class="history-item-flag">${item.flag}</span>
-                            <span class="history-item-league-name">${item.league}</span>
-                        </div>
-                        <span class="history-item-result result-${item.result}">
-                            ${item.result === 'win' ? 'Gagné' : item.result === 'loss' ? 'Perdu' : 'En cours'}
-                        </span>
-                    </div>
-                    <div class="history-item-match">
-                        <div class="history-team">
-                            <div class="history-team-logo"><i class="fas fa-shield-halved"></i></div>
-                            <span class="history-team-name">${item.home}</span>
-                        </div>
-                        <span class="history-score">${item.homeScore} - ${item.awayScore}</span>
-                        <div class="history-team" style="flex-direction: row-reverse;">
-                            <div class="history-team-logo"><i class="fas fa-shield-halved"></i></div>
-                            <span class="history-team-name">${item.away}</span>
-                        </div>
-                    </div>
-                    <div class="history-item-footer">
-                        <span class="history-item-date">${item.date}</span>
-                        <span class="history-item-prediction">Prono: <strong>${item.prediction}</strong></span>
-                    </div>
-                </div>
-            `).join('');
+            let html = '';
+            filteredHistory.forEach(function(item) {
+                html +=
+                    '<div class="history-item">' +
+                        '<div class="history-item-header">' +
+                            '<div class="history-item-league">' +
+                                '<span class="history-item-flag">' + item.flag + '</span>' +
+                                '<span class="history-item-league-name">' + item.league + '</span>' +
+                            '</div>' +
+                            '<span class="history-item-result result-' + item.result + '">' +
+                                (item.result === 'win' ? 'Gagné' : item.result === 'loss' ? 'Perdu' : 'En cours') +
+                            '</span>' +
+                        '</div>' +
+                        '<div class="history-item-match">' +
+                            '<div class="history-team">' +
+                                '<div class="history-team-logo"><i class="fas fa-shield-halved"></i></div>' +
+                                '<span class="history-team-name">' + item.home + '</span>' +
+                            '</div>' +
+                            '<span class="history-score">' + item.homeScore + ' - ' + item.awayScore + '</span>' +
+                            '<div class="history-team" style="flex-direction: row-reverse;">' +
+                                '<div class="history-team-logo"><i class="fas fa-shield-halved"></i></div>' +
+                                '<span class="history-team-name">' + item.away + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="history-item-footer">' +
+                            '<span class="history-item-date">' + item.date + '</span>' +
+                            '<span class="history-item-prediction">Prono: <strong>' + item.prediction + '</strong></span>' +
+                        '</div>' +
+                    '</div>';
+            });
+
+            historyContent.innerHTML = html;
         }
 
         function openBottomSheet() {
@@ -2507,7 +2387,11 @@
         }
 
         function toggleBottomSheet() {
-            bottomSheetOpen ? closeBottomSheet() : openBottomSheet();
+            if (bottomSheetOpen) {
+                closeBottomSheet();
+            } else {
+                openBottomSheet();
+            }
         }
 
         function setupEventListeners() {
@@ -2517,9 +2401,9 @@
 
             detailBackBtn.addEventListener('click', goBackToHome);
 
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    switchPage(item.dataset.tab);
+            navItems.forEach(function(item) {
+                item.addEventListener('click', function() {
+                    switchPage(this.dataset.tab);
                 });
             });
 
@@ -2532,33 +2416,31 @@
             openHistoryBtn.addEventListener('click', openHistory);
             backFromHistory.addEventListener('click', closeHistory);
 
-            googleLoginBtn.addEventListener('click', loginWithGoogle);
-            logoutBtn.addEventListener('click', logout);
+            loginBtn.addEventListener('click', handleLogin);
+            logoutBtn.addEventListener('click', handleLogout);
 
-            // History filter tabs
-            historyFilterTabs.addEventListener('click', (e) => {
+            historyFilterTabs.addEventListener('click', function(e) {
                 const tab = e.target.closest('.history-filter-tab');
                 if (tab) {
                     currentHistoryFilter = tab.dataset.filter;
-                    document.querySelectorAll('.history-filter-tab').forEach(t => {
+                    document.querySelectorAll('.history-filter-tab').forEach(function(t) {
                         t.classList.toggle('active', t.dataset.filter === currentHistoryFilter);
                     });
                     renderHistory();
                 }
             });
 
-            modeOptions.forEach(opt => {
-                opt.addEventListener('click', () => {
-                    setMode(opt.dataset.mode);
+            modeOptions.forEach(function(opt) {
+                opt.addEventListener('click', function() {
+                    setMode(this.dataset.mode);
                 });
             });
 
-            // Detail tabs
-            detailTabs.addEventListener('click', (e) => {
+            detailTabs.addEventListener('click', function(e) {
                 const tab = e.target.closest('.detail-tab');
                 if (tab) {
                     currentDetailTab = tab.dataset.tab;
-                    document.querySelectorAll('.detail-tab').forEach(t => {
+                    document.querySelectorAll('.detail-tab').forEach(function(t) {
                         t.classList.toggle('active', t.dataset.tab === currentDetailTab);
                     });
                     renderDetailContent();
@@ -2569,19 +2451,19 @@
             let startY = 0;
             let currentY = 0;
 
-            bottomSheet.addEventListener('touchstart', (e) => {
+            bottomSheet.addEventListener('touchstart', function(e) {
                 startY = e.touches[0].clientY;
             });
 
-            bottomSheet.addEventListener('touchmove', (e) => {
+            bottomSheet.addEventListener('touchmove', function(e) {
                 currentY = e.touches[0].clientY;
                 const diff = currentY - startY;
                 if (diff > 0) {
-                    bottomSheet.style.transform = `translateY(${diff}px)`;
+                    bottomSheet.style.transform = 'translateY(' + diff + 'px)';
                 }
             });
 
-            bottomSheet.addEventListener('touchend', () => {
+            bottomSheet.addEventListener('touchend', function() {
                 const diff = currentY - startY;
                 if (diff > 100) {
                     closeBottomSheet();
