@@ -2,7 +2,10 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
     <title>Safe Bet - Prédictions Sportives</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -67,11 +70,23 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        html {
+            touch-action: manipulation;
+            -ms-touch-action: manipulation;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            height: 100%;
         }
 
         html, body {
             height: 100%;
             overflow: hidden;
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         body {
@@ -79,6 +94,8 @@
             background: var(--gradient-bg);
             color: var(--text-primary);
             transition: background 0.5s ease, color 0.3s ease;
+            touch-action: pan-y;
+            -ms-content-zooming: none;
         }
 
         .app-container {
@@ -86,6 +103,7 @@
             flex-direction: column;
             height: 100%;
             overflow: hidden;
+            touch-action: pan-y;
         }
 
         .header {
@@ -454,6 +472,7 @@
             overflow-y: auto;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         .page.active {
@@ -828,6 +847,14 @@
 
         .plus-menu-icon.gold i {
             color: var(--yellow);
+        }
+
+        .plus-menu-icon.whatsapp i {
+            color: #25D366;
+        }
+
+        .plus-menu-icon.telegram i {
+            color: #0088cc;
         }
 
         .plus-menu-text {
@@ -1310,6 +1337,83 @@
             color: var(--accent);
         }
 
+        .contact-page {
+            padding: 16px 16px 90px;
+        }
+
+        .contact-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .contact-option-btn {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 20px;
+            background: var(--card-gradient);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .contact-option-btn:active {
+            transform: scale(0.98);
+            background: var(--bg-card-inner);
+        }
+
+        .contact-option-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-option-icon.whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        }
+
+        .contact-option-icon.telegram {
+            background: linear-gradient(135deg, #0088cc 0%, #229ED9 100%);
+        }
+
+        .contact-option-icon.email {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+        }
+
+        .contact-option-icon i {
+            font-size: 22px;
+            color: white;
+        }
+
+        .contact-option-text {
+            flex: 1;
+        }
+
+        .contact-option-text span {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .contact-option-text small {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .contact-option-arrow {
+            color: var(--text-muted);
+            font-size: 16px;
+        }
+
         .bottom-nav {
             position: fixed;
             bottom: 12px;
@@ -1464,6 +1568,15 @@
         img {
             -webkit-user-drag: none;
             user-drag: none;
+            pointer-events: none;
+        }
+
+        /* Prevent all zooming and gestures */
+        @media screen and (max-width: 768px) {
+            html, body {
+                touch-action: pan-y;
+                -ms-touch-action: pan-y;
+            }
         }
     </style>
 </head>
@@ -1634,11 +1747,11 @@
                                 </div>
                                 <i class="fas fa-chevron-right plus-menu-arrow"></i>
                             </div>
-                            <div class="plus-menu-item">
+                            <div class="plus-menu-item" id="openContactBtn">
                                 <div class="plus-menu-icon"><i class="fas fa-envelope"></i></div>
                                 <div class="plus-menu-text">
-                                    <span>Contact</span>
-                                    <small>Nous contacter</small>
+                                    <span>Nous contacter</span>
+                                    <small>WhatsApp, Telegram, Email</small>
                                 </div>
                                 <i class="fas fa-chevron-right plus-menu-arrow"></i>
                             </div>
@@ -1731,6 +1844,50 @@
                     <div id="historyContent"></div>
                 </div>
             </div>
+
+            <div class="page" id="contactPage">
+                <div class="contact-page">
+                    <div class="settings-back" id="backFromContact">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Nous contacter</span>
+                    </div>
+
+                    <div class="contact-options">
+                        <a href="https://wa.me/33612345678" target="_blank" rel="noopener noreferrer" class="contact-option-btn" id="whatsappBtn">
+                            <div class="contact-option-icon whatsapp">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-option-text">
+                                <span>WhatsApp</span>
+                                <small>Réponse rapide sous 24h</small>
+                            </div>
+                            <i class="fas fa-external-link-alt contact-option-arrow"></i>
+                        </a>
+
+                        <a href="https://t.me/safebetapp" target="_blank" rel="noopener noreferrer" class="contact-option-btn" id="telegramBtn">
+                            <div class="contact-option-icon telegram">
+                                <i class="fab fa-telegram-plane"></i>
+                            </div>
+                            <div class="contact-option-text">
+                                <span>Telegram</span>
+                                <small>Rejoignez notre canal</small>
+                            </div>
+                            <i class="fas fa-external-link-alt contact-option-arrow"></i>
+                        </a>
+
+                        <a href="mailto:contact@safebet.app" class="contact-option-btn" id="emailBtn">
+                            <div class="contact-option-icon email">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-option-text">
+                                <span>Email</span>
+                                <small>contact@safebet.app</small>
+                            </div>
+                            <i class="fas fa-external-link-alt contact-option-arrow"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1770,8 +1927,189 @@
     </div>
 
     <script>
+        // ============================================
+        // ENHANCED HAPTIC FEEDBACK SYSTEM FOR iOS
+        // Compatible with Haptic Touch, 3D Touch & Taptic Engine
+        // ============================================
+
+        const HapticEngine = {
+            isIOSDevice: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
+            isAndroid: /Android/.test(navigator.userAgent),
+            enabled: false,
+
+            // Haptic intensity levels (imperceptible but effective)
+            intensities: {
+                ultraLight: { duration: 1, pattern: [1] },
+                light: { duration: 2, pattern: [1, 5, 1] },
+                medium: { duration: 3, pattern: [1, 3, 1, 3, 1] },
+                selection: { duration: 1, pattern: [1] },
+                impact: { duration: 2, pattern: [2, 2, 2] },
+                notification: { duration: 3, pattern: [1, 2, 1, 2, 1] }
+            },
+
+            // Initialize haptic system
+            init: function() {
+                // Check for iOS Haptic Feedback API
+                if (this.isIOSDevice && window.webkit && window.webkit.messageHandlers) {
+                    this.supportsIOSHaptics = true;
+                }
+
+                // Check for standard Vibration API
+                this.supportsVibration = 'vibrate' in navigator;
+
+                return this;
+            },
+
+            // Trigger haptic feedback - Ultra subtle, almost imperceptible
+            trigger: function(type) {
+                if (!this.enabled) return;
+
+                var intensity = this.intensities[type] || this.intensities.ultraLight;
+
+                // iOS specific haptic handling using AudioContext for subtle feedback
+                if (this.isIOSDevice) {
+                    this.triggerIOSHaptic(type);
+                    return;
+                }
+
+                // Android/Standard vibration - very subtle patterns
+                if (this.supportsVibration) {
+                    try {
+                        navigator.vibrate(intensity.pattern);
+                    } catch (e) {
+                        // Silent fail
+                    }
+                }
+            },
+
+            // iOS-specific haptic using subtle audio feedback simulation
+            triggerIOSHaptic: function(type) {
+                // Create micro-vibration effect through rapid audio context manipulation
+                // This creates a subtle haptic-like sensation on iOS Safari
+                try {
+                    if (!this.audioContext) {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+
+                    var oscillator = this.audioContext.createOscillator();
+                    var gainNode = this.audioContext.createGain();
+
+                    oscillator.connect(gainNode);
+                    gainNode.connect(this.audioContext.destination);
+
+                    // Ultra-low frequency for subtle haptic effect
+                    oscillator.frequency.value = 1; // Sub-audible
+                    oscillator.type = 'sine';
+
+                    // Very short, imperceptible
+                    gainNode.gain.value = 0.001;
+
+                    var duration = type === 'impact' ? 0.003 : 0.001;
+
+                    oscillator.start();
+                    oscillator.stop(this.audioContext.currentTime + duration);
+
+                } catch (e) {
+                    // Fallback: attempt standard vibration
+                    if (this.supportsVibration) {
+                        navigator.vibrate(1);
+                    }
+                }
+            },
+
+            // Selection feedback (for tap actions)
+            selection: function() {
+                this.trigger('selection');
+            },
+
+            // Impact feedback (light tap)
+            impactLight: function() {
+                this.trigger('ultraLight');
+            },
+
+            // Impact feedback (medium)
+            impactMedium: function() {
+                this.trigger('light');
+            },
+
+            // Impact feedback (heavy)
+            impactHeavy: function() {
+                this.trigger('medium');
+            },
+
+            // Notification feedback
+            notification: function(type) {
+                this.trigger('notification');
+            },
+
+            // Enable haptics
+            enable: function() {
+                this.enabled = true;
+                // Trigger initial feedback to activate on iOS
+                if (this.isIOSDevice && this.audioContext) {
+                    this.audioContext.resume();
+                }
+            },
+
+            // Disable haptics
+            disable: function() {
+                this.enabled = false;
+            }
+        };
+
+        // Initialize haptic engine
+        HapticEngine.init();
+
+        // ============================================
+        // PREVENT ZOOM AND GESTURES
+        // ============================================
+
+        // Prevent pinch zoom
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        document.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        document.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        // Prevent double-tap zoom
+        var lastTouchEnd = 0;
+        document.addEventListener('touchend', function(e) {
+            var now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+
+        // Prevent multi-touch zoom
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent wheel zoom (Ctrl+scroll)
+        document.addEventListener('wheel', function(e) {
+            if (e.ctrlKey) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        // Prevent keyboard zoom (Ctrl + / -)
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
+                e.preventDefault();
+            }
+        });
+
         // Sports data
-        const sports = [
+        var sports = [
             { id: 'football', name: 'Football', icon: 'fa-futbol', emoji: '⚽', available: true },
             { id: 'basketball', name: 'Basketball', icon: 'fa-basketball', emoji: '🏀', available: false },
             { id: 'tennis', name: 'Tennis', icon: 'fa-table-tennis-paddle-ball', emoji: '🎾', available: false },
@@ -1781,7 +2119,7 @@
         ];
 
         // League flags mapping
-        const leagueFlags = {
+        var leagueFlags = {
             'Spain_Laliga': '🇪🇸',
             'Italy_Serie_A': '🇮🇹',
             'Saudi_Arabia_Pro_League': '🇸🇦',
@@ -1803,7 +2141,7 @@
         }
 
         // Match data from API
-        let matchesData = {
+        var matchesData = {
             football: [],
             basketball: [],
             tennis: [],
@@ -1813,7 +2151,7 @@
         };
 
         // History data
-        const historyData = [
+        var historyData = [
             { id: 1, league: 'Premier League', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', home: 'Liverpool', away: 'Manchester United', homeScore: 3, awayScore: 1, date: '28 déc. 2025', prediction: 'Victoire Liverpool', result: 'win' },
             { id: 2, league: 'La Liga', flag: '🇪🇸', home: 'Atletico Madrid', away: 'Sevilla', homeScore: 1, awayScore: 1, date: '26 déc. 2025', prediction: 'Victoire Atletico', result: 'loss' },
             { id: 3, league: 'Serie A', flag: '🇮🇹', home: 'AC Milan', away: 'Inter Milan', homeScore: 2, awayScore: 1, date: '24 déc. 2025', prediction: 'Victoire AC Milan', result: 'win' },
@@ -1822,52 +2160,74 @@
         ];
 
         // State
-        let currentSport = 'football';
-        let currentTab = 'predictions';
-        let currentDetailTab = 'resume';
-        let currentHistoryFilter = 'all';
-        let bottomSheetOpen = false;
-        let currentMode = 'dark';
-        let selectedMatch = null;
-        let isOnDetailPage = false;
-        let isLoadingMatches = false;
-        let hapticEnabled = false;
+        var currentSport = 'football';
+        var currentTab = 'predictions';
+        var currentDetailTab = 'resume';
+        var currentHistoryFilter = 'all';
+        var bottomSheetOpen = false;
+        var currentMode = 'dark';
+        var selectedMatch = null;
+        var isOnDetailPage = false;
+        var isLoadingMatches = false;
+        var hapticEnabled = false;
 
         // DOM Elements
-        const mainHeader = document.getElementById('mainHeader');
-        const sportSelector = document.getElementById('sportSelector');
-        const sportTitle = document.getElementById('sportTitle');
-        const headerTitle = document.getElementById('headerTitle');
-        const headerRight = document.getElementById('headerRight');
-        const bottomSheet = document.getElementById('bottomSheet');
-        const bottomSheetOverlay = document.getElementById('bottomSheetOverlay');
-        const sportsList = document.getElementById('sportsList');
-        const mainContent = document.getElementById('mainContent');
-        const navItems = document.querySelectorAll('.nav-item');
-        const pages = document.querySelectorAll('.page');
-        const openSettingsBtn = document.getElementById('openSettingsBtn');
-        const backFromSettings = document.getElementById('backFromSettings');
-        const modeOptions = document.querySelectorAll('.mode-option');
-        const bottomNav = document.getElementById('bottomNav');
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        const detailSportSelector = document.getElementById('detailSportSelector');
-        const detailSportTitle = document.getElementById('detailSportTitle');
-        const detailBackBtn = document.getElementById('detailBackBtn');
-        const detailTabs = document.getElementById('detailTabs');
-        const detailContentScroll = document.getElementById('detailContentScroll');
-        const openProfileBtn = document.getElementById('openProfileBtn');
-        const backFromProfile = document.getElementById('backFromProfile');
-        const openHistoryBtn = document.getElementById('openHistoryBtn');
-        const backFromHistory = document.getElementById('backFromHistory');
-        const historyFilterTabs = document.getElementById('historyFilterTabs');
-        const historyContent = document.getElementById('historyContent');
-        const hapticToggle = document.getElementById('hapticToggle');
-        const authBtn = document.getElementById('authBtn');
+        var mainHeader = document.getElementById('mainHeader');
+        var sportSelector = document.getElementById('sportSelector');
+        var sportTitle = document.getElementById('sportTitle');
+        var headerTitle = document.getElementById('headerTitle');
+        var headerRight = document.getElementById('headerRight');
+        var bottomSheet = document.getElementById('bottomSheet');
+        var bottomSheetOverlay = document.getElementById('bottomSheetOverlay');
+        var sportsList = document.getElementById('sportsList');
+        var mainContent = document.getElementById('mainContent');
+        var navItems = document.querySelectorAll('.nav-item');
+        var pages = document.querySelectorAll('.page');
+        var openSettingsBtn = document.getElementById('openSettingsBtn');
+        var backFromSettings = document.getElementById('backFromSettings');
+        var modeOptions = document.querySelectorAll('.mode-option');
+        var bottomNav = document.getElementById('bottomNav');
+        var loadingOverlay = document.getElementById('loadingOverlay');
+        var detailSportSelector = document.getElementById('detailSportSelector');
+        var detailSportTitle = document.getElementById('detailSportTitle');
+        var detailBackBtn = document.getElementById('detailBackBtn');
+        var detailTabs = document.getElementById('detailTabs');
+        var detailContentScroll = document.getElementById('detailContentScroll');
+        var openProfileBtn = document.getElementById('openProfileBtn');
+        var backFromProfile = document.getElementById('backFromProfile');
+        var openHistoryBtn = document.getElementById('openHistoryBtn');
+        var backFromHistory = document.getElementById('backFromHistory');
+        var historyFilterTabs = document.getElementById('historyFilterTabs');
+        var historyContent = document.getElementById('historyContent');
+        var hapticToggle = document.getElementById('hapticToggle');
+        var authBtn = document.getElementById('authBtn');
+        var openContactBtn = document.getElementById('openContactBtn');
+        var backFromContact = document.getElementById('backFromContact');
 
-        // Haptic feedback function
-        function triggerHaptic() {
-            if (hapticEnabled && navigator.vibrate) {
-                navigator.vibrate(10);
+        // Enhanced haptic feedback function
+        function triggerHaptic(type) {
+            if (!hapticEnabled) return;
+
+            type = type || 'selection';
+
+            switch(type) {
+                case 'selection':
+                    HapticEngine.selection();
+                    break;
+                case 'light':
+                    HapticEngine.impactLight();
+                    break;
+                case 'medium':
+                    HapticEngine.impactMedium();
+                    break;
+                case 'heavy':
+                    HapticEngine.impactHeavy();
+                    break;
+                case 'notification':
+                    HapticEngine.notification();
+                    break;
+                default:
+                    HapticEngine.selection();
             }
         }
 
@@ -1877,32 +2237,34 @@
             renderMatches();
 
             try {
-                const response = await fetch('https://raw.githubusercontent.com/PariALLIANCE/Data-Sports/main/data/football/games_of_day.json');
+                var response = await fetch('https://raw.githubusercontent.com/PariALLIANCE/Data-Sports/main/data/football/games_of_day.json');
                 if (!response.ok) throw new Error('Failed to fetch');
-                const data = await response.json();
+                var data = await response.json();
 
-                matchesData.football = data.map((match, index) => ({
-                    id: match.gameId,
-                    league: match.league,
-                    leagueFull: formatLeagueName(match.league).toUpperCase(),
-                    flag: getLeagueFlag(match.league),
-                    date: formatMatchDate(match.date),
-                    dateFull: match.date,
-                    home: match.team1,
-                    away: match.team2,
-                    homeLogo: match.team1_logo,
-                    awayLogo: match.team2_logo,
-                    homeUrl: match.team1_url,
-                    awayUrl: match.team2_url,
-                    matchUrl: match.match_url,
-                    score: match.score,
-                    tier: ['safe', 'value', 'normal'][index % 3],
-                    content: {
-                        intro: '<span class="team-link">' + match.team1 + '</span> affronte <span class="team-link">' + match.team2 + '</span> dans ce match de ' + formatLeagueName(match.league) + '.',
-                        title: 'Analyse du match',
-                        text: 'Match important entre ' + match.team1 + ' et ' + match.team2 + '. Les deux équipes cherchent à obtenir un résultat positif dans cette rencontre.'
-                    }
-                }));
+                matchesData.football = data.map(function(match, index) {
+                    return {
+                        id: match.gameId,
+                        league: match.league,
+                        leagueFull: formatLeagueName(match.league).toUpperCase(),
+                        flag: getLeagueFlag(match.league),
+                        date: formatMatchDate(match.date),
+                        dateFull: match.date,
+                        home: match.team1,
+                        away: match.team2,
+                        homeLogo: match.team1_logo,
+                        awayLogo: match.team2_logo,
+                        homeUrl: match.team1_url,
+                        awayUrl: match.team2_url,
+                        matchUrl: match.match_url,
+                        score: match.score,
+                        tier: ['safe', 'value', 'normal'][index % 3],
+                        content: {
+                            intro: '<span class="team-link">' + match.team1 + '</span> affronte <span class="team-link">' + match.team2 + '</span> dans ce match de ' + formatLeagueName(match.league) + '.',
+                            title: 'Analyse du match',
+                            text: 'Match important entre ' + match.team1 + ' et ' + match.team2 + '. Les deux équipes cherchent à obtenir un résultat positif dans cette rencontre.'
+                        }
+                    };
+                });
 
                 isLoadingMatches = false;
                 renderMatches();
@@ -1914,8 +2276,8 @@
         }
 
         function formatMatchDate(dateStr) {
-            const date = new Date(dateStr);
-            const options = { weekday: 'short', day: '2-digit', month: 'short' };
+            var date = new Date(dateStr);
+            var options = { weekday: 'short', day: '2-digit', month: 'short' };
             return date.toLocaleDateString('fr-FR', options);
         }
 
@@ -1968,6 +2330,7 @@
 
             document.querySelectorAll('.sport-option').forEach(function(option) {
                 option.addEventListener('click', function() {
+                    triggerHaptic('selection');
                     if (this.dataset.available === 'true') {
                         selectSport(this.dataset.sport);
                     }
@@ -1976,9 +2339,9 @@
         }
 
         function selectSport(sportId) {
-            const previousSport = currentSport;
+            var previousSport = currentSport;
             currentSport = sportId;
-            const sport = sports.find(function(s) { return s.id === sportId; });
+            var sport = sports.find(function(s) { return s.id === sportId; });
             sportTitle.textContent = sport.name;
             detailSportTitle.textContent = sport.name;
 
@@ -2071,7 +2434,7 @@
 
             document.querySelectorAll('.match-card').forEach(function(card) {
                 card.addEventListener('click', function() {
-                    triggerHaptic();
+                    triggerHaptic('medium');
                     var matchId = this.dataset.matchId;
                     openMatchDetail(matchId);
                 });
@@ -2177,6 +2540,7 @@
         }
 
         function goBackToHome() {
+            triggerHaptic('light');
             isOnDetailPage = false;
             selectedMatch = null;
 
@@ -2208,6 +2572,7 @@
         }
 
         function openSettings() {
+            triggerHaptic('selection');
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('settingsPage').classList.add('active');
             mainHeader.style.display = 'none';
@@ -2216,6 +2581,7 @@
         }
 
         function closeSettings() {
+            triggerHaptic('light');
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
@@ -2226,6 +2592,7 @@
         }
 
         function openProfile() {
+            triggerHaptic('selection');
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('profilePage').classList.add('active');
             mainHeader.style.display = 'none';
@@ -2234,6 +2601,7 @@
         }
 
         function closeProfile() {
+            triggerHaptic('light');
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
@@ -2244,6 +2612,7 @@
         }
 
         function openHistory() {
+            triggerHaptic('selection');
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('historyPage').classList.add('active');
             mainHeader.style.display = 'none';
@@ -2253,6 +2622,27 @@
         }
 
         function closeHistory() {
+            triggerHaptic('light');
+            pages.forEach(function(page) { page.classList.remove('active'); });
+            document.getElementById('plusPage').classList.add('active');
+            mainHeader.style.display = 'flex';
+            bottomNav.style.display = 'flex';
+            navItems.forEach(function(item) {
+                item.classList.toggle('active', item.dataset.tab === 'plus');
+            });
+        }
+
+        function openContact() {
+            triggerHaptic('selection');
+            pages.forEach(function(page) { page.classList.remove('active'); });
+            document.getElementById('contactPage').classList.add('active');
+            mainHeader.style.display = 'none';
+            bottomNav.style.display = 'none';
+            navItems.forEach(function(item) { item.classList.remove('active'); });
+        }
+
+        function closeContact() {
+            triggerHaptic('light');
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
@@ -2315,6 +2705,7 @@
         }
 
         function openBottomSheet() {
+            triggerHaptic('selection');
             bottomSheetOpen = true;
             bottomSheet.classList.add('active');
             bottomSheetOverlay.classList.add('active');
@@ -2347,7 +2738,7 @@
 
             navItems.forEach(function(item) {
                 item.addEventListener('click', function() {
-                    triggerHaptic();
+                    triggerHaptic('selection');
                     switchPage(this.dataset.tab);
                 });
             });
@@ -2361,23 +2752,39 @@
             openHistoryBtn.addEventListener('click', openHistory);
             backFromHistory.addEventListener('click', closeHistory);
 
-            // Haptic toggle
+            openContactBtn.addEventListener('click', openContact);
+            backFromContact.addEventListener('click', closeContact);
+
+            // Contact buttons haptic
+            document.querySelectorAll('.contact-option-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    triggerHaptic('medium');
+                });
+            });
+
+            // Haptic toggle with enhanced feedback
             hapticToggle.addEventListener('change', function() {
                 hapticEnabled = this.checked;
                 if (hapticEnabled) {
-                    triggerHaptic();
+                    HapticEngine.enable();
+                    // Immediate feedback on enable
+                    setTimeout(function() {
+                        triggerHaptic('notification');
+                    }, 100);
+                } else {
+                    HapticEngine.disable();
                 }
             });
 
-            // Auth button (placeholder - shows message)
+            // Auth button
             authBtn.addEventListener('click', function() {
-                triggerHaptic();
-                // Placeholder action - in real app would open auth flow
+                triggerHaptic('medium');
             });
 
             historyFilterTabs.addEventListener('click', function(e) {
                 var tab = e.target.closest('.history-filter-tab');
                 if (tab) {
+                    triggerHaptic('selection');
                     currentHistoryFilter = tab.dataset.filter;
                     document.querySelectorAll('.history-filter-tab').forEach(function(t) {
                         t.classList.toggle('active', t.dataset.filter === currentHistoryFilter);
@@ -2388,6 +2795,7 @@
 
             modeOptions.forEach(function(opt) {
                 opt.addEventListener('click', function() {
+                    triggerHaptic('selection');
                     setMode(this.dataset.mode);
                 });
             });
@@ -2395,7 +2803,7 @@
             detailTabs.addEventListener('click', function(e) {
                 var tab = e.target.closest('.detail-tab');
                 if (tab) {
-                    triggerHaptic();
+                    triggerHaptic('selection');
                     currentDetailTab = tab.dataset.tab;
                     document.querySelectorAll('.detail-tab').forEach(function(t) {
                         t.classList.toggle('active', t.dataset.tab === currentDetailTab);
@@ -2428,6 +2836,13 @@
                 bottomSheet.style.transform = '';
                 startY = 0;
                 currentY = 0;
+            });
+
+            // Add haptic to all interactive elements
+            document.querySelectorAll('.plus-menu-item:not(.disabled), .header-btn').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    triggerHaptic('light');
+                });
             });
         }
 
