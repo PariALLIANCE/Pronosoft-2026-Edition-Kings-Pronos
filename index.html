@@ -263,7 +263,7 @@
         }
 
         .detail-match-info {
-            padding: 16px 16px 12px;
+            padding: 10px 16px 8px;
             position: relative;
             overflow: hidden;
         }
@@ -272,7 +272,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             position: relative;
             z-index: 2;
         }
@@ -293,8 +293,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 14px;
+            gap: 24px;
+            margin-bottom: 10px;
             position: relative;
             z-index: 2;
         }
@@ -303,16 +303,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
-            flex: 1;
-            min-width: 0;
+            gap: 8px;
+            width: 100px;
             position: relative;
         }
 
         .detail-team-logo-wrapper {
             position: relative;
-            width: 72px;
-            height: 72px;
+            width: 56px;
+            height: 56px;
         }
 
         .detail-team-logo-bg {
@@ -320,19 +319,19 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
+            width: 90px;
+            height: 90px;
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            filter: blur(25px);
-            opacity: 0.5;
+            filter: blur(12px);
+            opacity: 0.4;
             z-index: 0;
         }
 
         .detail-team-logo {
-            width: 64px;
-            height: 64px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
             background: var(--bg-card-inner);
             border: 2px solid var(--border-color);
@@ -345,7 +344,7 @@
         }
 
         .detail-team-logo i {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--text-secondary);
         }
 
@@ -353,11 +352,11 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 6px;
+            padding: 5px;
         }
 
         .detail-team-name {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
             color: var(--text-primary);
             text-align: center;
@@ -370,17 +369,18 @@
         }
 
         .detail-vs-separator {
-            font-size: 22px;
+            font-size: 20px;
             color: var(--accent);
             font-weight: 800;
             font-family: 'Space Grotesk', sans-serif;
             position: relative;
             z-index: 2;
+            flex-shrink: 0;
         }
 
         .detail-match-date {
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-muted);
             font-weight: 500;
             position: relative;
@@ -388,7 +388,7 @@
         }
 
         .detail-tabs-container {
-            padding: 12px 16px;
+            padding: 10px 16px;
             background: transparent;
         }
 
@@ -963,14 +963,47 @@
 
         .profile-page {
             padding: 16px 16px 90px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
         }
 
-        .profile-header {
-            text-align: center;
-            padding: 30px 20px;
+        .profile-header-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            cursor: pointer;
+            padding: 8px 0;
         }
 
-        .profile-avatar {
+        .profile-header-bar i {
+            font-size: 18px;
+            color: var(--text-primary);
+        }
+
+        .profile-header-bar span {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .profile-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-top-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .profile-icon-large {
             width: 100px;
             height: 100px;
             border-radius: 50%;
@@ -979,164 +1012,146 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            overflow: hidden;
+            margin-bottom: 24px;
         }
 
-        .profile-avatar i {
+        .profile-icon-large i {
             font-size: 40px;
             color: var(--text-muted);
         }
 
-        .profile-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-name {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .profile-email {
-            font-size: 14px;
+        .profile-welcome-text {
+            text-align: center;
+            font-size: 15px;
             color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 28px;
+            max-width: 280px;
         }
 
-        .login-form {
-            max-width: 320px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-
-        .login-input {
+        .auth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             width: 100%;
-            padding: 14px 18px;
-            background: var(--bg-card-inner);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 16px;
-            font-family: 'Outfit', sans-serif;
-            margin-bottom: 12px;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-
-        .login-input:focus {
-            border-color: var(--accent);
-        }
-
-        .login-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .login-btn {
-            width: 100%;
+            max-width: 280px;
             padding: 14px 24px;
             background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             color: #0a0f14;
             font-size: 16px;
             font-weight: 600;
             font-family: 'Outfit', sans-serif;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 8px;
+            box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
         }
 
-        .login-btn:active {
-            transform: scale(0.98);
+        .auth-btn:active {
+            transform: scale(0.97);
         }
 
-        .login-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
+        .auth-btn i {
+            font-size: 18px;
         }
 
-        .login-info-text {
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-muted);
-            padding: 0 20px;
-            line-height: 1.6;
-            margin-bottom: 20px;
+        .profile-bottom-section {
+            padding: 20px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
         }
 
-        .profile-logged-in {
-            display: none;
+        .haptic-toggle-container {
+            background: var(--card-gradient);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: 16px;
+            padding: 18px 20px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
-        .profile-logged-in.active {
-            display: block;
-        }
-
-        .profile-not-logged {
-            display: block;
-        }
-
-        .profile-not-logged.hidden {
-            display: none;
-        }
-
-        .logout-btn {
+        .haptic-toggle-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--bg-card-inner);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 200px;
-            margin: 30px auto 0;
-            padding: 12px 20px;
-            background: var(--bg-card-inner);
-            border: 1px solid var(--accent-red);
-            border-radius: 12px;
-            color: var(--accent-red);
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:active {
-            transform: scale(0.97);
-            background: rgba(230, 57, 70, 0.1);
-        }
-
-        .profile-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 30px;
-        }
-
-        .profile-stat-card {
-            background: var(--card-gradient);
-            backdrop-filter: blur(var(--glass-blur));
-            border-radius: 14px;
-            padding: 16px 12px;
-            text-align: center;
             border: 1px solid var(--border-color);
         }
 
-        .profile-stat-value {
-            font-size: 24px;
-            font-weight: 700;
+        .haptic-toggle-icon i {
+            font-size: 18px;
             color: var(--accent);
-            font-family: 'Space Grotesk', sans-serif;
         }
 
-        .profile-stat-label {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 4px;
+        .haptic-toggle-text {
+            flex: 1;
+        }
+
+        .haptic-toggle-text span {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .haptic-toggle-text small {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            cursor: pointer;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-card-inner);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            border-radius: 28px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 2px;
+            bottom: 2px;
+            background-color: var(--text-muted);
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+
+        .toggle-switch input:checked + .toggle-slider {
+            background: rgba(0, 212, 170, 0.2);
+            border-color: var(--accent);
+        }
+
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+            background-color: var(--accent);
         }
 
         .history-page {
@@ -1541,7 +1556,7 @@
                 <main class="main-content">
                     <div class="empty-state">
                         <i class="fas fa-shield-halved"></i>
-                        <p>Safe �� venir...</p>
+                        <p>Safe à venir...</p>
                     </div>
                 </main>
             </div>
@@ -1664,54 +1679,38 @@
 
             <div class="page" id="profilePage">
                 <div class="profile-page">
-                    <div class="settings-back" id="backFromProfile">
+                    <div class="profile-header-bar" id="backFromProfile">
                         <i class="fas fa-arrow-left"></i>
                         <span>Mon Profil</span>
                     </div>
 
-                    <div class="profile-not-logged" id="profileNotLogged">
-                        <div class="profile-header">
-                            <div class="profile-avatar">
+                    <div class="profile-content">
+                        <div class="profile-top-section">
+                            <div class="profile-icon-large">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <p class="login-info-text">Connectez-vous pour sauvegarder vos favoris, consulter votre historique et synchroniser vos données.</p>
+                            <p class="profile-welcome-text">Connectez-vous pour accéder à vos favoris, votre historique et synchroniser vos données.</p>
+                            <button class="auth-btn" id="authBtn">
+                                <i class="fas fa-right-to-bracket"></i>
+                                <span>Inscription / Connexion</span>
+                            </button>
                         </div>
 
-                        <div class="login-form">
-                            <input type="text" class="login-input" id="usernameInput" placeholder="Nom d'utilisateur" autocomplete="off">
-                            <input type="email" class="login-input" id="emailInput" placeholder="Email" autocomplete="off">
-                            <button class="login-btn" id="loginBtn">Se connecter</button>
-                        </div>
-                    </div>
-
-                    <div class="profile-logged-in" id="profileLoggedIn">
-                        <div class="profile-header">
-                            <div class="profile-avatar" id="profileAvatarImg">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="profile-name" id="profileUserName">Utilisateur</div>
-                            <div class="profile-email" id="profileUserEmail">email@example.com</div>
-                        </div>
-
-                        <div class="profile-stats">
-                            <div class="profile-stat-card">
-                                <div class="profile-stat-value" id="statWins">0</div>
-                                <div class="profile-stat-label">Gagnés</div>
-                            </div>
-                            <div class="profile-stat-card">
-                                <div class="profile-stat-value" id="statTotal">0</div>
-                                <div class="profile-stat-label">Total</div>
-                            </div>
-                            <div class="profile-stat-card">
-                                <div class="profile-stat-value" id="statRate">0%</div>
-                                <div class="profile-stat-label">Taux</div>
+                        <div class="profile-bottom-section">
+                            <div class="haptic-toggle-container">
+                                <div class="haptic-toggle-icon">
+                                    <i class="fas fa-hand-pointer"></i>
+                                </div>
+                                <div class="haptic-toggle-text">
+                                    <span>Retour haptique</span>
+                                    <small>Vibration lors des clics</small>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="hapticToggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
                             </div>
                         </div>
-
-                        <button class="logout-btn" id="logoutBtn">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Déconnexion</span>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -1831,9 +1830,8 @@
         let currentMode = 'dark';
         let selectedMatch = null;
         let isOnDetailPage = false;
-        let isLoggedIn = false;
-        let userData = null;
         let isLoadingMatches = false;
+        let hapticEnabled = false;
 
         // DOM Elements
         const mainHeader = document.getElementById('mainHeader');
@@ -1859,16 +1857,19 @@
         const detailContentScroll = document.getElementById('detailContentScroll');
         const openProfileBtn = document.getElementById('openProfileBtn');
         const backFromProfile = document.getElementById('backFromProfile');
-        const loginBtn = document.getElementById('loginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const profileNotLogged = document.getElementById('profileNotLogged');
-        const profileLoggedIn = document.getElementById('profileLoggedIn');
         const openHistoryBtn = document.getElementById('openHistoryBtn');
         const backFromHistory = document.getElementById('backFromHistory');
         const historyFilterTabs = document.getElementById('historyFilterTabs');
         const historyContent = document.getElementById('historyContent');
-        const usernameInput = document.getElementById('usernameInput');
-        const emailInput = document.getElementById('emailInput');
+        const hapticToggle = document.getElementById('hapticToggle');
+        const authBtn = document.getElementById('authBtn');
+
+        // Haptic feedback function
+        function triggerHaptic() {
+            if (hapticEnabled && navigator.vibrate) {
+                navigator.vibrate(10);
+            }
+        }
 
         // Fetch matches from GitHub
         async function fetchMatches() {
@@ -1897,9 +1898,9 @@
                     score: match.score,
                     tier: ['safe', 'value', 'normal'][index % 3],
                     content: {
-                        intro: `<span class="team-link">${match.team1}</span> affronte <span class="team-link">${match.team2}</span> dans ce match de ${formatLeagueName(match.league)}.`,
+                        intro: '<span class="team-link">' + match.team1 + '</span> affronte <span class="team-link">' + match.team2 + '</span> dans ce match de ' + formatLeagueName(match.league) + '.',
                         title: 'Analyse du match',
-                        text: `Match important entre ${match.team1} et ${match.team2}. Les deux équipes cherchent à obtenir un résultat positif dans cette rencontre.`
+                        text: 'Match important entre ' + match.team1 + ' et ' + match.team2 + '. Les deux équipes cherchent à obtenir un résultat positif dans cette rencontre.'
                     }
                 }));
 
@@ -1924,7 +1925,7 @@
                 setMode('light');
             }
 
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(event) {
                 setMode(event.matches ? 'dark' : 'light');
             });
 
@@ -1939,7 +1940,7 @@
             document.body.classList.remove('mode-light', 'mode-dark');
             document.body.classList.add('mode-' + mode);
 
-            modeOptions.forEach(opt => {
+            modeOptions.forEach(function(opt) {
                 opt.classList.toggle('active', opt.dataset.mode === mode);
             });
         }
@@ -1957,15 +1958,15 @@
         }
 
         function renderSportsList() {
-            sportsList.innerHTML = sports.map(sport =>
-                '<div class="sport-option ' + (sport.id === currentSport ? 'active' : '') + ' ' + (!sport.available ? 'disabled' : '') + '" data-sport="' + sport.id + '" data-available="' + sport.available + '">' +
+            sportsList.innerHTML = sports.map(function(sport) {
+                return '<div class="sport-option ' + (sport.id === currentSport ? 'active' : '') + ' ' + (!sport.available ? 'disabled' : '') + '" data-sport="' + sport.id + '" data-available="' + sport.available + '">' +
                     '<i class="fas ' + sport.icon + '"></i>' +
                     '<span>' + sport.name + '</span>' +
                     (!sport.available ? '<span class="coming-soon-badge">Bientôt</span>' : '<i class="fas fa-check check-icon"></i>') +
-                '</div>'
-            ).join('');
+                '</div>';
+            }).join('');
 
-            document.querySelectorAll('.sport-option').forEach(option => {
+            document.querySelectorAll('.sport-option').forEach(function(option) {
                 option.addEventListener('click', function() {
                     if (this.dataset.available === 'true') {
                         selectSport(this.dataset.sport);
@@ -1977,11 +1978,11 @@
         function selectSport(sportId) {
             const previousSport = currentSport;
             currentSport = sportId;
-            const sport = sports.find(s => s.id === sportId);
+            const sport = sports.find(function(s) { return s.id === sportId; });
             sportTitle.textContent = sport.name;
             detailSportTitle.textContent = sport.name;
 
-            document.querySelectorAll('.sport-option').forEach(option => {
+            document.querySelectorAll('.sport-option').forEach(function(option) {
                 option.classList.toggle('active', option.dataset.sport === sportId);
             });
 
@@ -2010,7 +2011,7 @@
         }
 
         function getTierLabel(tier) {
-            const labels = { safe: 'Safe', value: 'Value', normal: 'Normal' };
+            var labels = { safe: 'Safe', value: 'Value', normal: 'Normal' };
             return labels[tier] || 'Normal';
         }
 
@@ -2024,7 +2025,7 @@
                 return;
             }
 
-            const matches = matchesData[currentSport];
+            var matches = matchesData[currentSport];
 
             if (!matches || matches.length === 0) {
                 mainContent.innerHTML =
@@ -2035,12 +2036,12 @@
                 return;
             }
 
-            let html = '';
+            var html = '';
             matches.forEach(function(match) {
-                const homeLogoHtml = match.homeLogo
+                var homeLogoHtml = match.homeLogo
                     ? '<img src="' + match.homeLogo + '" alt="' + match.home + '">'
                     : '<i class="fas fa-shield-halved"></i>';
-                const awayLogoHtml = match.awayLogo
+                var awayLogoHtml = match.awayLogo
                     ? '<img src="' + match.awayLogo + '" alt="' + match.away + '">'
                     : '<i class="fas fa-shield-halved"></i>';
 
@@ -2070,15 +2071,16 @@
 
             document.querySelectorAll('.match-card').forEach(function(card) {
                 card.addEventListener('click', function() {
-                    const matchId = this.dataset.matchId;
+                    triggerHaptic();
+                    var matchId = this.dataset.matchId;
                     openMatchDetail(matchId);
                 });
             });
         }
 
         function openMatchDetail(matchId) {
-            const matches = matchesData[currentSport];
-            selectedMatch = matches.find(m => m.id === matchId);
+            var matches = matchesData[currentSport];
+            selectedMatch = matches.find(function(m) { return m.id === matchId; });
 
             if (!selectedMatch) return;
 
@@ -2091,10 +2093,10 @@
             document.getElementById('awayNameLg').textContent = selectedMatch.away;
 
             // Set logos with blurred backgrounds
-            const homeLogoEl = document.getElementById('homeLogoLg');
-            const awayLogoEl = document.getElementById('awayLogoLg');
-            const homeLogoBg = document.getElementById('homeLogoBg');
-            const awayLogoBg = document.getElementById('awayLogoBg');
+            var homeLogoEl = document.getElementById('homeLogoLg');
+            var awayLogoEl = document.getElementById('awayLogoLg');
+            var homeLogoBg = document.getElementById('homeLogoBg');
+            var awayLogoBg = document.getElementById('awayLogoBg');
 
             if (selectedMatch.homeLogo) {
                 homeLogoEl.innerHTML = '<img src="' + selectedMatch.homeLogo + '" alt="' + selectedMatch.home + '">';
@@ -2129,7 +2131,7 @@
         function renderDetailContent() {
             if (!selectedMatch) return;
 
-            let content = '';
+            var content = '';
 
             switch (currentDetailTab) {
                 case 'resume':
@@ -2229,7 +2231,6 @@
             mainHeader.style.display = 'none';
             bottomNav.style.display = 'none';
             navItems.forEach(function(item) { item.classList.remove('active'); });
-            updateProfileUI();
         }
 
         function closeProfile() {
@@ -2261,70 +2262,13 @@
             });
         }
 
-        // Simple login without external auth
-        function handleLogin() {
-            const username = usernameInput.value.trim();
-            const email = emailInput.value.trim();
-
-            if (!username || !email) {
-                return;
-            }
-
-            isLoggedIn = true;
-            userData = {
-                name: username,
-                email: email,
-                avatar: null
-            };
-
-            usernameInput.value = '';
-            emailInput.value = '';
-
-            updateProfileUI();
-        }
-
-        function handleLogout() {
-            isLoggedIn = false;
-            userData = null;
-            updateProfileUI();
-        }
-
-        function updateProfileUI() {
-            if (isLoggedIn && userData) {
-                profileNotLogged.classList.add('hidden');
-                profileLoggedIn.classList.add('active');
-
-                document.getElementById('profileUserName').textContent = userData.name;
-                document.getElementById('profileUserEmail').textContent = userData.email;
-
-                const avatarContainer = document.getElementById('profileAvatarImg');
-                if (userData.avatar) {
-                    avatarContainer.innerHTML = '<img src="' + userData.avatar + '" alt="Avatar">';
-                } else {
-                    const initials = userData.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-                    avatarContainer.innerHTML = '<span style="font-size: 32px; font-weight: 700; color: var(--accent);">' + initials + '</span>';
-                }
-
-                const wins = historyData.filter(h => h.result === 'win').length;
-                const total = historyData.length;
-                const rate = total > 0 ? Math.round((wins / total) * 100) : 0;
-
-                document.getElementById('statWins').textContent = wins;
-                document.getElementById('statTotal').textContent = total;
-                document.getElementById('statRate').textContent = rate + '%';
-            } else {
-                profileNotLogged.classList.remove('hidden');
-                profileLoggedIn.classList.remove('active');
-            }
-        }
-
         function renderHistory() {
-            let filteredHistory = historyData;
+            var filteredHistory = historyData;
 
             if (currentHistoryFilter === 'win') {
-                filteredHistory = historyData.filter(h => h.result === 'win');
+                filteredHistory = historyData.filter(function(h) { return h.result === 'win'; });
             } else if (currentHistoryFilter === 'loss') {
-                filteredHistory = historyData.filter(h => h.result === 'loss');
+                filteredHistory = historyData.filter(function(h) { return h.result === 'loss'; });
             }
 
             if (filteredHistory.length === 0) {
@@ -2336,7 +2280,7 @@
                 return;
             }
 
-            let html = '';
+            var html = '';
             filteredHistory.forEach(function(item) {
                 html +=
                     '<div class="history-item">' +
@@ -2403,6 +2347,7 @@
 
             navItems.forEach(function(item) {
                 item.addEventListener('click', function() {
+                    triggerHaptic();
                     switchPage(this.dataset.tab);
                 });
             });
@@ -2416,11 +2361,22 @@
             openHistoryBtn.addEventListener('click', openHistory);
             backFromHistory.addEventListener('click', closeHistory);
 
-            loginBtn.addEventListener('click', handleLogin);
-            logoutBtn.addEventListener('click', handleLogout);
+            // Haptic toggle
+            hapticToggle.addEventListener('change', function() {
+                hapticEnabled = this.checked;
+                if (hapticEnabled) {
+                    triggerHaptic();
+                }
+            });
+
+            // Auth button (placeholder - shows message)
+            authBtn.addEventListener('click', function() {
+                triggerHaptic();
+                // Placeholder action - in real app would open auth flow
+            });
 
             historyFilterTabs.addEventListener('click', function(e) {
-                const tab = e.target.closest('.history-filter-tab');
+                var tab = e.target.closest('.history-filter-tab');
                 if (tab) {
                     currentHistoryFilter = tab.dataset.filter;
                     document.querySelectorAll('.history-filter-tab').forEach(function(t) {
@@ -2437,8 +2393,9 @@
             });
 
             detailTabs.addEventListener('click', function(e) {
-                const tab = e.target.closest('.detail-tab');
+                var tab = e.target.closest('.detail-tab');
                 if (tab) {
+                    triggerHaptic();
                     currentDetailTab = tab.dataset.tab;
                     document.querySelectorAll('.detail-tab').forEach(function(t) {
                         t.classList.toggle('active', t.dataset.tab === currentDetailTab);
@@ -2448,8 +2405,8 @@
             });
 
             // Swipe to close bottom sheet
-            let startY = 0;
-            let currentY = 0;
+            var startY = 0;
+            var currentY = 0;
 
             bottomSheet.addEventListener('touchstart', function(e) {
                 startY = e.touches[0].clientY;
@@ -2457,14 +2414,14 @@
 
             bottomSheet.addEventListener('touchmove', function(e) {
                 currentY = e.touches[0].clientY;
-                const diff = currentY - startY;
+                var diff = currentY - startY;
                 if (diff > 0) {
                     bottomSheet.style.transform = 'translateY(' + diff + 'px)';
                 }
             });
 
             bottomSheet.addEventListener('touchend', function() {
-                const diff = currentY - startY;
+                var diff = currentY - startY;
                 if (diff > 100) {
                     closeBottomSheet();
                 }
