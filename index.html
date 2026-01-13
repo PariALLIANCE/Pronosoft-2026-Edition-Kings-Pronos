@@ -1056,34 +1056,6 @@
             max-width: 280px;
         }
 
-        .auth-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            max-width: 280px;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-            border: none;
-            border-radius: 14px;
-            color: #0a0f14;
-            font-size: 16px;
-            font-weight: 600;
-            font-family: 'Outfit', sans-serif;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0, 212, 170, 0.3);
-        }
-
-        .auth-btn:active {
-            transform: scale(0.97);
-        }
-
-        .auth-btn i {
-            font-size: 18px;
-        }
-
         .profile-bottom-section {
             padding: 20px 0;
             border-top: 1px solid var(--border-color);
@@ -1414,6 +1386,112 @@
             font-size: 16px;
         }
 
+        /* Help Page Styles */
+        .help-page {
+            padding: 16px 16px 90px;
+        }
+
+        .help-section {
+            margin-bottom: 20px;
+        }
+
+        .help-section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .help-section-title i {
+            font-size: 16px;
+        }
+
+        .faq-item {
+            background: var(--card-gradient);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .faq-question:active {
+            background: var(--bg-card-inner);
+        }
+
+        .faq-question span {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            flex: 1;
+            padding-right: 12px;
+        }
+
+        .faq-question i {
+            font-size: 12px;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-content {
+            padding: 0 18px 16px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .help-tip-card {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(0, 245, 196, 0.05) 100%);
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-bottom: 10px;
+        }
+
+        .help-tip-card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .help-tip-card p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
         .bottom-nav {
             position: fixed;
             bottom: 12px;
@@ -1571,7 +1649,6 @@
             pointer-events: none;
         }
 
-        /* Prevent all zooming and gestures */
         @media screen and (max-width: 768px) {
             html, body {
                 touch-action: pan-y;
@@ -1739,7 +1816,7 @@
                     <div class="plus-section">
                         <div class="plus-section-title">Support</div>
                         <div class="plus-menu">
-                            <div class="plus-menu-item">
+                            <div class="plus-menu-item" id="openHelpBtn">
                                 <div class="plus-menu-icon"><i class="fas fa-question-circle"></i></div>
                                 <div class="plus-menu-text">
                                     <span>Aide</span>
@@ -1802,21 +1879,17 @@
                             <div class="profile-icon-large">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <p class="profile-welcome-text">Connectez-vous pour accéder à vos favoris, votre historique et synchroniser vos données.</p>
-                            <button class="auth-btn" id="authBtn">
-                                <i class="fas fa-right-to-bracket"></i>
-                                <span>Inscription / Connexion</span>
-                            </button>
+                            <p class="profile-welcome-text">Bienvenue sur Safe Bet ! Personnalisez votre expérience avec les options ci-dessous.</p>
                         </div>
 
                         <div class="profile-bottom-section">
                             <div class="haptic-toggle-container">
                                 <div class="haptic-toggle-icon">
-                                    <i class="fas fa-hand-pointer"></i>
+                                    <i class="fas fa-mobile-screen-button"></i>
                                 </div>
                                 <div class="haptic-toggle-text">
-                                    <span>Retour haptique</span>
-                                    <small>Vibration lors des clics</small>
+                                    <span>Vibration</span>
+                                    <small>Retour tactile Android</small>
                                 </div>
                                 <label class="toggle-switch">
                                     <input type="checkbox" id="hapticToggle">
@@ -1875,16 +1948,157 @@
                             <i class="fas fa-external-link-alt contact-option-arrow"></i>
                         </a>
 
-                        <a href="mailto:contact@safebet.app" class="contact-option-btn" id="emailBtn">
+                        <a href="mailto:contact@safebet.com" class="contact-option-btn" id="emailBtn">
                             <div class="contact-option-icon email">
                                 <i class="fas fa-envelope"></i>
                             </div>
                             <div class="contact-option-text">
                                 <span>Email</span>
-                                <small>contact@safebet.app</small>
+                                <small>contact@safebet.com</small>
                             </div>
                             <i class="fas fa-external-link-alt contact-option-arrow"></i>
                         </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Aide -->
+            <div class="page" id="helpPage">
+                <div class="help-page">
+                    <div class="settings-back" id="backFromHelp">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Centre d'aide</span>
+                    </div>
+
+                    <div class="help-section">
+                        <div class="help-section-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Conseils utiles
+                        </div>
+
+                        <div class="help-tip-card">
+                            <h4><i class="fas fa-chart-line"></i> Comprendre les pronostics</h4>
+                            <p>Nos pronostics sont classés en 3 catégories : <strong>Safe</strong> (haute probabilité), <strong>Value</strong> (bon rapport risque/gain), et <strong>Normal</strong> (analyse standard). Choisissez selon votre stratégie.</p>
+                        </div>
+
+                        <div class="help-tip-card">
+                            <h4><i class="fas fa-star"></i> Utilisez les favoris</h4>
+                            <p>Marquez vos matchs préférés avec l'étoile pour les retrouver facilement et ne manquer aucun coup d'envoi.</p>
+                        </div>
+                    </div>
+
+                    <div class="help-section">
+                        <div class="help-section-title">
+                            <i class="fas fa-circle-question"></i>
+                            Questions fréquentes
+                        </div>
+
+                        <div class="faq-item" data-faq="1">
+                            <div class="faq-question">
+                                <span>Comment fonctionnent les pronostics ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Nos pronostics sont basés sur une analyse approfondie des statistiques, des formes récentes des équipes, des confrontations directes et d'autres facteurs clés. Chaque match est évalué pour vous offrir les meilleures recommandations possibles.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-faq="2">
+                            <div class="faq-question">
+                                <span>Que signifient Safe, Value et Normal ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <strong>Safe :</strong> Pronostics avec une probabilité de réussite élevée, idéal pour les paris sécurisés.<br><br>
+                                    <strong>Value :</strong> Pronostics offrant un excellent rapport entre le risque et le gain potentiel.<br><br>
+                                    <strong>Normal :</strong> Pronostics standards basés sur notre analyse habituelle.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-faq="3">
+                            <div class="faq-question">
+                                <span>Comment activer les vibrations ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Allez dans Menu > Profil, puis activez l'option "Vibration". Cette fonctionnalité est disponible sur les appareils Android et vous donnera un retour tactile lors des interactions avec l'application.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-faq="4">
+                            <div class="faq-question">
+                                <span>Les pronostics sont-ils gratuits ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Oui, tous les pronostics disponibles dans l'application sont entièrement gratuits. Une version Premium avec des fonctionnalités exclusives sera bientôt disponible.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-faq="5">
+                            <div class="faq-question">
+                                <span>Comment changer le thème de l'app ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Rendez-vous dans Menu > Thème. Vous pouvez choisir entre le mode Clair et le mode Sombre selon vos préférences. L'application détecte aussi automatiquement le thème de votre système.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-faq="6">
+                            <div class="faq-question">
+                                <span>D'autres sports seront-ils ajoutés ?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Absolument ! Nous travaillons activement sur l'ajout de nouveaux sports comme le Basketball, le Tennis, le Hockey, le Rugby et le Baseball. Restez connectés pour les mises à jour !
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="help-section">
+                        <div class="help-section-title">
+                            <i class="fas fa-book-open"></i>
+                            Tutoriels
+                        </div>
+
+                        <div class="faq-item" data-faq="7">
+                            <div class="faq-question">
+                                <span>Naviguer dans l'application</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    <strong>1. Pronos :</strong> Accédez aux pronostics du jour depuis l'onglet principal.<br><br>
+                                    <strong>2. Safe :</strong> Découvrez les paris les plus sûrs sélectionnés par nos experts.<br><br>
+                                    <strong>3. Menu :</strong> Gérez votre profil, thème, historique et accédez à l'aide.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="faq-item" data-faq="8">
+                            <div class="faq-question">
+                                <span>Consulter un pronostic détaillé</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Cliquez sur n'importe quelle carte de match pour accéder aux détails complets : résumé, compositions d'équipes, cotes, historique des confrontations (TàT) et classement actuel.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1928,143 +2142,21 @@
 
     <script>
         // ============================================
-        // ENHANCED HAPTIC FEEDBACK SYSTEM FOR iOS
-        // Compatible with Haptic Touch, 3D Touch & Taptic Engine
+        // VIBRATION SYSTEM FOR ANDROID
         // ============================================
 
-        const HapticEngine = {
-            isIOSDevice: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
-            isAndroid: /Android/.test(navigator.userAgent),
-            enabled: false,
+        var hapticEnabled = false;
 
-            // Haptic intensity levels (imperceptible but effective)
-            intensities: {
-                ultraLight: { duration: 1, pattern: [1] },
-                light: { duration: 2, pattern: [1, 5, 1] },
-                medium: { duration: 3, pattern: [1, 3, 1, 3, 1] },
-                selection: { duration: 1, pattern: [1] },
-                impact: { duration: 2, pattern: [2, 2, 2] },
-                notification: { duration: 3, pattern: [1, 2, 1, 2, 1] }
-            },
-
-            // Initialize haptic system
-            init: function() {
-                // Check for iOS Haptic Feedback API
-                if (this.isIOSDevice && window.webkit && window.webkit.messageHandlers) {
-                    this.supportsIOSHaptics = true;
-                }
-
-                // Check for standard Vibration API
-                this.supportsVibration = 'vibrate' in navigator;
-
-                return this;
-            },
-
-            // Trigger haptic feedback - Ultra subtle, almost imperceptible
-            trigger: function(type) {
-                if (!this.enabled) return;
-
-                var intensity = this.intensities[type] || this.intensities.ultraLight;
-
-                // iOS specific haptic handling using AudioContext for subtle feedback
-                if (this.isIOSDevice) {
-                    this.triggerIOSHaptic(type);
-                    return;
-                }
-
-                // Android/Standard vibration - very subtle patterns
-                if (this.supportsVibration) {
-                    try {
-                        navigator.vibrate(intensity.pattern);
-                    } catch (e) {
-                        // Silent fail
-                    }
-                }
-            },
-
-            // iOS-specific haptic using subtle audio feedback simulation
-            triggerIOSHaptic: function(type) {
-                // Create micro-vibration effect through rapid audio context manipulation
-                // This creates a subtle haptic-like sensation on iOS Safari
-                try {
-                    if (!this.audioContext) {
-                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    }
-
-                    var oscillator = this.audioContext.createOscillator();
-                    var gainNode = this.audioContext.createGain();
-
-                    oscillator.connect(gainNode);
-                    gainNode.connect(this.audioContext.destination);
-
-                    // Ultra-low frequency for subtle haptic effect
-                    oscillator.frequency.value = 1; // Sub-audible
-                    oscillator.type = 'sine';
-
-                    // Very short, imperceptible
-                    gainNode.gain.value = 0.001;
-
-                    var duration = type === 'impact' ? 0.003 : 0.001;
-
-                    oscillator.start();
-                    oscillator.stop(this.audioContext.currentTime + duration);
-
-                } catch (e) {
-                    // Fallback: attempt standard vibration
-                    if (this.supportsVibration) {
-                        navigator.vibrate(1);
-                    }
-                }
-            },
-
-            // Selection feedback (for tap actions)
-            selection: function() {
-                this.trigger('selection');
-            },
-
-            // Impact feedback (light tap)
-            impactLight: function() {
-                this.trigger('ultraLight');
-            },
-
-            // Impact feedback (medium)
-            impactMedium: function() {
-                this.trigger('light');
-            },
-
-            // Impact feedback (heavy)
-            impactHeavy: function() {
-                this.trigger('medium');
-            },
-
-            // Notification feedback
-            notification: function(type) {
-                this.trigger('notification');
-            },
-
-            // Enable haptics
-            enable: function() {
-                this.enabled = true;
-                // Trigger initial feedback to activate on iOS
-                if (this.isIOSDevice && this.audioContext) {
-                    this.audioContext.resume();
-                }
-            },
-
-            // Disable haptics
-            disable: function() {
-                this.enabled = false;
+        function vibrate() {
+            if (hapticEnabled && "vibrate" in navigator) {
+                navigator.vibrate(30);
             }
-        };
-
-        // Initialize haptic engine
-        HapticEngine.init();
+        }
 
         // ============================================
         // PREVENT ZOOM AND GESTURES
         // ============================================
 
-        // Prevent pinch zoom
         document.addEventListener('gesturestart', function(e) {
             e.preventDefault();
         }, { passive: false });
@@ -2077,7 +2169,6 @@
             e.preventDefault();
         }, { passive: false });
 
-        // Prevent double-tap zoom
         var lastTouchEnd = 0;
         document.addEventListener('touchend', function(e) {
             var now = Date.now();
@@ -2087,21 +2178,18 @@
             lastTouchEnd = now;
         }, { passive: false });
 
-        // Prevent multi-touch zoom
         document.addEventListener('touchstart', function(e) {
             if (e.touches.length > 1) {
                 e.preventDefault();
             }
         }, { passive: false });
 
-        // Prevent wheel zoom (Ctrl+scroll)
         document.addEventListener('wheel', function(e) {
             if (e.ctrlKey) {
                 e.preventDefault();
             }
         }, { passive: false });
 
-        // Prevent keyboard zoom (Ctrl + / -)
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '=' || e.key === '0')) {
                 e.preventDefault();
@@ -2118,7 +2206,6 @@
             { id: 'baseball', name: 'Baseball', icon: 'fa-baseball', emoji: '⚾', available: false }
         ];
 
-        // League flags mapping
         var leagueFlags = {
             'Spain_Laliga': '🇪🇸',
             'Italy_Serie_A': '🇮🇹',
@@ -2130,17 +2217,14 @@
             'Liga_Portugal': '🇵🇹'
         };
 
-        // Format league name
         function formatLeagueName(league) {
             return league.replace(/_/g, ' ');
         }
 
-        // Get flag for league
         function getLeagueFlag(league) {
             return leagueFlags[league] || '⚽';
         }
 
-        // Match data from API
         var matchesData = {
             football: [],
             basketball: [],
@@ -2150,7 +2234,6 @@
             baseball: []
         };
 
-        // History data
         var historyData = [
             { id: 1, league: 'Premier League', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', home: 'Liverpool', away: 'Manchester United', homeScore: 3, awayScore: 1, date: '28 déc. 2025', prediction: 'Victoire Liverpool', result: 'win' },
             { id: 2, league: 'La Liga', flag: '🇪🇸', home: 'Atletico Madrid', away: 'Sevilla', homeScore: 1, awayScore: 1, date: '26 déc. 2025', prediction: 'Victoire Atletico', result: 'loss' },
@@ -2169,7 +2252,6 @@
         var selectedMatch = null;
         var isOnDetailPage = false;
         var isLoadingMatches = false;
-        var hapticEnabled = false;
 
         // DOM Elements
         var mainHeader = document.getElementById('mainHeader');
@@ -2200,38 +2282,32 @@
         var historyFilterTabs = document.getElementById('historyFilterTabs');
         var historyContent = document.getElementById('historyContent');
         var hapticToggle = document.getElementById('hapticToggle');
-        var authBtn = document.getElementById('authBtn');
         var openContactBtn = document.getElementById('openContactBtn');
         var backFromContact = document.getElementById('backFromContact');
+        var openHelpBtn = document.getElementById('openHelpBtn');
+        var backFromHelp = document.getElementById('backFromHelp');
 
-        // Enhanced haptic feedback function
-        function triggerHaptic(type) {
-            if (!hapticEnabled) return;
+        // Long press handling for cards
+        var longPressTimer = null;
+        var longPressDuration = 300;
 
-            type = type || 'selection';
+        function handleLongPress(element, callback) {
+            element.addEventListener('touchstart', function(e) {
+                longPressTimer = setTimeout(function() {
+                    vibrate();
+                    if (callback) callback();
+                }, longPressDuration);
+            });
 
-            switch(type) {
-                case 'selection':
-                    HapticEngine.selection();
-                    break;
-                case 'light':
-                    HapticEngine.impactLight();
-                    break;
-                case 'medium':
-                    HapticEngine.impactMedium();
-                    break;
-                case 'heavy':
-                    HapticEngine.impactHeavy();
-                    break;
-                case 'notification':
-                    HapticEngine.notification();
-                    break;
-                default:
-                    HapticEngine.selection();
-            }
+            element.addEventListener('touchend', function() {
+                clearTimeout(longPressTimer);
+            });
+
+            element.addEventListener('touchmove', function() {
+                clearTimeout(longPressTimer);
+            });
         }
 
-        // Fetch matches from GitHub
         async function fetchMatches() {
             isLoadingMatches = true;
             renderMatches();
@@ -2269,7 +2345,7 @@
                 isLoadingMatches = false;
                 renderMatches();
             } catch (error) {
-                console.error('Error fetching matches:', error);
+                console.error('Error fetching matches:', JSON.stringify(error));
                 isLoadingMatches = false;
                 renderMatches();
             }
@@ -2281,7 +2357,6 @@
             return date.toLocaleDateString('fr-FR', options);
         }
 
-        // Initialize
         function init() {
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
                 setMode('light');
@@ -2295,6 +2370,7 @@
             fetchMatches();
             renderHistory();
             setupEventListeners();
+            setupFAQ();
         }
 
         function setMode(mode) {
@@ -2330,7 +2406,7 @@
 
             document.querySelectorAll('.sport-option').forEach(function(option) {
                 option.addEventListener('click', function() {
-                    triggerHaptic('selection');
+                    vibrate();
                     if (this.dataset.available === 'true') {
                         selectSport(this.dataset.sport);
                     }
@@ -2433,11 +2509,15 @@
             mainContent.innerHTML = html;
 
             document.querySelectorAll('.match-card').forEach(function(card) {
+                // Click vibration
                 card.addEventListener('click', function() {
-                    triggerHaptic('medium');
+                    vibrate();
                     var matchId = this.dataset.matchId;
                     openMatchDetail(matchId);
                 });
+
+                // Long press vibration
+                handleLongPress(card, null);
             });
         }
 
@@ -2455,7 +2535,6 @@
             document.getElementById('homeNameLg').textContent = selectedMatch.home;
             document.getElementById('awayNameLg').textContent = selectedMatch.away;
 
-            // Set logos with blurred backgrounds
             var homeLogoEl = document.getElementById('homeLogoLg');
             var awayLogoEl = document.getElementById('awayLogoLg');
             var homeLogoBg = document.getElementById('homeLogoBg');
@@ -2540,7 +2619,7 @@
         }
 
         function goBackToHome() {
-            triggerHaptic('light');
+            vibrate();
             isOnDetailPage = false;
             selectedMatch = null;
 
@@ -2572,7 +2651,7 @@
         }
 
         function openSettings() {
-            triggerHaptic('selection');
+            vibrate();
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('settingsPage').classList.add('active');
             mainHeader.style.display = 'none';
@@ -2581,7 +2660,7 @@
         }
 
         function closeSettings() {
-            triggerHaptic('light');
+            vibrate();
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
@@ -2592,7 +2671,7 @@
         }
 
         function openProfile() {
-            triggerHaptic('selection');
+            vibrate();
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('profilePage').classList.add('active');
             mainHeader.style.display = 'none';
@@ -2601,7 +2680,7 @@
         }
 
         function closeProfile() {
-            triggerHaptic('light');
+            vibrate();
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
@@ -2612,7 +2691,7 @@
         }
 
         function openHistory() {
-            triggerHaptic('selection');
+            vibrate();
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('historyPage').classList.add('active');
             mainHeader.style.display = 'none';
@@ -2622,7 +2701,7 @@
         }
 
         function closeHistory() {
-            triggerHaptic('light');
+            vibrate();
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
@@ -2633,7 +2712,7 @@
         }
 
         function openContact() {
-            triggerHaptic('selection');
+            vibrate();
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('contactPage').classList.add('active');
             mainHeader.style.display = 'none';
@@ -2642,13 +2721,53 @@
         }
 
         function closeContact() {
-            triggerHaptic('light');
+            vibrate();
             pages.forEach(function(page) { page.classList.remove('active'); });
             document.getElementById('plusPage').classList.add('active');
             mainHeader.style.display = 'flex';
             bottomNav.style.display = 'flex';
             navItems.forEach(function(item) {
                 item.classList.toggle('active', item.dataset.tab === 'plus');
+            });
+        }
+
+        function openHelp() {
+            vibrate();
+            pages.forEach(function(page) { page.classList.remove('active'); });
+            document.getElementById('helpPage').classList.add('active');
+            mainHeader.style.display = 'none';
+            bottomNav.style.display = 'none';
+            navItems.forEach(function(item) { item.classList.remove('active'); });
+        }
+
+        function closeHelp() {
+            vibrate();
+            pages.forEach(function(page) { page.classList.remove('active'); });
+            document.getElementById('plusPage').classList.add('active');
+            mainHeader.style.display = 'flex';
+            bottomNav.style.display = 'flex';
+            navItems.forEach(function(item) {
+                item.classList.toggle('active', item.dataset.tab === 'plus');
+            });
+        }
+
+        function setupFAQ() {
+            document.querySelectorAll('.faq-item').forEach(function(item) {
+                var question = item.querySelector('.faq-question');
+                question.addEventListener('click', function() {
+                    vibrate();
+                    var isOpen = item.classList.contains('open');
+
+                    // Close all FAQ items
+                    document.querySelectorAll('.faq-item').forEach(function(faq) {
+                        faq.classList.remove('open');
+                    });
+
+                    // Open clicked item if it was closed
+                    if (!isOpen) {
+                        item.classList.add('open');
+                    }
+                });
             });
         }
 
@@ -2705,7 +2824,7 @@
         }
 
         function openBottomSheet() {
-            triggerHaptic('selection');
+            vibrate();
             bottomSheetOpen = true;
             bottomSheet.classList.add('active');
             bottomSheetOverlay.classList.add('active');
@@ -2736,11 +2855,15 @@
 
             detailBackBtn.addEventListener('click', goBackToHome);
 
+            // Bottom nav with vibration
             navItems.forEach(function(item) {
                 item.addEventListener('click', function() {
-                    triggerHaptic('selection');
+                    vibrate();
                     switchPage(this.dataset.tab);
                 });
+
+                // Long press on nav items
+                handleLongPress(item, null);
             });
 
             openSettingsBtn.addEventListener('click', openSettings);
@@ -2755,36 +2878,31 @@
             openContactBtn.addEventListener('click', openContact);
             backFromContact.addEventListener('click', closeContact);
 
-            // Contact buttons haptic
+            openHelpBtn.addEventListener('click', openHelp);
+            backFromHelp.addEventListener('click', closeHelp);
+
+            // Contact buttons vibration
             document.querySelectorAll('.contact-option-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
-                    triggerHaptic('medium');
+                    vibrate();
                 });
             });
 
-            // Haptic toggle with enhanced feedback
+            // Haptic toggle - persists enabled state
             hapticToggle.addEventListener('change', function() {
                 hapticEnabled = this.checked;
                 if (hapticEnabled) {
-                    HapticEngine.enable();
                     // Immediate feedback on enable
                     setTimeout(function() {
-                        triggerHaptic('notification');
+                        vibrate();
                     }, 100);
-                } else {
-                    HapticEngine.disable();
                 }
-            });
-
-            // Auth button
-            authBtn.addEventListener('click', function() {
-                triggerHaptic('medium');
             });
 
             historyFilterTabs.addEventListener('click', function(e) {
                 var tab = e.target.closest('.history-filter-tab');
                 if (tab) {
-                    triggerHaptic('selection');
+                    vibrate();
                     currentHistoryFilter = tab.dataset.filter;
                     document.querySelectorAll('.history-filter-tab').forEach(function(t) {
                         t.classList.toggle('active', t.dataset.filter === currentHistoryFilter);
@@ -2795,7 +2913,7 @@
 
             modeOptions.forEach(function(opt) {
                 opt.addEventListener('click', function() {
-                    triggerHaptic('selection');
+                    vibrate();
                     setMode(this.dataset.mode);
                 });
             });
@@ -2803,7 +2921,7 @@
             detailTabs.addEventListener('click', function(e) {
                 var tab = e.target.closest('.detail-tab');
                 if (tab) {
-                    triggerHaptic('selection');
+                    vibrate();
                     currentDetailTab = tab.dataset.tab;
                     document.querySelectorAll('.detail-tab').forEach(function(t) {
                         t.classList.toggle('active', t.dataset.tab === currentDetailTab);
@@ -2838,10 +2956,10 @@
                 currentY = 0;
             });
 
-            // Add haptic to all interactive elements
+            // Add vibration to all interactive elements
             document.querySelectorAll('.plus-menu-item:not(.disabled), .header-btn').forEach(function(el) {
                 el.addEventListener('click', function() {
-                    triggerHaptic('light');
+                    vibrate();
                 });
             });
         }
