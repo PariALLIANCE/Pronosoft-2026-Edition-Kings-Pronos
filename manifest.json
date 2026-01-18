@@ -1,6 +1,6 @@
 {
   "name": "King-Pronos",
-  "short_name": "KP",
+  "short_name": "King-Pronos",
   "description": "Les meilleurs pronostics sportifs basés sur l'IA",
   "start_url": "/",
   "display": "standalone",
