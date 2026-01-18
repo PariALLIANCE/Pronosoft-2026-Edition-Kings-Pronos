@@ -6,17 +6,28 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="format-detection" content="telephone=no">
-    <title>Safe Bet - Prédictions Sportives</title>
+    <meta name="theme-color" content="#00d4aa">
+    <meta name="description" content="King-Pronos - Les meilleurs pronostics sportifs basés sur l'IA">
+    <title>King-Pronos - Prédictions Sportives</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --accent: #00d4aa;
             --accent-light: #00f5c4;
+            --accent-dark: #00a885;
             --accent-red: #e63946;
             --yellow: #ffc107;
             --success: #10b981;
             --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --blue: #3b82f6;
         }
 
         .theme-glass.mode-dark {
@@ -38,6 +49,8 @@
             --nav-bg: rgba(15, 20, 25, 0.2);
             --tabs-bg: rgba(15, 20, 25, 0.85);
             --tab-active-bg: rgba(0, 212, 170, 0.15);
+            --form-row-odd: rgba(255, 255, 255, 0.02);
+            --form-row-even: transparent;
         }
 
         .theme-glass.mode-light {
@@ -59,6 +72,8 @@
             --nav-bg: rgba(221, 226, 234, 0.2);
             --tabs-bg: rgba(221, 226, 234, 0.9);
             --tab-active-bg: rgba(0, 212, 170, 0.2);
+            --form-row-odd: rgba(0, 0, 0, 0.02);
+            --form-row-even: transparent;
         }
 
         * {
@@ -194,6 +209,12 @@
 
         .header-btn:active {
             transform: scale(0.95);
+        }
+
+        .header-btn.active {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--accent);
+            border-color: var(--accent);
         }
 
         .detail-page-header {
@@ -412,7 +433,7 @@
 
         .detail-tabs {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             padding: 4px;
             background: var(--tabs-bg);
             backdrop-filter: blur(var(--glass-blur));
@@ -431,7 +452,7 @@
         .detail-tab {
             flex: 1;
             min-width: fit-content;
-            padding: 10px 14px;
+            padding: 10px 12px;
             font-size: 11px;
             font-weight: 600;
             color: var(--text-muted);
@@ -620,40 +641,734 @@
             padding-bottom: 30px;
         }
 
-        .detail-section-header {
+        .detail-section {
             padding: 16px;
-            font-size: 11px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .section-title-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .section-title-icon.green {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+        }
+
+        .section-title-icon.purple {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--purple);
+        }
+
+        .section-title-icon.blue {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--blue);
+        }
+
+        .section-title-icon.orange {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+        }
+
+        .section-title-icon.accent {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--accent);
+        }
+
+        .section-title-text h3 {
+            font-size: 15px;
             font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .section-title-text span {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .info-card {
+            background: var(--card-gradient);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: 14px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-row-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .info-row-label i {
+            width: 20px;
+            text-align: center;
+            color: var(--accent);
+        }
+
+        .info-row-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .prediction-minimalist {
+            background: var(--card-gradient);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .prediction-minimalist-label {
+            font-size: 11px;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            background: var(--bg-secondary);
+            letter-spacing: 1.2px;
+            margin-bottom: 12px;
+            font-weight: 600;
         }
 
-        .detail-text-content {
-            padding: 16px;
-        }
-
-        .detail-text-content p {
-            font-size: 15px;
-            line-height: 1.7;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-        }
-
-        .detail-text-content p a,
-        .detail-text-content p .team-link {
+        .prediction-minimalist-value {
+            font-size: 22px;
+            font-weight: 700;
             color: var(--accent);
-            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 8px;
+        }
+
+        .prediction-minimalist-odds {
+            font-size: 13px;
+            color: var(--text-secondary);
             font-weight: 500;
         }
 
-        .detail-text-content h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 12px;
+        .prediction-minimalist-confidence {
+            font-size: 12px;
+            color: var(--warning);
             margin-top: 8px;
+            font-weight: 600;
+        }
+
+        .analysis-text-content {
+            background: var(--card-gradient);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+        }
+
+        .analysis-text-content p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .analysis-text-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .analysis-text-content strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .ai-signature {
+            margin-top: 20px;
+            padding: 16px;
+            background: var(--bg-card-inner);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .ai-signature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        .ai-signature-text {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .ai-signature-name {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .team-switcher {
+            display: flex;
+            gap: 8px;
+            padding: 4px;
+            background: var(--tabs-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        .team-switch-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+        .team-switch-btn.active {
+            background: var(--tab-active-bg);
+        }
+
+        .team-switch-logo {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card-inner);
+            border: 1px solid var(--border-color);
+        }
+
+        .team-switch-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+        }
+
+        .team-switch-logo i {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .team-switch-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 80px;
+        }
+
+        .team-switch-btn.active .team-switch-name {
+            color: var(--accent);
+        }
+
+        .form-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        .form-badge.win {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .form-badge.draw {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+        }
+
+        .form-badge.loss {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .form-match-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            background: var(--form-row-odd);
+        }
+
+        .form-match-row:nth-child(even) {
+            background: var(--form-row-even);
+        }
+
+        .form-match-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-match-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            min-width: 50px;
+        }
+
+        .form-match-result {
+            flex-shrink: 0;
+        }
+
+        .form-match-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .form-match-teams {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .form-match-score-inline {
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent);
+        }
+
+        .form-match-comp {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .form-match-stats {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .standings-table thead th {
+            padding: 12px 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .standings-table thead th:first-child {
+            text-align: left;
+            padding-left: 12px;
+        }
+
+        .standings-table tbody tr {
+            transition: background 0.2s ease;
+        }
+
+        .standings-table tbody tr:nth-child(odd) {
+            background: var(--form-row-odd);
+        }
+
+        .standings-table tbody tr.highlight {
+            background: rgba(0, 212, 170, 0.08);
+        }
+
+        .standings-table tbody td {
+            padding: 10px 8px;
+            font-size: 12px;
+            text-align: center;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .standings-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .standings-table tbody td:first-child {
+            text-align: left;
+            padding-left: 12px;
+        }
+
+        .standings-rank {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .standings-rank.ucl {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .standings-rank.uel {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .standings-rank.conf {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .standings-rank.relegation {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .standings-rank.normal {
+            background: var(--bg-card-inner);
+            color: var(--text-secondary);
+        }
+
+        .standings-team {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .standings-team-logo {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card-inner);
+            flex-shrink: 0;
+        }
+
+        .standings-team-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+        }
+
+        .standings-team-logo i {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .standings-team-name {
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+        }
+
+        .standings-pts {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .h2h-stats {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 16px;
+            align-items: center;
+            padding: 20px;
+            background: var(--card-gradient);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 16px;
+        }
+
+        .h2h-team-stats {
+            text-align: center;
+        }
+
+        .h2h-team-logo {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 8px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card-inner);
+            border: 2px solid var(--border-color);
+        }
+
+        .h2h-team-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 4px;
+        }
+
+        .h2h-team-logo i {
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .h2h-team-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .h2h-team-wins {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--success);
+        }
+
+        .h2h-team-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .h2h-vs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .h2h-vs-draws {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-secondary);
+        }
+
+        .h2h-vs-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .h2h-matches-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        .h2h-match-row {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            background: var(--form-row-odd);
+        }
+
+        .h2h-match-row:nth-child(even) {
+            background: var(--form-row-even);
+        }
+
+        .h2h-match-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .h2h-match-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            min-width: 70px;
+        }
+
+        .h2h-match-teams {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .h2h-team-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .h2h-team-logo-small {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card-inner);
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .h2h-team-logo-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 2px;
+        }
+
+        .h2h-team-logo-small i {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .h2h-team-name-small {
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .h2h-team-name-small.winner {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .h2h-team-name-small.loser {
+            color: var(--danger);
+        }
+
+        .h2h-match-score {
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-primary);
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .h2h-match-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+            padding-top: 4px;
+        }
+
+        .h2h-match-stats-inline {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .stat-bar-row {
+            margin-bottom: 14px;
+        }
+
+        .stat-bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .stat-bar-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .stat-bar-values {
+            display: flex;
+            gap: 16px;
+        }
+
+        .stat-bar-value {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .stat-bar-value.home {
+            color: var(--accent);
+        }
+
+        .stat-bar-value.away {
+            color: var(--purple);
+        }
+
+        .stat-bar-track {
+            height: 6px;
+            background: var(--bg-card-inner);
+            border-radius: 3px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .stat-bar-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+
+        .stat-bar-fill.home {
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 3px 0 0 3px;
+        }
+
+        .stat-bar-fill.away {
+            background: linear-gradient(90deg, var(--purple) 0%, #a78bfa 100%);
+            border-radius: 0 3px 3px 0;
         }
 
         .bottom-sheet-overlay {
@@ -690,6 +1405,8 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
             border-bottom: none;
+            display: flex;
+            flex-direction: column;
         }
 
         .bottom-sheet.active {
@@ -707,6 +1424,7 @@
         .bottom-sheet-header {
             padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
         }
 
         .bottom-sheet-header h2 {
@@ -719,7 +1437,7 @@
             padding: 8px 16px 24px;
             padding-bottom: max(24px, env(safe-area-inset-bottom));
             overflow-y: auto;
-            max-height: calc(70vh - 80px);
+            flex: 1;
         }
 
         .sport-option {
@@ -782,6 +1500,142 @@
             background: var(--bg-card-inner);
             color: var(--text-muted);
             border: 1px solid var(--border-color);
+        }
+
+        .league-option {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .league-option:hover {
+            background: var(--bg-card-inner);
+        }
+
+        .league-option.active {
+            background: rgba(0, 212, 170, 0.1);
+        }
+
+        .league-option .league-flag {
+            font-size: 20px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .league-option span {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        .league-option .check-icon {
+            font-size: 16px;
+            color: var(--accent);
+            opacity: 0;
+        }
+
+        .league-option.active .check-icon {
+            opacity: 1;
+        }
+
+        .search-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 300;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-container.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--header-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-back-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-primary);
+            font-size: 18px;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 40px 10px 16px;
+            background: var(--bg-card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Outfit', sans-serif;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 14px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease;
+        }
+
+        .search-clear-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .search-results {
+            flex: 1;
+            overflow-y: auto;
+            padding: 14px 16px 90px;
+        }
+
+        .search-results .match-card {
+            margin-bottom: 10px;
         }
 
         .plus-page {
@@ -849,14 +1703,6 @@
             color: var(--yellow);
         }
 
-        .plus-menu-icon.whatsapp i {
-            color: #25D366;
-        }
-
-        .plus-menu-icon.telegram i {
-            color: #0088cc;
-        }
-
         .plus-menu-text {
             flex: 1;
         }
@@ -876,17 +1722,6 @@
         .plus-menu-arrow {
             color: var(--text-muted);
             font-size: 14px;
-        }
-
-        .disabled-badge {
-            font-size: 9px;
-            font-weight: 600;
-            text-transform: uppercase;
-            padding: 3px 8px;
-            border-radius: 6px;
-            background: var(--bg-card-inner);
-            color: var(--text-muted);
-            border: 1px solid var(--border-color);
         }
 
         .settings-page {
@@ -1153,345 +1988,6 @@
             background-color: var(--accent);
         }
 
-        .history-page {
-            padding: 16px 16px 90px;
-        }
-
-        .history-filter-tabs {
-            display: flex;
-            gap: 8px;
-            padding: 4px;
-            background: var(--tabs-bg);
-            backdrop-filter: blur(var(--glass-blur));
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 20px;
-        }
-
-        .history-filter-tab {
-            flex: 1;
-            padding: 10px 12px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            text-align: center;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .history-filter-tab.active {
-            color: var(--accent);
-            background: var(--tab-active-bg);
-        }
-
-        .history-item {
-            background: var(--card-gradient);
-            backdrop-filter: blur(var(--glass-blur));
-            border-radius: 14px;
-            padding: 14px 16px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 10px;
-        }
-
-        .history-item-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .history-item-league {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .history-item-flag {
-            font-size: 14px;
-        }
-
-        .history-item-league-name {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-
-        .history-item-result {
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .result-win {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-        }
-
-        .result-loss {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-        }
-
-        .history-item-match {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .history-team {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-            min-width: 0;
-        }
-
-        .history-team-logo {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--bg-card-inner);
-            border: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .history-team-logo i {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .history-team-name {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-primary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .history-score {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--accent);
-            font-family: 'Space Grotesk', sans-serif;
-            padding: 0 12px;
-            flex-shrink: 0;
-        }
-
-        .history-item-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .history-item-date {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .history-item-prediction {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        .history-item-prediction strong {
-            color: var(--accent);
-        }
-
-        .contact-page {
-            padding: 16px 16px 90px;
-        }
-
-        .contact-options {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .contact-option-btn {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 18px 20px;
-            background: var(--card-gradient);
-            backdrop-filter: blur(var(--glass-blur));
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-
-        .contact-option-btn:active {
-            transform: scale(0.98);
-            background: var(--bg-card-inner);
-        }
-
-        .contact-option-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-option-icon.whatsapp {
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-        }
-
-        .contact-option-icon.telegram {
-            background: linear-gradient(135deg, #0088cc 0%, #229ED9 100%);
-        }
-
-        .contact-option-icon.email {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-        }
-
-        .contact-option-icon i {
-            font-size: 22px;
-            color: white;
-        }
-
-        .contact-option-text {
-            flex: 1;
-        }
-
-        .contact-option-text span {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-            display: block;
-        }
-
-        .contact-option-text small {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .contact-option-arrow {
-            color: var(--text-muted);
-            font-size: 16px;
-        }
-
-        /* Help Page Styles */
-        .help-page {
-            padding: 16px 16px 90px;
-        }
-
-        .help-section {
-            margin-bottom: 20px;
-        }
-
-        .help-section-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .help-section-title i {
-            font-size: 16px;
-        }
-
-        .faq-item {
-            background: var(--card-gradient);
-            backdrop-filter: blur(var(--glass-blur));
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 18px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .faq-question:active {
-            background: var(--bg-card-inner);
-        }
-
-        .faq-question span {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-            flex: 1;
-            padding-right: 12px;
-        }
-
-        .faq-question i {
-            font-size: 12px;
-            color: var(--text-muted);
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item.open .faq-question i {
-            transform: rotate(180deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .faq-item.open .faq-answer {
-            max-height: 500px;
-        }
-
-        .faq-answer-content {
-            padding: 0 18px 16px;
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
-        .help-tip-card {
-            background: linear-gradient(135deg, rgba(0, 212, 170, 0.1) 0%, rgba(0, 245, 196, 0.05) 100%);
-            border: 1px solid rgba(0, 212, 170, 0.2);
-            border-radius: 14px;
-            padding: 16px 18px;
-            margin-bottom: 10px;
-        }
-
-        .help-tip-card h4 {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .help-tip-card p {
-            font-size: 13px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-        }
-
         .bottom-nav {
             position: fixed;
             bottom: 12px;
@@ -1661,7 +2157,7 @@
     <div class="app-container">
         <header class="header" id="mainHeader">
             <div class="header-left">
-                <div class="logo">SB</div>
+                <div class="logo">KP</div>
                 <div class="sport-selector" id="sportSelector">
                     <h1 id="sportTitle">Football</h1>
                     <i class="fas fa-chevron-down"></i>
@@ -1669,16 +2165,18 @@
                 <h1 class="header-title" id="headerTitle" style="display: none;">Menu</h1>
             </div>
             <div class="header-right" id="headerRight">
-                <button class="header-btn"><i class="fas fa-globe"></i></button>
-                <button class="header-btn"><i class="fas fa-search"></i></button>
+                <button class="header-btn" id="leagueFilterBtn"><i class="fas fa-globe"></i></button>
+                <button class="header-btn" id="searchBtn"><i class="fas fa-search"></i></button>
             </div>
         </header>
 
         <div class="pages-container">
+            <!-- Predictions Page -->
             <div class="page active" id="predictionsPage">
                 <main class="main-content" id="mainContent"></main>
             </div>
 
+            <!-- Match Detail Page -->
             <div class="page" id="matchDetailPage">
                 <div class="detail-page-header" id="detailPageHeader">
                     <div class="detail-header-top">
@@ -1730,11 +2228,11 @@
 
                     <div class="detail-tabs-container">
                         <div class="detail-tabs" id="detailTabs">
-                            <div class="detail-tab active" data-tab="resume">Résumé</div>
-                            <div class="detail-tab" data-tab="compos">Compos</div>
-                            <div class="detail-tab" data-tab="cotes">Cotes</div>
-                            <div class="detail-tab" data-tab="tat">TàT</div>
+                            <div class="detail-tab active" data-tab="details">Détails</div>
+                            <div class="detail-tab" data-tab="analyse">Analyse</div>
+                            <div class="detail-tab" data-tab="forme">Forme</div>
                             <div class="detail-tab" data-tab="classement">Class.</div>
+                            <div class="detail-tab" data-tab="tat">TàT</div>
                         </div>
                     </div>
                 </div>
@@ -1742,15 +2240,17 @@
                 <div class="detail-content-scroll" id="detailContentScroll"></div>
             </div>
 
+            <!-- Results Page (Safe) -->
             <div class="page" id="resultsPage">
-                <main class="main-content">
+                <main class="main-content" id="safeMatchContent">
                     <div class="empty-state">
                         <i class="fas fa-shield-halved"></i>
-                        <p>Safe à venir...</p>
+                        <p>Chargement du match Safe...</p>
                     </div>
                 </main>
             </div>
 
+            <!-- Plus Page -->
             <div class="page" id="plusPage">
                 <div class="plus-page">
                     <div class="plus-section">
@@ -1764,14 +2264,12 @@
                                 </div>
                                 <i class="fas fa-chevron-right plus-menu-arrow"></i>
                             </div>
-                            <div class="plus-menu-item disabled" id="premiumBtn">
-                                <div class="plus-menu-icon gold"><i class="fas fa-crown"></i></div>
-                                <div class="plus-menu-text">
-                                    <span>Premium</span>
-                                    <small>Bientôt disponible</small>
-                                </div>
-                                <span class="disabled-badge">Bientôt</span>
-                            </div>
+                        </div>
+                    </div>
+
+                    <div class="plus-section">
+                        <div class="plus-section-title">Historique</div>
+                        <div class="plus-menu">
                             <div class="plus-menu-item">
                                 <div class="plus-menu-icon"><i class="fas fa-star"></i></div>
                                 <div class="plus-menu-text">
@@ -1794,49 +2292,12 @@
                                 </div>
                                 <i class="fas fa-chevron-right plus-menu-arrow"></i>
                             </div>
-                            <div class="plus-menu-item">
-                                <div class="plus-menu-icon"><i class="fas fa-bell"></i></div>
-                                <div class="plus-menu-text">
-                                    <span>Notifications</span>
-                                    <small>Gérer les alertes</small>
-                                </div>
-                                <i class="fas fa-chevron-right plus-menu-arrow"></i>
-                            </div>
-                            <div class="plus-menu-item" id="openHistoryBtn">
-                                <div class="plus-menu-icon"><i class="fas fa-history"></i></div>
-                                <div class="plus-menu-text">
-                                    <span>Historique</span>
-                                    <small>Pronostics passés</small>
-                                </div>
-                                <i class="fas fa-chevron-right plus-menu-arrow"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="plus-section">
-                        <div class="plus-section-title">Support</div>
-                        <div class="plus-menu">
-                            <div class="plus-menu-item" id="openHelpBtn">
-                                <div class="plus-menu-icon"><i class="fas fa-question-circle"></i></div>
-                                <div class="plus-menu-text">
-                                    <span>Aide</span>
-                                    <small>FAQ et tutoriels</small>
-                                </div>
-                                <i class="fas fa-chevron-right plus-menu-arrow"></i>
-                            </div>
-                            <div class="plus-menu-item" id="openContactBtn">
-                                <div class="plus-menu-icon"><i class="fas fa-envelope"></i></div>
-                                <div class="plus-menu-text">
-                                    <span>Nous contacter</span>
-                                    <small>WhatsApp, Telegram, Email</small>
-                                </div>
-                                <i class="fas fa-chevron-right plus-menu-arrow"></i>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Settings Page -->
             <div class="page" id="settingsPage">
                 <div class="settings-page">
                     <div class="settings-back" id="backFromSettings">
@@ -1867,6 +2328,7 @@
                 </div>
             </div>
 
+            <!-- Profile Page -->
             <div class="page" id="profilePage">
                 <div class="profile-page">
                     <div class="profile-header-bar" id="backFromProfile">
@@ -1879,7 +2341,7 @@
                             <div class="profile-icon-large">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <p class="profile-welcome-text">Bienvenue sur Safe Bet ! Personnalisez votre expérience avec les options ci-dessous.</p>
+                            <p class="profile-welcome-text">Bienvenue sur King-Pronos ! Personnalisez votre expérience avec les options ci-dessous.</p>
                         </div>
 
                         <div class="profile-bottom-section">
@@ -1900,211 +2362,10 @@
                     </div>
                 </div>
             </div>
-
-            <div class="page" id="historyPage">
-                <div class="history-page">
-                    <div class="settings-back" id="backFromHistory">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>Historique</span>
-                    </div>
-
-                    <div class="history-filter-tabs" id="historyFilterTabs">
-                        <div class="history-filter-tab active" data-filter="all">Tous</div>
-                        <div class="history-filter-tab" data-filter="win">Gagnés</div>
-                        <div class="history-filter-tab" data-filter="loss">Perdus</div>
-                    </div>
-
-                    <div id="historyContent"></div>
-                </div>
-            </div>
-
-            <div class="page" id="contactPage">
-                <div class="contact-page">
-                    <div class="settings-back" id="backFromContact">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>Nous contacter</span>
-                    </div>
-
-                    <div class="contact-options">
-                        <a href="https://wa.me/33612345678" target="_blank" rel="noopener noreferrer" class="contact-option-btn" id="whatsappBtn">
-                            <div class="contact-option-icon whatsapp">
-                                <i class="fab fa-whatsapp"></i>
-                            </div>
-                            <div class="contact-option-text">
-                                <span>WhatsApp</span>
-                                <small>Réponse rapide sous 24h</small>
-                            </div>
-                            <i class="fas fa-external-link-alt contact-option-arrow"></i>
-                        </a>
-
-                        <a href="https://t.me/safebetapp" target="_blank" rel="noopener noreferrer" class="contact-option-btn" id="telegramBtn">
-                            <div class="contact-option-icon telegram">
-                                <i class="fab fa-telegram-plane"></i>
-                            </div>
-                            <div class="contact-option-text">
-                                <span>Telegram</span>
-                                <small>Rejoignez notre canal</small>
-                            </div>
-                            <i class="fas fa-external-link-alt contact-option-arrow"></i>
-                        </a>
-
-                        <a href="mailto:contact@safebet.com" class="contact-option-btn" id="emailBtn">
-                            <div class="contact-option-icon email">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-option-text">
-                                <span>Email</span>
-                                <small>contact@safebet.com</small>
-                            </div>
-                            <i class="fas fa-external-link-alt contact-option-arrow"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Page Aide -->
-            <div class="page" id="helpPage">
-                <div class="help-page">
-                    <div class="settings-back" id="backFromHelp">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>Centre d'aide</span>
-                    </div>
-
-                    <div class="help-section">
-                        <div class="help-section-title">
-                            <i class="fas fa-lightbulb"></i>
-                            Conseils utiles
-                        </div>
-
-                        <div class="help-tip-card">
-                            <h4><i class="fas fa-chart-line"></i> Comprendre les pronostics</h4>
-                            <p>Nos pronostics sont classés en 3 catégories : <strong>Safe</strong> (haute probabilité), <strong>Value</strong> (bon rapport risque/gain), et <strong>Normal</strong> (analyse standard). Choisissez selon votre stratégie.</p>
-                        </div>
-
-                        <div class="help-tip-card">
-                            <h4><i class="fas fa-star"></i> Utilisez les favoris</h4>
-                            <p>Marquez vos matchs préférés avec l'étoile pour les retrouver facilement et ne manquer aucun coup d'envoi.</p>
-                        </div>
-                    </div>
-
-                    <div class="help-section">
-                        <div class="help-section-title">
-                            <i class="fas fa-circle-question"></i>
-                            Questions fréquentes
-                        </div>
-
-                        <div class="faq-item" data-faq="1">
-                            <div class="faq-question">
-                                <span>Comment fonctionnent les pronostics ?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <div class="faq-answer-content">
-                                    Nos pronostics sont basés sur une analyse approfondie des statistiques, des formes récentes des équipes, des confrontations directes et d'autres facteurs clés. Chaque match est évalué pour vous offrir les meilleures recommandations possibles.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item" data-faq="2">
-                            <div class="faq-question">
-                                <span>Que signifient Safe, Value et Normal ?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <div class="faq-answer-content">
-                                    <strong>Safe :</strong> Pronostics avec une probabilité de réussite élevée, idéal pour les paris sécurisés.<br><br>
-                                    <strong>Value :</strong> Pronostics offrant un excellent rapport entre le risque et le gain potentiel.<br><br>
-                                    <strong>Normal :</strong> Pronostics standards basés sur notre analyse habituelle.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item" data-faq="3">
-                            <div class="faq-question">
-                                <span>Comment activer les vibrations ?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <div class="faq-answer-content">
-                                    Allez dans Menu > Profil, puis activez l'option "Vibration". Cette fonctionnalité est disponible sur les appareils Android et vous donnera un retour tactile lors des interactions avec l'application.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item" data-faq="4">
-                            <div class="faq-question">
-                                <span>Les pronostics sont-ils gratuits ?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <div class="faq-answer-content">
-                                    Oui, tous les pronostics disponibles dans l'application sont entièrement gratuits. Une version Premium avec des fonctionnalités exclusives sera bientôt disponible.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item" data-faq="5">
-                            <div class="faq-question">
-                                <span>Comment changer le thème de l'app ?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <div class="faq-answer-content">
-                                    Rendez-vous dans Menu > Thème. Vous pouvez choisir entre le mode Clair et le mode Sombre selon vos préférences. L'application détecte aussi automatiquement le thème de votre système.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item" data-faq="6">
-                            <div class="faq-question">
-                                <span>D'autres sports seront-ils ajoutés ?</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <div class="faq-answer-content">
-                                    Absolument ! Nous travaillons activement sur l'ajout de nouveaux sports comme le Basketball, le Tennis, le Hockey, le Rugby et le Baseball. Restez connectés pour les mises à jour !
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="help-section">
-                        <div class="help-section-title">
-                            <i class="fas fa-book-open"></i>
-                            Tutoriels
-                        </div>
-
-                        <div class="faq-item" data-faq="7">
-                            <div class="faq-question">
-                                <span>Naviguer dans l'application</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <div class="faq-answer-content">
-                                    <strong>1. Pronos :</strong> Accédez aux pronostics du jour depuis l'onglet principal.<br><br>
-                                    <strong>2. Safe :</strong> Découvrez les paris les plus sûrs sélectionnés par nos experts.<br><br>
-                                    <strong>3. Menu :</strong> Gérez votre profil, thème, historique et accédez à l'aide.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="faq-item" data-faq="8">
-                            <div class="faq-question">
-                                <span>Consulter un pronostic détaillé</span>
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                            <div class="faq-answer">
-                                <div class="faq-answer-content">
-                                    Cliquez sur n'importe quelle carte de match pour accéder aux détails complets : résumé, compositions d'équipes, cotes, historique des confrontations (TàT) et classement actuel.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
+    <!-- Bottom Sheet for Sports -->
     <div class="bottom-sheet-overlay" id="bottomSheetOverlay"></div>
     <div class="bottom-sheet" id="bottomSheet">
         <div class="bottom-sheet-handle"></div>
@@ -2112,6 +2373,32 @@
             <h2>Choisir un sport</h2>
         </div>
         <div class="bottom-sheet-content" id="sportsList"></div>
+    </div>
+
+    <!-- Bottom Sheet for League Filter -->
+    <div class="bottom-sheet-overlay" id="leagueSheetOverlay"></div>
+    <div class="bottom-sheet" id="leagueSheet">
+        <div class="bottom-sheet-handle"></div>
+        <div class="bottom-sheet-header">
+            <h2>Filtrer par ligue</h2>
+        </div>
+        <div class="bottom-sheet-content" id="leaguesList"></div>
+    </div>
+
+    <!-- Search Container -->
+    <div class="search-container" id="searchContainer">
+        <div class="search-header">
+            <div class="search-back-btn" id="searchBackBtn">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="search-input-wrapper">
+                <input type="text" class="search-input" id="searchInput" placeholder="Rechercher une équipe...">
+                <div class="search-clear-btn" id="searchClearBtn">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+        </div>
+        <div class="search-results" id="searchResults"></div>
     </div>
 
     <nav class="bottom-nav" id="bottomNav">
@@ -2141,21 +2428,37 @@
     </div>
 
     <script>
-        // ============================================
-        // VIBRATION SYSTEM FOR ANDROID
-        // ============================================
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').then(function(registration) {
+                    console.log('ServiceWorker registered:', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed:', err);
+                });
+            });
+        }
 
+        var HAPTIC_STORAGE_KEY = 'kingpronos_haptic_enabled';
         var hapticEnabled = false;
+
+        function loadHapticSettings() {
+            var stored = localStorage.getItem(HAPTIC_STORAGE_KEY);
+            if (stored !== null) {
+                hapticEnabled = stored === 'true';
+            }
+            return hapticEnabled;
+        }
+
+        function saveHapticSettings(enabled) {
+            hapticEnabled = enabled;
+            localStorage.setItem(HAPTIC_STORAGE_KEY, enabled.toString());
+        }
 
         function vibrate() {
             if (hapticEnabled && "vibrate" in navigator) {
                 navigator.vibrate(30);
             }
         }
-
-        // ============================================
-        // PREVENT ZOOM AND GESTURES
-        // ============================================
 
         document.addEventListener('gesturestart', function(e) {
             e.preventDefault();
@@ -2196,7 +2499,14 @@
             }
         });
 
-        // Sports data
+        function getTodayDate() {
+            var today = new Date();
+            var year = today.getFullYear();
+            var month = String(today.getMonth() + 1).padStart(2, '0');
+            var day = String(today.getDate()).padStart(2, '0');
+            return year + '-' + month + '-' + day;
+        }
+
         var sports = [
             { id: 'football', name: 'Football', icon: 'fa-futbol', emoji: '⚽', available: true },
             { id: 'basketball', name: 'Basketball', icon: 'fa-basketball', emoji: '🏀', available: false },
@@ -2207,10 +2517,11 @@
         ];
 
         var leagueFlags = {
+            'Colombia_Primera_A': '🇨🇴',
             'Spain_Laliga': '🇪🇸',
             'Italy_Serie_A': '🇮🇹',
             'Saudi_Arabia_Pro_League': '🇸🇦',
-            'Premier_League': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+            'England_Premier_League': '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
             'Bundesliga': '🇩🇪',
             'Ligue_1': '🇫🇷',
             'Eredivisie': '🇳🇱',
@@ -2234,26 +2545,22 @@
             baseball: []
         };
 
-        var historyData = [
-            { id: 1, league: 'Premier League', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', home: 'Liverpool', away: 'Manchester United', homeScore: 3, awayScore: 1, date: '28 déc. 2025', prediction: 'Victoire Liverpool', result: 'win' },
-            { id: 2, league: 'La Liga', flag: '🇪🇸', home: 'Atletico Madrid', away: 'Sevilla', homeScore: 1, awayScore: 1, date: '26 déc. 2025', prediction: 'Victoire Atletico', result: 'loss' },
-            { id: 3, league: 'Serie A', flag: '🇮🇹', home: 'AC Milan', away: 'Inter Milan', homeScore: 2, awayScore: 1, date: '24 déc. 2025', prediction: 'Victoire AC Milan', result: 'win' },
-            { id: 4, league: 'Bundesliga', flag: '🇩🇪', home: 'Bayern Munich', away: 'Dortmund', homeScore: 4, awayScore: 2, date: '22 déc. 2025', prediction: '+2.5 buts', result: 'win' },
-            { id: 5, league: 'Ligue 1', flag: '🇫🇷', home: 'PSG', away: 'Lyon', homeScore: 0, awayScore: 1, date: '20 déc. 2025', prediction: 'Victoire PSG', result: 'loss' }
-        ];
-
-        // State
         var currentSport = 'football';
         var currentTab = 'predictions';
-        var currentDetailTab = 'resume';
-        var currentHistoryFilter = 'all';
+        var currentDetailTab = 'details';
+        var currentFormTeam = 'home';
         var bottomSheetOpen = false;
+        var leagueSheetOpen = false;
+        var searchActive = false;
         var currentMode = 'dark';
         var selectedMatch = null;
         var isOnDetailPage = false;
         var isLoadingMatches = false;
+        var safeMatch = null;
+        var selectedLeague = 'all';
+        var availableLeagues = [];
+        var searchQuery = '';
 
-        // DOM Elements
         var mainHeader = document.getElementById('mainHeader');
         var sportSelector = document.getElementById('sportSelector');
         var sportTitle = document.getElementById('sportTitle');
@@ -2262,7 +2569,18 @@
         var bottomSheet = document.getElementById('bottomSheet');
         var bottomSheetOverlay = document.getElementById('bottomSheetOverlay');
         var sportsList = document.getElementById('sportsList');
+        var leagueSheet = document.getElementById('leagueSheet');
+        var leagueSheetOverlay = document.getElementById('leagueSheetOverlay');
+        var leaguesList = document.getElementById('leaguesList');
+        var leagueFilterBtn = document.getElementById('leagueFilterBtn');
+        var searchBtn = document.getElementById('searchBtn');
+        var searchContainer = document.getElementById('searchContainer');
+        var searchBackBtn = document.getElementById('searchBackBtn');
+        var searchInput = document.getElementById('searchInput');
+        var searchClearBtn = document.getElementById('searchClearBtn');
+        var searchResults = document.getElementById('searchResults');
         var mainContent = document.getElementById('mainContent');
+        var safeMatchContent = document.getElementById('safeMatchContent');
         var navItems = document.querySelectorAll('.nav-item');
         var pages = document.querySelectorAll('.page');
         var openSettingsBtn = document.getElementById('openSettingsBtn');
@@ -2277,22 +2595,13 @@
         var detailContentScroll = document.getElementById('detailContentScroll');
         var openProfileBtn = document.getElementById('openProfileBtn');
         var backFromProfile = document.getElementById('backFromProfile');
-        var openHistoryBtn = document.getElementById('openHistoryBtn');
-        var backFromHistory = document.getElementById('backFromHistory');
-        var historyFilterTabs = document.getElementById('historyFilterTabs');
-        var historyContent = document.getElementById('historyContent');
         var hapticToggle = document.getElementById('hapticToggle');
-        var openContactBtn = document.getElementById('openContactBtn');
-        var backFromContact = document.getElementById('backFromContact');
-        var openHelpBtn = document.getElementById('openHelpBtn');
-        var backFromHelp = document.getElementById('backFromHelp');
 
-        // Long press handling for cards
         var longPressTimer = null;
         var longPressDuration = 300;
 
         function handleLongPress(element, callback) {
-            element.addEventListener('touchstart', function(e) {
+            element.addEventListener('touchstart', function() {
                 longPressTimer = setTimeout(function() {
                     vibrate();
                     if (callback) callback();
@@ -2313,11 +2622,26 @@
             renderMatches();
 
             try {
-                var response = await fetch('https://raw.githubusercontent.com/PariALLIANCE/Data-Sports/main/data/football/games_of_day.json');
+                var todayDate = getTodayDate();
+                var url = 'https://raw.githubusercontent.com/PariALLIANCE/Data-Sports/main/data/football/predictions/games-' + todayDate + '.json';
+                
+                var response = await fetch(url);
                 if (!response.ok) throw new Error('Failed to fetch');
                 var data = await response.json();
 
-                matchesData.football = data.map(function(match, index) {
+                matchesData.football = data.map(function(match) {
+                    var confidence = match.Prediction_JSON ? match.Prediction_JSON.confidence : 0;
+                    var predictionText = match.Prediction_JSON ? match.Prediction_JSON.prediction_textuelle : '';
+                    
+                    var tier;
+                    if (confidence >= 80) {
+                        tier = 'safe';
+                    } else if (confidence >= 70) {
+                        tier = 'value';
+                    } else {
+                        tier = 'normal';
+                    }
+                    
                     return {
                         id: match.gameId,
                         league: match.league,
@@ -2333,17 +2657,36 @@
                         awayUrl: match.team2_url,
                         matchUrl: match.match_url,
                         score: match.score,
-                        tier: ['safe', 'value', 'normal'][index % 3],
-                        content: {
-                            intro: '<span class="team-link">' + match.team1 + '</span> affronte <span class="team-link">' + match.team2 + '</span> dans ce match de ' + formatLeagueName(match.league) + '.',
-                            title: 'Analyse du match',
-                            text: 'Match important entre ' + match.team1 + ' et ' + match.team2 + '. Les deux équipes cherchent à obtenir un résultat positif dans cette rencontre.'
-                        }
+                        confidence: confidence,
+                        tier: tier,
+                        predictionText: predictionText,
+                        recentForm: match.recent_form,
+                        h2h: match.h2h,
+                        odds: match.odds,
+                        leagueStanding: match.league_standing,
+                        analyse: match.Analyse
                     };
                 });
 
+                matchesData.football.sort(function(a, b) {
+                    return b.confidence - a.confidence;
+                });
+
+                availableLeagues = ['all'];
+                var leaguesSet = new Set();
+                matchesData.football.forEach(function(match) {
+                    leaguesSet.add(match.league);
+                });
+                availableLeagues = availableLeagues.concat(Array.from(leaguesSet).sort());
+
+                if (matchesData.football.length > 0) {
+                    safeMatch = matchesData.football[0];
+                    renderSafeMatch();
+                }
+
                 isLoadingMatches = false;
                 renderMatches();
+                renderLeaguesList();
             } catch (error) {
                 console.error('Error fetching matches:', JSON.stringify(error));
                 isLoadingMatches = false;
@@ -2358,6 +2701,9 @@
         }
 
         function init() {
+            var savedHaptic = loadHapticSettings();
+            hapticToggle.checked = savedHaptic;
+
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
                 setMode('light');
             }
@@ -2368,9 +2714,7 @@
 
             renderSportsList();
             fetchMatches();
-            renderHistory();
             setupEventListeners();
-            setupFAQ();
         }
 
         function setMode(mode) {
@@ -2414,6 +2758,39 @@
             });
         }
 
+        function renderLeaguesList() {
+            leaguesList.innerHTML = availableLeagues.map(function(league) {
+                var isActive = league === selectedLeague;
+                var leagueFlag = league === 'all' ? '🌍' : getLeagueFlag(league);
+                var leagueName = league === 'all' ? 'Toutes les ligues' : formatLeagueName(league);
+                
+                return '<div class="league-option ' + (isActive ? 'active' : '') + '" data-league="' + league + '">' +
+                    '<span class="league-flag">' + leagueFlag + '</span>' +
+                    '<span>' + leagueName + '</span>' +
+                    '<i class="fas fa-check check-icon"></i>' +
+                '</div>';
+            }).join('');
+
+            document.querySelectorAll('.league-option').forEach(function(option) {
+                option.addEventListener('click', function() {
+                    vibrate();
+                    selectLeague(this.dataset.league);
+                });
+            });
+        }
+
+        function selectLeague(league) {
+            selectedLeague = league;
+            closeLeagueSheet();
+            renderMatches();
+            
+            if (league === 'all') {
+                leagueFilterBtn.classList.remove('active');
+            } else {
+                leagueFilterBtn.classList.add('active');
+            }
+        }
+
         function selectSport(sportId) {
             var previousSport = currentSport;
             currentSport = sportId;
@@ -2454,6 +2831,26 @@
             return labels[tier] || 'Normal';
         }
 
+        function getFilteredMatches() {
+            var matches = matchesData[currentSport];
+            
+            if (selectedLeague !== 'all') {
+                matches = matches.filter(function(match) {
+                    return match.league === selectedLeague;
+                });
+            }
+            
+            if (searchQuery) {
+                var query = searchQuery.toLowerCase();
+                matches = matches.filter(function(match) {
+                    return match.home.toLowerCase().includes(query) || 
+                           match.away.toLowerCase().includes(query);
+                });
+            }
+            
+            return matches;
+        }
+
         function renderMatches() {
             if (isLoadingMatches) {
                 mainContent.innerHTML =
@@ -2464,61 +2861,146 @@
                 return;
             }
 
-            var matches = matchesData[currentSport];
+            var matches = getFilteredMatches();
 
             if (!matches || matches.length === 0) {
+                var message = searchQuery ? 'Aucun match trouvé pour "' + searchQuery + '"' : 'Aucun pronostic disponible pour le moment';
                 mainContent.innerHTML =
                     '<div class="empty-state">' +
                         '<i class="fas fa-calendar-times"></i>' +
-                        '<p>Aucun pronostic disponible pour le moment</p>' +
+                        '<p>' + message + '</p>' +
                     '</div>';
                 return;
             }
 
             var html = '';
             matches.forEach(function(match) {
-                var homeLogoHtml = match.homeLogo
-                    ? '<img src="' + match.homeLogo + '" alt="' + match.home + '">'
-                    : '<i class="fas fa-shield-halved"></i>';
-                var awayLogoHtml = match.awayLogo
-                    ? '<img src="' + match.awayLogo + '" alt="' + match.away + '">'
-                    : '<i class="fas fa-shield-halved"></i>';
-
-                html +=
-                    '<div class="match-card" data-match-id="' + match.id + '">' +
-                        '<span class="match-tier tier-' + match.tier + '">' + getTierLabel(match.tier) + '</span>' +
-                        '<div class="match-league">' +
-                            '<span class="match-league-flag">' + match.flag + '</span>' +
-                            '<span class="match-league-name">' + formatLeagueName(match.league) + '</span>' +
-                        '</div>' +
-                        '<div class="match-teams">' +
-                            '<div class="team">' +
-                                '<div class="team-logo">' + homeLogoHtml + '</div>' +
-                                '<span class="team-name">' + match.home + '</span>' +
-                            '</div>' +
-                            '<span class="vs-separator">VS</span>' +
-                            '<div class="team">' +
-                                '<div class="team-logo">' + awayLogoHtml + '</div>' +
-                                '<span class="team-name">' + match.away + '</span>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="match-date">' + match.date + '</div>' +
-                    '</div>';
+                html += renderMatchCard(match);
             });
-
             mainContent.innerHTML = html;
 
             document.querySelectorAll('.match-card').forEach(function(card) {
-                // Click vibration
                 card.addEventListener('click', function() {
                     vibrate();
                     var matchId = this.dataset.matchId;
                     openMatchDetail(matchId);
                 });
 
-                // Long press vibration
                 handleLongPress(card, null);
             });
+        }
+
+        function renderMatchCard(match) {
+            var homeLogoHtml = match.homeLogo
+                ? '<img src="' + match.homeLogo + '" alt="' + match.home + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+            var awayLogoHtml = match.awayLogo
+                ? '<img src="' +match.awayLogo + '" alt="' + match.away + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+
+            return '<div class="match-card" data-match-id="' + match.id + '">' +
+                '<span class="match-tier tier-' + match.tier + '">' + getTierLabel(match.tier) + '</span>' +
+                '<div class="match-league">' +
+                    '<span class="match-league-flag">' + match.flag + '</span>' +
+                    '<span class="match-league-name">' + formatLeagueName(match.league) + '</span>' +
+                '</div>' +
+                '<div class="match-teams">' +
+                    '<div class="team">' +
+                        '<div class="team-logo">' + homeLogoHtml + '</div>' +
+                        '<span class="team-name">' + match.home + '</span>' +
+                    '</div>' +
+                    '<span class="vs-separator">VS</span>' +
+                    '<div class="team">' +
+                        '<div class="team-logo">' + awayLogoHtml + '</div>' +
+                        '<span class="team-name">' + match.away + '</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="match-date">' + match.date + '</div>' +
+            '</div>';
+        }
+
+        function renderSearchResults() {
+            var matches = getFilteredMatches();
+            
+            if (!searchQuery) {
+                searchResults.innerHTML = '<div class="empty-state"><i class="fas fa-search"></i><p>Recherchez une équipe...</p></div>';
+                return;
+            }
+
+            if (matches.length === 0) {
+                searchResults.innerHTML = '<div class="empty-state"><i class="fas fa-search"></i><p>Aucun résultat pour "' + searchQuery + '"</p></div>';
+                return;
+            }
+
+            var html = '';
+            matches.forEach(function(match) {
+                html += renderMatchCard(match);
+            });
+
+            searchResults.innerHTML = html;
+
+            document.querySelectorAll('#searchResults .match-card').forEach(function(card) {
+                card.addEventListener('click', function() {
+                    vibrate();
+                    var matchId = this.dataset.matchId;
+                    closeSearch();
+                    openMatchDetail(matchId);
+                });
+            });
+        }
+
+        function renderSafeMatch() {
+            if (!safeMatch) {
+                safeMatchContent.innerHTML =
+                    '<div class="empty-state">' +
+                        '<i class="fas fa-shield-halved"></i>' +
+                        '<p>Aucun match Safe disponible</p>' +
+                    '</div>';
+                return;
+            }
+
+            var homeLogoHtml = safeMatch.homeLogo
+                ? '<img src="' + safeMatch.homeLogo + '" alt="' + safeMatch.home + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+            var awayLogoHtml = safeMatch.awayLogo
+                ? '<img src="' + safeMatch.awayLogo + '" alt="' + safeMatch.away + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+
+            safeMatchContent.innerHTML =
+                '<div class="match-card" data-match-id="' + safeMatch.id + '">' +
+                    '<span class="match-tier tier-safe">Safe</span>' +
+                    '<div class="match-league">' +
+                        '<span class="match-league-flag">' + safeMatch.flag + '</span>' +
+                        '<span class="match-league-name">' + formatLeagueName(safeMatch.league) + '</span>' +
+                    '</div>' +
+                    '<div class="match-teams">' +
+                        '<div class="team">' +
+                            '<div class="team-logo">' + homeLogoHtml + '</div>' +
+                            '<span class="team-name">' + safeMatch.home + '</span>' +
+                        '</div>' +
+                        '<span class="vs-separator">VS</span>' +
+                        '<div class="team">' +
+                            '<div class="team-logo">' + awayLogoHtml + '</div>' +
+                            '<span class="team-name">' + safeMatch.away + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="match-date">' + safeMatch.date + '</div>' +
+                '</div>' +
+                '<div style="padding: 0 16px;">' +
+                    '<div class="prediction-minimalist">' +
+                        '<div class="prediction-minimalist-label">Pronostic Safe</div>' +
+                        '<div class="prediction-minimalist-value">' + safeMatch.predictionText + '</div>' +
+                        '<div class="prediction-minimalist-confidence">Confiance: ' + safeMatch.confidence + '%</div>' +
+                    '</div>' +
+                '</div>';
+
+            var safeCard = safeMatchContent.querySelector('.match-card');
+            if (safeCard) {
+                safeCard.addEventListener('click', function() {
+                    vibrate();
+                    openMatchDetail(safeMatch.id);
+                });
+            }
         }
 
         function openMatchDetail(matchId) {
@@ -2556,9 +3038,10 @@
                 awayLogoBg.style.backgroundImage = 'none';
             }
 
-            currentDetailTab = 'resume';
+            currentDetailTab = 'details';
+            currentFormTeam = 'home';
             document.querySelectorAll('.detail-tab').forEach(function(tab) {
-                tab.classList.toggle('active', tab.dataset.tab === 'resume');
+                tab.classList.toggle('active', tab.dataset.tab === 'details');
             });
 
             renderDetailContent();
@@ -2576,46 +3059,512 @@
             var content = '';
 
             switch (currentDetailTab) {
-                case 'resume':
-                    content =
-                        '<div class="detail-section-header">AVANT-MATCH</div>' +
-                        '<div class="detail-text-content">' +
-                            '<p>' + selectedMatch.content.intro + '</p>' +
-                            '<h3>' + selectedMatch.content.title + '</h3>' +
-                            '<p>' + selectedMatch.content.text + '</p>' +
-                        '</div>';
+                case 'details':
+                    content = renderDetailsTab();
                     break;
-                case 'compos':
-                    content =
-                        '<div class="detail-section-header">COMPOSITIONS</div>' +
-                        '<div class="detail-text-content">' +
-                            '<p>Les compositions des équipes seront disponibles environ 1h avant le coup d\'envoi.</p>' +
-                        '</div>';
+                case 'analyse':
+                    content = renderAnalyseTab();
                     break;
-                case 'cotes':
-                    content =
-                        '<div class="detail-section-header">COTES</div>' +
-                        '<div class="detail-text-content">' +
-                            '<p>Les cotes pour ce match seront affichées ici.</p>' +
-                        '</div>';
-                    break;
-                case 'tat':
-                    content =
-                        '<div class="detail-section-header">TÊTE À TÊTE</div>' +
-                        '<div class="detail-text-content">' +
-                            '<p>Historique des confrontations entre les deux équipes.</p>' +
-                        '</div>';
+                case 'forme':
+                    content = renderFormeTab();
                     break;
                 case 'classement':
-                    content =
-                        '<div class="detail-section-header">CLASSEMENT</div>' +
-                        '<div class="detail-text-content">' +
-                            '<p>Position des équipes au classement de la compétition.</p>' +
-                        '</div>';
+                    content = renderClassementTab();
+                    break;
+                case 'tat':
+                    content = renderTaTTab();
                     break;
             }
 
             detailContentScroll.innerHTML = content;
+
+            if (currentDetailTab === 'forme') {
+                setupTeamSwitcher();
+            }
+        }
+
+        function renderDetailsTab() {
+            var homeLogoHtml = selectedMatch.homeLogo
+                ? '<img src="' + selectedMatch.homeLogo + '" alt="' + selectedMatch.home + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+            var awayLogoHtml = selectedMatch.awayLogo
+                ? '<img src="' + selectedMatch.awayLogo + '" alt="' + selectedMatch.away + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+
+            return '<div class="detail-section">' +
+                '<div class="section-title">' +
+                    '<div class="section-title-icon accent"><i class="fas fa-bullseye"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Prédiction</h3>' +
+                        '<span>Notre recommandation</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="prediction-minimalist">' +
+                    '<div class="prediction-minimalist-label">Pronostic recommandé</div>' +
+                    '<div class="prediction-minimalist-value">' + selectedMatch.predictionText + '</div>' +
+                    '<div class="prediction-minimalist-confidence">Confiance: ' + selectedMatch.confidence + '%</div>' +
+                '</div>' +
+
+                '<div class="section-title">' +
+                    '<div class="section-title-icon green"><i class="fas fa-info-circle"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Informations du match</h3>' +
+                        '<span>Détails complets</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="info-card">' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label"><i class="fas fa-trophy"></i> Compétition</div>' +
+                        '<div class="info-row-value">' + formatLeagueName(selectedMatch.league) + '</div>' +
+                    '</div>' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label"><i class="fas fa-calendar"></i> Date</div>' +
+                        '<div class="info-row-value">' + selectedMatch.date + '</div>' +
+                    '</div>' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label"><i class="fas fa-map-marker-alt"></i> Stade</div>' +
+                        '<div class="info-row-value">À domicile</div>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="section-title" style="margin-top: 20px;">' +
+                    '<div class="section-title-icon purple"><i class="fas fa-futbol"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Équipes</h3>' +
+                        '<span>Présentation</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="info-card">' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label" style="gap: 12px;">' +
+                            '<div class="standings-team-logo">' + homeLogoHtml + '</div>' +
+                            selectedMatch.home +
+                        '</div>' +
+                        '<div class="info-row-value" style="color: var(--accent);">Domicile</div>' +
+                    '</div>' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label" style="gap: 12px;">' +
+                            '<div class="standings-team-logo">' + awayLogoHtml + '</div>' +
+                            selectedMatch.away +
+                        '</div>' +
+                        '<div class="info-row-value" style="color: var(--purple);">Extérieur</div>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="section-title" style="margin-top: 20px;">' +
+                    '<div class="section-title-icon orange"><i class="fas fa-tag"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Classification</h3>' +
+                        '<span>Niveau de confiance</span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="info-card">' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label"><i class="fas fa-star"></i> Catégorie</div>' +
+                        '<div class="info-row-value"><span class="match-tier tier-' + selectedMatch.tier + '" style="position: static;">' + getTierLabel(selectedMatch.tier) + '</span></div>' +
+                    '</div>' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label"><i class="fas fa-chart-line"></i> Confiance</div>' +
+                        '<div class="info-row-value">' + selectedMatch.confidence + '%</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        function renderAnalyseTab() {
+            var analyseText = selectedMatch.analyse || 
+                'Après une analyse approfondie des statistiques et de la forme récente des équipes, nous anticipons une rencontre serrée mais avec un avantage notable pour <strong>' + selectedMatch.home + '</strong> qui évolue à domicile. ' +
+                'L\'équipe locale bénéficie d\'une excellente dynamique avec une série de performances solides lors de ses dernières sorties. Leur défense s\'est montrée particulièrement hermétique, encaissant peu de buts face à des adversaires de calibre similaire. ' +
+                'De son côté, <strong>' + selectedMatch.away + '</strong> traverse une période plus délicate, notamment à l\'extérieur où l\'équipe peine à imposer son jeu.';
+
+            return '<div class="detail-section">' +
+                '<div class="section-title">' +
+                    '<div class="section-title-icon purple"><i class="fas fa-file-alt"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Analyse détaillée</h3>' +
+                        '<span>Rapport complet du match</span>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="analysis-text-content">' +
+                    '<p>' + analyseText + '</p>' +
+                '</div>' +
+
+                '<div class="ai-signature">' +
+                    '<div class="ai-signature-icon">🤖</div>' +
+                    '<div class="ai-signature-text">Analyse générée par intelligence artificielle</div>' +
+                    '<div class="ai-signature-name">King-Pronos AI Engine v2.1</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        function renderFormeTab() {
+            if (!selectedMatch.recentForm) {
+                return '<div class="detail-section"><div class="empty-state"><i class="fas fa-chart-line"></i><p>Données de forme non disponibles</p></div></div>';
+            }
+
+            var homeLogoHtml = selectedMatch.homeLogo
+                ? '<img src="' + selectedMatch.homeLogo + '" alt="' + selectedMatch.home + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+            var awayLogoHtml = selectedMatch.awayLogo
+                ? '<img src="' + selectedMatch.awayLogo + '" alt="' + selectedMatch.away + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+
+            var teamData = currentFormTeam === 'home' ? selectedMatch.recentForm.match1 : selectedMatch.recentForm.match2;
+            var teamName = currentFormTeam === 'home' ? selectedMatch.home : selectedMatch.away;
+            
+            if (!teamData || !teamData.last_matches) {
+                return '<div class="detail-section"><div class="empty-state"><i class="fas fa-chart-line"></i><p>Données non disponibles</p></div></div>';
+            }
+
+            var matches = teamData.last_matches;
+            var matchesHtml = '';
+            
+            matches.forEach(function(match) {
+                var team1 = match.team1;
+                var team2 = match.team2;
+                var scoreParts = match.score.split('-');
+                var score1 = parseInt(scoreParts[0]);
+                var score2 = parseInt(scoreParts[1]);
+                
+                var isTeam1 = team1 === teamName;
+                var result, resultLabel;
+                
+                if (isTeam1) {
+                    if (score1 > score2) {
+                        result = 'win';
+                        resultLabel = 'V';
+                    } else if (score1 < score2) {
+                        result = 'loss';
+                        resultLabel = 'D';
+                    } else {
+                        result = 'draw';
+                        resultLabel = 'N';
+                    }
+                } else {
+                    if (score2 > score1) {
+                        result = 'win';
+                        resultLabel = 'V';
+                    } else if (score2 < score1) {
+                        result = 'loss';
+                        resultLabel = 'D';
+                    } else {
+                        result = 'draw';
+                        resultLabel = 'N';
+                    }
+                }
+
+                var matchDate = new Date(match.date);
+                var formattedDate = matchDate.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short' });
+
+                var statsHtml = '';
+                if (match.stats && match.stats.Possession) {
+                    var poss1 = match.stats.Possession.home;
+                    var poss2 = match.stats.Possession.away;
+                    var shots1 = match.stats['Shots on Goal'] ? match.stats['Shots on Goal'].home : '-';
+                    var shots2 = match.stats['Shots on Goal'] ? match.stats['Shots on Goal'].away : '-';
+                    
+                    statsHtml = '<div class="form-match-stats">' +
+                        'Possession: ' + poss1 + ' - ' + poss2 + ' | Tirs cadrés: ' + shots1 + ' - ' + shots2 +
+                    '</div>';
+                }
+
+                matchesHtml += '<div class="form-match-row">' +
+                    '<div class="form-match-header">' +
+                        '<span class="form-match-date">' + formattedDate + '</span>' +
+                        '<div class="form-match-result"><span class="form-badge ' + result + '">' + resultLabel + '</span></div>' +
+                        '<div class="form-match-info">' +
+                            '<div class="form-match-comp">' + formatLeagueName(selectedMatch.league) + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="form-match-teams">' +
+                        team1 + ' <span class="form-match-score-inline">' + match.score + '</span> ' + team2 +
+                    '</div>' +
+                    statsHtml +
+                '</div>';
+            });
+
+            return '<div class="detail-section">' +
+                '<div class="section-title">' +
+                    '<div class="section-title-icon blue"><i class="fas fa-chart-line"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Forme récente</h3>' +
+                        '<span>Derniers matchs</span>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="team-switcher" id="teamSwitcher">' +
+                    '<div class="team-switch-btn ' + (currentFormTeam === 'home' ? 'active' : '') + '" data-team="home">' +
+                        '<div class="team-switch-logo">' + homeLogoHtml + '</div>' +
+                        '<span class="team-switch-name">' + selectedMatch.home + '</span>' +
+                    '</div>' +
+                    '<div class="team-switch-btn ' + (currentFormTeam === 'away' ? 'active' : '') + '" data-team="away">' +
+                        '<div class="team-switch-logo">' + awayLogoHtml + '</div>' +
+                        '<span class="team-switch-name">' + selectedMatch.away + '</span>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="section-title" style="margin-top: 0;">' +
+                    '<div class="section-title-icon orange"><i class="fas fa-history"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Derniers résultats</h3>' +
+                        '<span>' + teamName + '</span>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="info-card" style="padding: 8px;">' +
+                    matchesHtml +
+                '</div>' +
+            '</div>';
+        }
+
+        function setupTeamSwitcher() {
+            var switcher = document.getElementById('teamSwitcher');
+            if (switcher) {
+                switcher.querySelectorAll('.team-switch-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        vibrate();
+                        currentFormTeam = this.dataset.team;
+                        renderDetailContent();
+                    });
+                });
+            }
+        }
+
+        function renderClassementTab() {
+            if (!selectedMatch.leagueStanding || selectedMatch.leagueStanding.length === 0) {
+                return '<div class="detail-section"><div class="empty-state"><i class="fas fa-list-ol"></i><p>Classement non disponible</p></div></div>';
+            }
+
+            var standings = selectedMatch.leagueStanding;
+            var tableRows = '';
+            
+            standings.forEach(function(team, index) {
+                var isHome = team.name === selectedMatch.home;
+                var isAway = team.name === selectedMatch.away;
+                var highlight = isHome || isAway;
+                
+                var zoneClass = 'normal';
+                if (team.position <= 4) {
+                    zoneClass = 'ucl';
+                } else if (team.position === 5) {
+                    zoneClass = 'uel';
+                } else if (team.position === 6) {
+                    zoneClass = 'conf';
+                } else if (team.position >= standings.length - 2) {
+                    zoneClass = 'relegation';
+                }
+
+                tableRows += '<tr class="' + (highlight ? 'highlight' : '') + '">' +
+                    '<td>' +
+                        '<div class="standings-team">' +
+                            '<span class="standings-rank ' + zoneClass + '">' + team.position + '</span>' +
+                            '<span class="standings-team-name">' + team.name + '</span>' +
+                        '</div>' +
+                    '</td>' +
+                    '<td>' + team.stats.GP + '</td>' +
+                    '<td>' + team.stats.W + '</td>' +
+                    '<td>' + team.stats.D + '</td>' +
+                    '<td>' + team.stats.L + '</td>' +
+                    '<td>' + team.stats.GD + '</td>' +
+                    '<td class="standings-pts">' + team.stats.P + '</td>' +
+                '</tr>';
+            });
+
+            return '<div class="detail-section">' +
+                '<div class="section-title">' +
+                    '<div class="section-title-icon blue"><i class="fas fa-list-ol"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Classement</h3>' +
+                        '<span>' + formatLeagueName(selectedMatch.league) + '</span>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="info-card" style="padding: 0; overflow-x: auto;">' +
+                    '<table class="standings-table">' +
+                        '<thead>' +
+                            '<tr>' +
+                                '<th>Équipe</th>' +
+                                '<th>MJ</th>' +
+                                '<th>G</th>' +
+                                '<th>N</th>' +
+                                '<th>P</th>' +
+                                '<th>Diff</th>' +
+                                '<th>Pts</th>' +
+                            '</tr>' +
+                        '</thead>' +
+                        '<tbody>' + tableRows + '</tbody>' +
+                    '</table>' +
+                '</div>' +
+
+                '<div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px;">' +
+                    '<div style="display: flex; align-items: center; gap: 6px;">' +
+                        '<span class="standings-rank ucl" style="width: 16px; height: 16px; font-size: 8px;">1</span>' +
+                        '<span style="font-size: 11px; color: var(--text-secondary);">Ligue des Champions</span>' +
+                    '</div>' +
+                    '<div style="display: flex; align-items: center; gap: 6px;">' +
+                        '<span class="standings-rank uel" style="width: 16px; height: 16px; font-size: 8px;">5</span>' +
+                        '<span style="font-size: 11px; color: var(--text-secondary);">Europa League</span>' +
+                    '</div>' +
+                    '<div style="display: flex; align-items: center; gap: 6px;">' +
+                        '<span class="standings-rank conf" style="width: 16px; height: 16px; font-size: 8px;">6</span>' +
+                        '<span style="font-size: 11px; color: var(--text-secondary);">Conference League</span>' +
+                    '</div>' +
+                    '<div style="display: flex; align-items: center; gap: 6px;">' +
+                        '<span class="standings-rank relegation" style="width: 16px; height: 16px; font-size: 8px;">18</span>' +
+                        '<span style="font-size: 11px; color: var(--text-secondary);">Relégation</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>';
+        }
+
+        function renderTaTTab() {
+            if (!selectedMatch.h2h || selectedMatch.h2h.length === 0) {
+                return '<div class="detail-section"><div class="empty-state"><i class="fas fa-handshake"></i><p>Historique non disponible</p></div></div>';
+            }
+
+            var homeLogoHtml = selectedMatch.homeLogo
+                ? '<img src="' + selectedMatch.homeLogo + '" alt="' + selectedMatch.home + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+            var awayLogoHtml = selectedMatch.awayLogo
+                ? '<img src="' + selectedMatch.awayLogo + '" alt="' + selectedMatch.away + '">'
+                : '<i class="fas fa-shield-halved"></i>';
+
+            var h2hMatches = selectedMatch.h2h;
+            var homeWins = 0;
+            var awayWins = 0;
+            var draws = 0;
+            var homeGoals = 0;
+            var awayGoals = 0;
+
+            var matchesHtml = '';
+            
+            h2hMatches.forEach(function(match) {
+                var team1 = match.team1;
+                var team2 = match.team2;
+                var scoreParts = match.score.split('-');
+                var score1 = parseInt(scoreParts[0].trim());
+                var score2 = parseInt(scoreParts[1].trim());
+
+                var isHomeTeam1 = team1 === selectedMatch.home;
+                
+                if (isHomeTeam1) {
+                    homeGoals += score1;
+                    awayGoals += score2;
+                    if (score1 > score2) homeWins++;
+                    else if (score1 < score2) awayWins++;
+                    else draws++;
+                } else {
+                    homeGoals += score2;
+                    awayGoals += score1;
+                    if (score2 > score1) homeWins++;
+                    else if (score2 < score1) awayWins++;
+                    else draws++;
+                }
+
+                var matchDate = new Date(match.date);
+                var formattedDate = matchDate.toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' });
+
+                var team1Class = '';
+                var team2Class = '';
+                if (score1 > score2) {
+                    team1Class = 'winner';
+                    team2Class = 'loser';
+                } else if (score2 > score1) {
+                    team1Class = 'loser';
+                    team2Class = 'winner';
+                }
+
+                var team1LogoHtml = '';
+                var team2LogoHtml = '';
+                
+                if (team1 === selectedMatch.home) {
+                    team1LogoHtml = homeLogoHtml;
+                } else if (team1 === selectedMatch.away) {
+                    team1LogoHtml = awayLogoHtml;
+                } else {
+                    team1LogoHtml = '<i class="fas fa-shield-halved"></i>';
+                }
+                
+                if (team2 === selectedMatch.home) {
+                    team2LogoHtml = homeLogoHtml;
+                } else if (team2 === selectedMatch.away) {
+                    team2LogoHtml = awayLogoHtml;
+                } else {
+                    team2LogoHtml = '<i class="fas fa-shield-halved"></i>';
+                }
+
+                var statsText = '';
+                if (match.stats && match.stats.Possession) {
+                    statsText = 'Possession: ' + match.stats.Possession.home + ' - ' + match.stats.Possession.away;
+                }
+
+                matchesHtml += '<div class="h2h-match-row">' +
+                    '<div class="h2h-match-header">' +
+                        '<div class="h2h-match-teams">' +
+                            '<div class="h2h-team-info">' +
+                                '<div class="h2h-team-logo-small">' + team1LogoHtml + '</div>' +
+                                '<span class="h2h-team-name-small ' + team1Class + '">' + team1 + '</span>' +
+                            '</div>' +
+                            '<span class="h2h-match-score">' + match.score + '</span>' +
+                            '<div class="h2h-team-info">' +
+                                '<span class="h2h-team-name-small ' + team2Class + '">' + team2 + '</span>' +
+                                '<div class="h2h-team-logo-small">' + team2LogoHtml + '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    (statsText ? '<div class="h2h-match-footer"><span class="h2h-match-stats-inline">' + statsText + '</span><span class="h2h-match-date">' + formattedDate + '</span></div>' : '<div class="h2h-match-footer"><span class="h2h-match-date">' + formattedDate + '</span></div>') +
+                '</div>';
+            });
+
+            return '<div class="detail-section">' +
+                '<div class="section-title">' +
+                    '<div class="section-title-icon accent"><i class="fas fa-handshake"></i></div>' +
+                    '<div class="section-title-text">' +
+                        '<h3>Tête-à-Tête</h3>' +
+                        '<span>Historique des confrontations</span>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="h2h-stats">' +
+                    '<div class="h2h-team-stats">' +
+                        '<div class="h2h-team-logo">' + homeLogoHtml + '</div>' +
+                        '<div class="h2h-team-name">' + selectedMatch.home + '</div>' +
+                        '<div class="h2h-team-wins">' + homeWins + '</div>' +
+                        '<div class="h2h-team-label">Victoires</div>' +
+                    '</div>' +
+                    '<div class="h2h-vs">' +
+                        '<div class="h2h-vs-draws">' + draws + '</div>' +
+                        '<div class="h2h-vs-label">Nuls</div>' +
+                    '</div>' +
+                    '<div class="h2h-team-stats">' +
+                        '<div class="h2h-team-logo">' + awayLogoHtml + '</div>' +
+                        '<div class="h2h-team-name">' + selectedMatch.away + '</div>' +
+                        '<div class="h2h-team-wins" style="color: var(--purple);">' + awayWins + '</div>' +
+                        '<div class="h2h-team-label">Victoires</div>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="info-card">' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label"><i class="fas fa-futbol"></i> Total matchs</div>' +
+                        '<div class="info-row-value">' + h2hMatches.length + '</div>' +
+                    '</div>' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label"><i class="fas fa-bullseye"></i> Buts ' + selectedMatch.home + '</div>' +
+                        '<div class="info-row-value" style="color: var(--accent);">' + homeGoals + '</div>' +
+                    '</div>' +
+                    '<div class="info-row">' +
+                        '<div class="info-row-label"><i class="fas fa-bullseye"></i> Buts ' + selectedMatch.away + '</div>' +
+                        '<div class="info-row-value" style="color: var(--purple);">' + awayGoals + '</div>' +
+                    '</div>' +
+                '</div>' +
+
+                '<div class="h2h-matches-title" style="margin-top: 20px;">Dernières confrontations</div>' +
+                '<div class="info-card" style="padding: 8px;">' +
+                    matchesHtml +
+                '</div>' +
+            '</div>';
         }
 
         function goBackToHome() {
@@ -2690,139 +3639,6 @@
             });
         }
 
-        function openHistory() {
-            vibrate();
-            pages.forEach(function(page) { page.classList.remove('active'); });
-            document.getElementById('historyPage').classList.add('active');
-            mainHeader.style.display = 'none';
-            bottomNav.style.display = 'none';
-            navItems.forEach(function(item) { item.classList.remove('active'); });
-            renderHistory();
-        }
-
-        function closeHistory() {
-            vibrate();
-            pages.forEach(function(page) { page.classList.remove('active'); });
-            document.getElementById('plusPage').classList.add('active');
-            mainHeader.style.display = 'flex';
-            bottomNav.style.display = 'flex';
-            navItems.forEach(function(item) {
-                item.classList.toggle('active', item.dataset.tab === 'plus');
-            });
-        }
-
-        function openContact() {
-            vibrate();
-            pages.forEach(function(page) { page.classList.remove('active'); });
-            document.getElementById('contactPage').classList.add('active');
-            mainHeader.style.display = 'none';
-            bottomNav.style.display = 'none';
-            navItems.forEach(function(item) { item.classList.remove('active'); });
-        }
-
-        function closeContact() {
-            vibrate();
-            pages.forEach(function(page) { page.classList.remove('active'); });
-            document.getElementById('plusPage').classList.add('active');
-            mainHeader.style.display = 'flex';
-            bottomNav.style.display = 'flex';
-            navItems.forEach(function(item) {
-                item.classList.toggle('active', item.dataset.tab === 'plus');
-            });
-        }
-
-        function openHelp() {
-            vibrate();
-            pages.forEach(function(page) { page.classList.remove('active'); });
-            document.getElementById('helpPage').classList.add('active');
-            mainHeader.style.display = 'none';
-            bottomNav.style.display = 'none';
-            navItems.forEach(function(item) { item.classList.remove('active'); });
-        }
-
-        function closeHelp() {
-            vibrate();
-            pages.forEach(function(page) { page.classList.remove('active'); });
-            document.getElementById('plusPage').classList.add('active');
-            mainHeader.style.display = 'flex';
-            bottomNav.style.display = 'flex';
-            navItems.forEach(function(item) {
-                item.classList.toggle('active', item.dataset.tab === 'plus');
-            });
-        }
-
-        function setupFAQ() {
-            document.querySelectorAll('.faq-item').forEach(function(item) {
-                var question = item.querySelector('.faq-question');
-                question.addEventListener('click', function() {
-                    vibrate();
-                    var isOpen = item.classList.contains('open');
-
-                    // Close all FAQ items
-                    document.querySelectorAll('.faq-item').forEach(function(faq) {
-                        faq.classList.remove('open');
-                    });
-
-                    // Open clicked item if it was closed
-                    if (!isOpen) {
-                        item.classList.add('open');
-                    }
-                });
-            });
-        }
-
-        function renderHistory() {
-            var filteredHistory = historyData;
-
-            if (currentHistoryFilter === 'win') {
-                filteredHistory = historyData.filter(function(h) { return h.result === 'win'; });
-            } else if (currentHistoryFilter === 'loss') {
-                filteredHistory = historyData.filter(function(h) { return h.result === 'loss'; });
-            }
-
-            if (filteredHistory.length === 0) {
-                historyContent.innerHTML =
-                    '<div class="empty-state">' +
-                        '<i class="fas fa-history"></i>' +
-                        '<p>Aucun pronostic dans l\'historique</p>' +
-                    '</div>';
-                return;
-            }
-
-            var html = '';
-            filteredHistory.forEach(function(item) {
-                html +=
-                    '<div class="history-item">' +
-                        '<div class="history-item-header">' +
-                            '<div class="history-item-league">' +
-                                '<span class="history-item-flag">' + item.flag + '</span>' +
-                                '<span class="history-item-league-name">' + item.league + '</span>' +
-                            '</div>' +
-                            '<span class="history-item-result result-' + item.result + '">' +
-                                (item.result === 'win' ? 'Gagné' : item.result === 'loss' ? 'Perdu' : 'En cours') +
-                            '</span>' +
-                        '</div>' +
-                        '<div class="history-item-match">' +
-                            '<div class="history-team">' +
-                                '<div class="history-team-logo"><i class="fas fa-shield-halved"></i></div>' +
-                                '<span class="history-team-name">' + item.home + '</span>' +
-                            '</div>' +
-                            '<span class="history-score">' + item.homeScore + ' - ' + item.awayScore + '</span>' +
-                            '<div class="history-team" style="flex-direction: row-reverse;">' +
-                                '<div class="history-team-logo"><i class="fas fa-shield-halved"></i></div>' +
-                                '<span class="history-team-name">' + item.away + '</span>' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="history-item-footer">' +
-                            '<span class="history-item-date">' + item.date + '</span>' +
-                            '<span class="history-item-prediction">Prono: <strong>' + item.prediction + '</strong></span>' +
-                        '</div>' +
-                    '</div>';
-            });
-
-            historyContent.innerHTML = html;
-        }
-
         function openBottomSheet() {
             vibrate();
             bottomSheetOpen = true;
@@ -2848,21 +3664,78 @@
             }
         }
 
+        function openLeagueSheet() {
+            vibrate();
+            leagueSheetOpen = true;
+            leagueSheet.classList.add('active');
+            leagueSheetOverlay.classList.add('active');
+        }
+
+        function closeLeagueSheet() {
+            leagueSheetOpen = false;
+            leagueSheet.classList.remove('active');
+            leagueSheetOverlay.classList.remove('active');
+        }
+
+        function openSearch() {
+            vibrate();
+            searchActive = true;
+            searchContainer.classList.add('active');
+            searchInput.value = '';
+            searchQuery = '';
+            searchClearBtn.classList.remove('visible');
+            renderSearchResults();
+            setTimeout(function() {
+                searchInput.focus();
+            }, 300);
+        }
+
+        function closeSearch() {
+            searchActive = false;
+            searchContainer.classList.remove('active');
+            searchQuery = '';
+            searchInput.value = '';
+            renderMatches();
+        }
+
         function setupEventListeners() {
             sportSelector.addEventListener('click', toggleBottomSheet);
             detailSportSelector.addEventListener('click', toggleBottomSheet);
             bottomSheetOverlay.addEventListener('click', closeBottomSheet);
 
+            leagueFilterBtn.addEventListener('click', openLeagueSheet);
+            leagueSheetOverlay.addEventListener('click', closeLeagueSheet);
+
+            searchBtn.addEventListener('click', openSearch);
+            searchBackBtn.addEventListener('click', closeSearch);
+            
+            searchInput.addEventListener('input', function() {
+                searchQuery = this.value.trim();
+                if (searchQuery) {
+                    searchClearBtn.classList.add('visible');
+                } else {
+                    searchClearBtn.classList.remove('visible');
+                }
+                renderSearchResults();
+            });
+
+            searchClearBtn.addEventListener('click', function() {
+                vibrate();
+                searchInput.value = '';
+                searchQuery = '';
+                searchClearBtn.classList.remove('visible');
+                renderSearchResults();
+                searchInput.focus();
+            });
+
             detailBackBtn.addEventListener('click', goBackToHome);
 
-            // Bottom nav with vibration
             navItems.forEach(function(item) {
                 item.addEventListener('click', function() {
                     vibrate();
                     switchPage(this.dataset.tab);
                 });
 
-                // Long press on nav items
                 handleLongPress(item, null);
             });
 
@@ -2872,42 +3745,12 @@
             openProfileBtn.addEventListener('click', openProfile);
             backFromProfile.addEventListener('click', closeProfile);
 
-            openHistoryBtn.addEventListener('click', openHistory);
-            backFromHistory.addEventListener('click', closeHistory);
-
-            openContactBtn.addEventListener('click', openContact);
-            backFromContact.addEventListener('click', closeContact);
-
-            openHelpBtn.addEventListener('click', openHelp);
-            backFromHelp.addEventListener('click', closeHelp);
-
-            // Contact buttons vibration
-            document.querySelectorAll('.contact-option-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    vibrate();
-                });
-            });
-
-            // Haptic toggle - persists enabled state
             hapticToggle.addEventListener('change', function() {
-                hapticEnabled = this.checked;
-                if (hapticEnabled) {
-                    // Immediate feedback on enable
+                saveHapticSettings(this.checked);
+                if (this.checked) {
                     setTimeout(function() {
                         vibrate();
                     }, 100);
-                }
-            });
-
-            historyFilterTabs.addEventListener('click', function(e) {
-                var tab = e.target.closest('.history-filter-tab');
-                if (tab) {
-                    vibrate();
-                    currentHistoryFilter = tab.dataset.filter;
-                    document.querySelectorAll('.history-filter-tab').forEach(function(t) {
-                        t.classList.toggle('active', t.dataset.filter === currentHistoryFilter);
-                    });
-                    renderHistory();
                 }
             });
 
@@ -2930,23 +3773,39 @@
                 }
             });
 
-            // Swipe to close bottom sheet
+            // Gestion améliorée du swipe pour les bottom sheets
             var startY = 0;
             var currentY = 0;
+            var isDraggingFromHeader = false;
 
-            bottomSheet.addEventListener('touchstart', function(e) {
+            // Bottom sheet sports
+            var bottomSheetHeader = bottomSheet.querySelector('.bottom-sheet-header');
+            var bottomSheetHandle = bottomSheet.querySelector('.bottom-sheet-handle');
+
+            bottomSheetHeader.addEventListener('touchstart', function(e) {
                 startY = e.touches[0].clientY;
+                isDraggingFromHeader = true;
+            });
+
+            bottomSheetHandle.addEventListener('touchstart', function(e) {
+                startY = e.touches[0].clientY;
+                isDraggingFromHeader = true;
             });
 
             bottomSheet.addEventListener('touchmove', function(e) {
+                if (!isDraggingFromHeader) return;
+                
                 currentY = e.touches[0].clientY;
                 var diff = currentY - startY;
                 if (diff > 0) {
+                    e.preventDefault();
                     bottomSheet.style.transform = 'translateY(' + diff + 'px)';
                 }
-            });
+            }, { passive: false });
 
             bottomSheet.addEventListener('touchend', function() {
+                if (!isDraggingFromHeader) return;
+                
                 var diff = currentY - startY;
                 if (diff > 100) {
                     closeBottomSheet();
@@ -2954,9 +3813,48 @@
                 bottomSheet.style.transform = '';
                 startY = 0;
                 currentY = 0;
+                isDraggingFromHeader = false;
             });
 
-            // Add vibration to all interactive elements
+            // Bottom sheet leagues
+            var leagueSheetHeader = leagueSheet.querySelector('.bottom-sheet-header');
+            var leagueSheetHandle = leagueSheet.querySelector('.bottom-sheet-handle');
+            var isDraggingLeagueFromHeader = false;
+
+            leagueSheetHeader.addEventListener('touchstart', function(e) {
+                startY = e.touches[0].clientY;
+                isDraggingLeagueFromHeader = true;
+            });
+
+            leagueSheetHandle.addEventListener('touchstart', function(e) {
+                startY = e.touches[0].clientY;
+                isDraggingLeagueFromHeader = true;
+            });
+
+            leagueSheet.addEventListener('touchmove', function(e) {
+                if (!isDraggingLeagueFromHeader) return;
+                
+                currentY = e.touches[0].clientY;
+                var diff = currentY - startY;
+                if (diff > 0) {
+                    e.preventDefault();
+                    leagueSheet.style.transform = 'translateY(' + diff + 'px)';
+                }
+            }, { passive: false });
+
+            leagueSheet.addEventListener('touchend', function() {
+                if (!isDraggingLeagueFromHeader) return;
+                
+                var diff = currentY - startY;
+                if (diff > 100) {
+                    closeLeagueSheet();
+                }
+                leagueSheet.style.transform = '';
+                startY = 0;
+                currentY = 0;
+                isDraggingLeagueFromHeader = false;
+            });
+
             document.querySelectorAll('.plus-menu-item:not(.disabled), .header-btn').forEach(function(el) {
                 el.addEventListener('click', function() {
                     vibrate();
@@ -2968,4 +3866,3 @@
     </script>
 </body>
 </html>
-
