@@ -2,7 +2,7 @@
   "name": "King-Pronos",
   "short_name": "King-Pronos",
   "description": "Les meilleurs pronostics sportifs basés sur l'IA",
-  "start_url": "/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0a0f14",
   "theme_color": "#00d4aa",
