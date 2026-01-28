@@ -505,6 +505,20 @@
             flex-direction: column;
         }
 
+        /* Ajustement du padding pour Android (menu flottant) */
+        body.platform-android .main-content {
+            padding: 14px 16px 90px;
+            display: grid;
+            gap: 10px;
+        }
+
+        /* Ajustement du padding pour iOS (menu fixe en bas) */
+        body.platform-ios .main-content {
+            padding: 14px 16px 80px;
+            display: grid;
+            gap: 10px;
+        }
+
         .main-content {
             padding: 14px 16px 90px;
             display: grid;
@@ -1657,6 +1671,10 @@
             padding: 16px 16px 90px;
         }
 
+        body.platform-ios .plus-page {
+            padding: 16px 16px 80px;
+        }
+
         .plus-section {
             margin-bottom: 24px;
         }
@@ -1741,6 +1759,10 @@
 
         .settings-page {
             padding: 16px 16px 90px;
+        }
+
+        body.platform-ios .settings-page {
+            padding: 16px 16px 80px;
         }
 
         .settings-back {
@@ -1843,6 +1865,10 @@
             display: flex;
             flex-direction: column;
             min-height: 100%;
+        }
+
+        body.platform-ios .profile-page {
+            padding: 16px 16px 80px;
         }
 
         .profile-header-bar {
@@ -2003,7 +2029,8 @@
             background-color: var(--accent);
         }
 
-        .bottom-nav {
+        /* NAVIGATION ANDROID - Menu flottant */
+        .bottom-nav-android {
             position: fixed;
             bottom: 12px;
             left: 10px;
@@ -2019,6 +2046,41 @@
             border-radius: 50px;
             border: 1px solid var(--border-color);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        /* NAVIGATION iOS - Menu fixe en bas */
+        .bottom-nav-ios {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 16px;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
+            z-index: 100;
+            border-top: 1px solid var(--border-color);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Masquer les deux menus par défaut */
+        .bottom-nav-android,
+        .bottom-nav-ios {
+            display: none;
+        }
+
+        /* Afficher le menu Android uniquement sur Android */
+        body.platform-android .bottom-nav-android {
+            display: flex;
+        }
+
+        /* Afficher le menu iOS uniquement sur iOS */
+        body.platform-ios .bottom-nav-ios {
+            display: flex;
         }
 
         .nav-item {
@@ -2366,7 +2428,7 @@
                                 </div>
                                 <div class="haptic-toggle-text">
                                     <span>Vibration</span>
-                                    <small>Retour tactile Android</small>
+                                    <small>Retour tactile</small>
                                 </div>
                                 <label class="toggle-switch">
                                     <input type="checkbox" id="hapticToggle">
@@ -2416,7 +2478,31 @@
         <div class="search-results" id="searchResults"></div>
     </div>
 
-    <nav class="bottom-nav" id="bottomNav">
+    <!-- Navigation Android (Menu flottant) -->
+    <nav class="bottom-nav-android" id="bottomNavAndroid">
+        <button class="nav-item active" data-tab="predictions">
+            <div class="nav-icon">
+                <i class="fas fa-square"></i>
+            </div>
+            <span>Pronos</span>
+        </button>
+        <button class="nav-item" data-tab="results">
+            <div class="nav-icon">
+                <i class="fas fa-shield-halved"></i>
+                <span class="dot"></span>
+            </div>
+            <span>Safe</span>
+        </button>
+        <button class="nav-item" data-tab="plus">
+            <div class="nav-icon">
+                <i class="fas fa-bars"></i>
+            </div>
+            <span>Menu</span>
+        </button>
+    </nav>
+
+    <!-- Navigation iOS (Menu fixe en bas) -->
+    <nav class="bottom-nav-ios" id="bottomNavIOS">
         <button class="nav-item active" data-tab="predictions">
             <div class="nav-icon">
                 <i class="fas fa-square"></i>
@@ -2443,6 +2529,31 @@
     </div>
 
     <script>
+        // Détection de la plateforme
+        function detectPlatform() {
+            const ua = navigator.userAgent.toLowerCase();
+            
+            if (/android/.test(ua)) {
+                return 'android';
+            } else if (/iphone|ipad|ipod/.test(ua)) {
+                return 'ios';
+            }
+            
+            // Fallback tactile
+            const isTouchCoarse = window.matchMedia('(pointer:coarse)').matches;
+            const isTouchFine = window.matchMedia('(pointer:fine)').matches;
+            if (isTouchCoarse && !isTouchFine) {
+                return 'android'; // Par défaut Android pour mobile
+            }
+            
+            return 'other';
+        }
+
+        // Appliquer la classe de plateforme
+        const platform = detectPlatform();
+        document.body.classList.add('platform-' + platform);
+        console.log('Plateforme détectée:', platform);
+
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
                 navigator.serviceWorker.register('sw.js').then(function(registration) {
@@ -2596,12 +2707,17 @@
         var searchResults = document.getElementById('searchResults');
         var mainContent = document.getElementById('mainContent');
         var safeMatchContent = document.getElementById('safeMatchContent');
+        
+        // Navigation selon la plateforme
+        var bottomNavAndroid = document.getElementById('bottomNavAndroid');
+        var bottomNavIOS = document.getElementById('bottomNavIOS');
         var navItems = document.querySelectorAll('.nav-item');
+        var bottomNav = platform === 'ios' ? bottomNavIOS : bottomNavAndroid;
+        
         var pages = document.querySelectorAll('.page');
         var openSettingsBtn = document.getElementById('openSettingsBtn');
         var backFromSettings = document.getElementById('backFromSettings');
         var modeOptions = document.querySelectorAll('.mode-option');
-        var bottomNav = document.getElementById('bottomNav');
         var loadingOverlay = document.getElementById('loadingOverlay');
         var detailSportSelector = document.getElementById('detailSportSelector');
         var detailSportTitle = document.getElementById('detailSportTitle');
