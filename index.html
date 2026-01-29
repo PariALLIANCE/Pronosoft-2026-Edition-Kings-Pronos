@@ -492,25 +492,21 @@
             flex-direction: column;
         }
 
-        body.platform-android .main-content {
-            padding: 14px 16px;
-            padding-bottom: max(90px, env(safe-area-inset-bottom) + 90px);
-            display: grid;
-            gap: 10px;
-        }
-
-        body.platform-ios .main-content {
-            padding: 14px 16px;
-            padding-bottom: max(80px, env(safe-area-inset-bottom) + 80px);
-            display: grid;
-            gap: 10px;
-        }
-
         .main-content {
             padding: 14px 16px;
-            padding-bottom: max(90px, env(safe-area-inset-bottom) + 90px);
+            padding-bottom: 14px;
             display: grid;
             gap: 10px;
+        }
+
+        /* iOS specific: Navigation bar takes space */
+        body.platform-ios .main-content {
+            padding-bottom: calc(14px + 60px + env(safe-area-inset-bottom));
+        }
+
+        /* Android specific: Floating nav doesn't overlap content as much */
+        body.platform-android .main-content {
+            padding-bottom: calc(14px + 70px + env(safe-area-inset-bottom));
         }
 
         .match-card {
@@ -1650,7 +1646,17 @@
             flex: 1;
             overflow-y: auto;
             padding: 14px 16px;
-            padding-bottom: max(90px, env(safe-area-inset-bottom) + 90px);
+            padding-bottom: 14px;
+        }
+
+        /* iOS specific for search */
+        body.platform-ios .search-results {
+            padding-bottom: calc(14px + env(safe-area-inset-bottom));
+        }
+
+        /* Android specific for search */
+        body.platform-android .search-results {
+            padding-bottom: calc(14px + env(safe-area-inset-bottom));
         }
 
         .search-results .match-card {
@@ -1659,12 +1665,17 @@
 
         .plus-page {
             padding: 16px 16px;
-            padding-bottom: max(90px, env(safe-area-inset-bottom) + 90px);
+            padding-bottom: 16px;
         }
 
+        /* iOS specific */
         body.platform-ios .plus-page {
-            padding: 16px 16px;
-            padding-bottom: max(80px, env(safe-area-inset-bottom) + 80px);
+            padding-bottom: calc(16px + 60px + env(safe-area-inset-bottom));
+        }
+
+        /* Android specific */
+        body.platform-android .plus-page {
+            padding-bottom: calc(16px + 70px + env(safe-area-inset-bottom));
         }
 
         .plus-section {
@@ -1751,12 +1762,17 @@
 
         .settings-page {
             padding: 16px 16px;
-            padding-bottom: max(90px, env(safe-area-inset-bottom) + 90px);
+            padding-bottom: 16px;
         }
 
+        /* iOS specific */
         body.platform-ios .settings-page {
-            padding: 16px 16px;
-            padding-bottom: max(80px, env(safe-area-inset-bottom) + 80px);
+            padding-bottom: calc(16px + 60px + env(safe-area-inset-bottom));
+        }
+
+        /* Android specific */
+        body.platform-android .settings-page {
+            padding-bottom: calc(16px + 70px + env(safe-area-inset-bottom));
         }
 
         .settings-back {
@@ -1856,15 +1872,20 @@
 
         .profile-page {
             padding: 16px 16px;
-            padding-bottom: max(90px, env(safe-area-inset-bottom) + 90px);
+            padding-bottom: 16px;
             display: flex;
             flex-direction: column;
             min-height: 100%;
         }
 
+        /* iOS specific */
         body.platform-ios .profile-page {
-            padding: 16px 16px;
-            padding-bottom: max(80px, env(safe-area-inset-bottom) + 80px);
+            padding-bottom: calc(16px + 60px + env(safe-area-inset-bottom));
+        }
+
+        /* Android specific */
+        body.platform-android .profile-page {
+            padding-bottom: calc(16px + 70px + env(safe-area-inset-bottom));
         }
 
         .profile-header-bar {
@@ -2025,12 +2046,13 @@
             background-color: var(--accent);
         }
 
+        /* Bottom navigation for Android - floating */
         .bottom-nav-android {
             position: fixed;
             bottom: 12px;
             left: 10px;
             right: 10px;
-            bottom: max(12px, env(safe-area-inset-bottom) + 12px);
+            bottom: max(12px, calc(env(safe-area-inset-bottom) + 12px));
             background: var(--nav-bg);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -2043,6 +2065,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
         }
 
+        /* Bottom navigation for iOS - fixed to bottom */
         .bottom-nav-ios {
             position: fixed;
             bottom: 0;
@@ -2054,7 +2077,7 @@
             display: flex;
             justify-content: space-around;
             padding: 8px 16px;
-            padding-bottom: max(8px, env(safe-area-inset-bottom) + 8px);
+            padding-bottom: max(8px, calc(env(safe-area-inset-bottom) + 8px));
             z-index: 100;
             border-top: 1px solid var(--border-color);
             border-radius: 20px 20px 0 0;
@@ -2789,7 +2812,6 @@
                     safeMatch = validMatches[0];
                     renderSafeMatch();
                 }
-
                 isLoadingMatches = false;
                 renderMatches();
                 renderLeaguesList();
@@ -3953,6 +3975,16 @@
 
             document.querySelectorAll('.plus-menu-item:not(.disabled), .header-btn').forEach(function(el) {
                 el.addEventListener('click', function() {
+                    vibrate();
+                });
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>
+      el.addEventListener('click', function() {
                     vibrate();
                 });
             });
