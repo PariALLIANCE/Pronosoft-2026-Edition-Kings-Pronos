@@ -2,22 +2,35 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <!-- Viewport avec safe area cover -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- PWA iOS - Mode plein écran -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="King Pronos">
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="#6366f1">
     <meta name="description" content="King-Pronos - Les meilleurs pronostics sportifs basés sur l'IA">
     <title>King-Pronos - Prédictions Sportives</title>
     
+    <!-- Manifest PWA -->
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- Icône iOS -->
+    <link rel="apple-touch-icon" href="https://jonnhy2255.github.io/iconios-192.png">
     <meta name="mobile-web-app-capable" content="yes">
     
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Variables pour les safe areas iOS */
         :root {
+            --safe-area-top: env(safe-area-inset-top, 0px);
+            --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+            --safe-area-left: env(safe-area-inset-left, 0px);
+            --safe-area-right: env(safe-area-inset-right, 0px);
+            
             --accent: #6366f1;
             --accent-light: #818cf8;
             --accent-dark: #4f46e5;
@@ -88,13 +101,14 @@
             -webkit-touch-callout: none;
         }
 
+        /* HTML avec hauteur plein écran */
         html {
+            height: -webkit-fill-available;
             touch-action: manipulation;
             -ms-touch-action: manipulation;
             overflow: hidden;
             position: fixed;
             width: 100%;
-            height: 100%;
         }
 
         html, body {
@@ -104,6 +118,7 @@
             -webkit-overflow-scrolling: touch;
         }
 
+        /* Body avec padding safe area */
         body {
             font-family: 'Outfit', sans-serif;
             background: var(--gradient-bg);
@@ -111,8 +126,9 @@
             transition: background 0.5s ease, color 0.3s ease;
             touch-action: pan-y;
             -ms-content-zooming: none;
-            padding-top: 0;
-            padding-bottom: 0;
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            padding: 0;
         }
 
         .app-container {
@@ -124,12 +140,15 @@
             touch-action: pan-y;
         }
 
+        /* Header fixe avec safe area */
         .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 14px 16px;
-            padding-top: max(14px, env(safe-area-inset-top) + 14px);
+            padding-top: calc(var(--safe-area-top) + 14px);
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
             background: var(--header-bg);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -213,7 +232,7 @@
             -webkit-backdrop-filter: blur(var(--glass-blur));
             border-bottom: 1px solid var(--border-color);
             flex-shrink: 0;
-            padding-top: max(0px, env(safe-area-inset-top));
+            padding-top: var(--safe-area-top);
         }
 
         .detail-header-top {
@@ -221,6 +240,8 @@
             align-items: center;
             justify-content: space-between;
             padding: 12px 16px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
         }
 
         .detail-header-left {
@@ -294,6 +315,8 @@
 
         .detail-match-info {
             padding: 10px 16px 8px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
             position: relative;
             overflow: hidden;
         }
@@ -419,6 +442,8 @@
 
         .detail-tabs-container {
             padding: 10px 16px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
             background: transparent;
         }
 
@@ -492,21 +517,24 @@
             flex-direction: column;
         }
 
+        /* Contenu principal avec marges pour header/footer et safe areas */
         .main-content {
             padding: 14px 16px;
-            padding-bottom: 14px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
+            padding-bottom: calc(14px + 60px + var(--safe-area-bottom));
             display: grid;
             gap: 10px;
         }
 
         /* iOS specific: Navigation bar takes space */
         body.platform-ios .main-content {
-            padding-bottom: calc(14px + 60px + env(safe-area-inset-bottom));
+            padding-bottom: calc(14px + 60px + var(--safe-area-bottom));
         }
 
         /* Android specific: Floating nav doesn't overlap content as much */
         body.platform-android .main-content {
-            padding-bottom: calc(14px + 70px + env(safe-area-inset-bottom));
+            padding-bottom: calc(14px + 70px + var(--safe-area-bottom));
         }
 
         .match-card {
@@ -640,11 +668,13 @@
         .detail-content-scroll {
             flex: 1;
             overflow-y: auto;
-            padding-bottom: 30px;
+            padding-bottom: calc(30px + var(--safe-area-bottom));
         }
 
         .detail-section {
             padding: 16px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
         }
 
         .section-title {
@@ -1419,7 +1449,9 @@
             border-bottom: none;
             display: flex;
             flex-direction: column;
-            padding-bottom: max(0px, env(safe-area-inset-bottom));
+            padding-bottom: var(--safe-area-bottom);
+            padding-left: var(--safe-area-left);
+            padding-right: var(--safe-area-right);
         }
 
         .bottom-sheet.active {
@@ -1569,7 +1601,7 @@
             transition: opacity 0.3s ease, visibility 0.3s ease;
             display: flex;
             flex-direction: column;
-            padding-top: max(0px, env(safe-area-inset-top));
+            padding-top: var(--safe-area-top);
         }
 
         .search-container.active {
@@ -1582,6 +1614,8 @@
             align-items: center;
             gap: 12px;
             padding: 14px 16px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
             background: var(--header-bg);
             backdrop-filter: blur(var(--glass-blur));
             border-bottom: 1px solid var(--border-color);
@@ -1646,17 +1680,19 @@
             flex: 1;
             overflow-y: auto;
             padding: 14px 16px;
-            padding-bottom: 14px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
+            padding-bottom: calc(14px + var(--safe-area-bottom));
         }
 
         /* iOS specific for search */
         body.platform-ios .search-results {
-            padding-bottom: calc(14px + env(safe-area-inset-bottom));
+            padding-bottom: calc(14px + var(--safe-area-bottom));
         }
 
         /* Android specific for search */
         body.platform-android .search-results {
-            padding-bottom: calc(14px + env(safe-area-inset-bottom));
+            padding-bottom: calc(14px + var(--safe-area-bottom));
         }
 
         .search-results .match-card {
@@ -1665,17 +1701,19 @@
 
         .plus-page {
             padding: 16px 16px;
-            padding-bottom: 16px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
+            padding-bottom: calc(16px + 60px + var(--safe-area-bottom));
         }
 
         /* iOS specific */
         body.platform-ios .plus-page {
-            padding-bottom: calc(16px + 60px + env(safe-area-inset-bottom));
+            padding-bottom: calc(16px + 60px + var(--safe-area-bottom));
         }
 
         /* Android specific */
         body.platform-android .plus-page {
-            padding-bottom: calc(16px + 70px + env(safe-area-inset-bottom));
+            padding-bottom: calc(16px + 70px + var(--safe-area-bottom));
         }
 
         .plus-section {
@@ -1762,17 +1800,19 @@
 
         .settings-page {
             padding: 16px 16px;
-            padding-bottom: 16px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
+            padding-bottom: calc(16px + 60px + var(--safe-area-bottom));
         }
 
         /* iOS specific */
         body.platform-ios .settings-page {
-            padding-bottom: calc(16px + 60px + env(safe-area-inset-bottom));
+            padding-bottom: calc(16px + 60px + var(--safe-area-bottom));
         }
 
         /* Android specific */
         body.platform-android .settings-page {
-            padding-bottom: calc(16px + 70px + env(safe-area-inset-bottom));
+            padding-bottom: calc(16px + 70px + var(--safe-area-bottom));
         }
 
         .settings-back {
@@ -1872,7 +1912,9 @@
 
         .profile-page {
             padding: 16px 16px;
-            padding-bottom: 16px;
+            padding-left: calc(var(--safe-area-left) + 16px);
+            padding-right: calc(var(--safe-area-right) + 16px);
+            padding-bottom: calc(16px + 60px + var(--safe-area-bottom));
             display: flex;
             flex-direction: column;
             min-height: 100%;
@@ -1880,12 +1922,12 @@
 
         /* iOS specific */
         body.platform-ios .profile-page {
-            padding-bottom: calc(16px + 60px + env(safe-area-inset-bottom));
+            padding-bottom: calc(16px + 60px + var(--safe-area-bottom));
         }
 
         /* Android specific */
         body.platform-android .profile-page {
-            padding-bottom: calc(16px + 70px + env(safe-area-inset-bottom));
+            padding-bottom: calc(16px + 70px + var(--safe-area-bottom));
         }
 
         .profile-header-bar {
@@ -2046,13 +2088,12 @@
             background-color: var(--accent);
         }
 
-        /* Bottom navigation for Android - floating */
+        /* Bottom navigation for Android - floating avec safe areas */
         .bottom-nav-android {
             position: fixed;
-            bottom: 12px;
-            left: 10px;
-            right: 10px;
-            bottom: max(12px, calc(env(safe-area-inset-bottom) + 12px));
+            bottom: calc(12px + var(--safe-area-bottom));
+            left: calc(10px + var(--safe-area-left));
+            right: calc(10px + var(--safe-area-right));
             background: var(--nav-bg);
             backdrop-filter: blur(var(--glass-blur));
             -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -2065,7 +2106,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
         }
 
-        /* Bottom navigation for iOS - fixed to bottom */
+        /* Bottom navigation for iOS - fixed to bottom avec safe areas */
         .bottom-nav-ios {
             position: fixed;
             bottom: 0;
@@ -2077,7 +2118,9 @@
             display: flex;
             justify-content: space-around;
             padding: 8px 16px;
-            padding-bottom: max(8px, calc(env(safe-area-inset-bottom) + 8px));
+            padding-left: calc(16px + var(--safe-area-left));
+            padding-right: calc(16px + var(--safe-area-right));
+            padding-bottom: calc(8px + var(--safe-area-bottom));
             z-index: 100;
             border-top: 1px solid var(--border-color);
             border-radius: 20px 20px 0 0;
@@ -2245,8 +2288,7 @@
 
         @supports (padding: max(0px)) {
             body {
-                padding-top: 0;
-                padding-bottom: 0;
+                padding: 0;
             }
         }
     </style>
@@ -2736,7 +2778,7 @@
                 clearTimeout(longPressTimer);
             });
 
-            element.addEventListener('touchmove', function() {
+            element.addEventListener('touchmove',function() {
                 clearTimeout(longPressTimer);
             });
         }
@@ -3975,16 +4017,6 @@
 
             document.querySelectorAll('.plus-menu-item:not(.disabled), .header-btn').forEach(function(el) {
                 el.addEventListener('click', function() {
-                    vibrate();
-                });
-            });
-        }
-
-        init();
-    </script>
-</body>
-</html>
-      el.addEventListener('click', function() {
                     vibrate();
                 });
             });
